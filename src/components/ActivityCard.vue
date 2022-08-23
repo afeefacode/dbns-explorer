@@ -6,7 +6,7 @@
 
         <q-card-section>
           <div class="text-overline text-orange-9">{{ displayedType }}</div>
-          <div class="text-h5 q-mt-sm q-mb-xs">Title</div>
+          <div class="text-h5 q-mt-sm q-mb-xs">{{ activity.name }}</div>
           <div class="text-caption text-grey">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
             dolore magna aliqua.
@@ -42,27 +42,28 @@
   </div>
 </template>
 <script setup>
-import {ref} from 'vue'
+import {ref, defineProps} from 'vue'
 
+const props = defineProps({
+  activity: {
+    type: Object
+  }
+})
 
-const listItem = {
-  type: 'actor',
-  name: 'Aeracura - Natur- und Wildnisschule Leipzig',
-}
 
 let displayedType
 let displayedColor = 'black'
 
-switch (listItem.type) {
-  case 'actor':
+switch (props.activity.type) {
+  case 'Actor':
     displayedType = 'Akteur'
     displayedColor = '#457039'
     break;
-  case 'project':
+  case 'Project':
     displayedType = 'Projekt'
     displayedColor = '#DB9D37'
     break;
-  case 'event':
+  case 'Event':
     displayedType = 'Veranstaltung'
     displayedColor = '#9b3041'
     break;

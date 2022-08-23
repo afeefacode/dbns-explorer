@@ -1,11 +1,12 @@
 <template>
-  <Card v-for="activity in activities"></Card>
+  <ActivityCard v-for="activity in activities" :activity="activity" />
 </template>
-<script setup>
+<script async setup>
 import {useActivitiesStore} from 'stores/activities-store'
-const activitiesStore = useActivitiesStore()
-const activities = activitiesStore.activities
+import ActivityCard from 'components/ActivityCard.vue'
 
-import Card from 'components/Card.vue'
+const activitiesStore = useActivitiesStore()
+const activities = useActivitiesStore().activities
+console.log('activities', activities)
 
 </script>

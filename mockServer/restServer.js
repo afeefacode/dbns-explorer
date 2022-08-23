@@ -25,7 +25,9 @@ const run = () => {
   })
 
   app.get('/participants', (req, res) => {
-    res.send(getRandomParticipantList(19))
+    const mockActivities = require('./mockActivities')
+    // res.send(getRandomParticipantList(19))
+    res.send(mockActivities)
   })
 
   http.createServer(sslCertificate, app)

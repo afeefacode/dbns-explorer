@@ -1,11 +1,14 @@
 <template>
-  <router-view />
+  <router-view/>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import {onMounted} from 'vue'
+import {useActivitiesStore} from 'stores/activities-store'
 
-export default defineComponent({
-  name: 'App'
-});
+const activitiesStore = useActivitiesStore()
+onMounted(() => {
+  activitiesStore.getActivities()
+})
+
 </script>

@@ -1,16 +1,22 @@
 import {defineStore} from 'pinia';
-import {} from ''
+import {fetchActivities} from '../api/activities'
 
 export const useActivitiesStore = defineStore('activities', {
-  state: () => ({
-    activities: [{id: 1}, {id: 2}],
-  }),
+  state: () => {
+    return {
+      activities: null,
+    }
+  },
   getters: {
-    // doubleCount: (state) => state.counter * 2,
   },
   actions: {
-    // increment() {
-    //   this.counter++;
-    // },
+    async getActivities() {
+      try {
+        this.activities = await fetchActivities()
+      } catch (e) {
+        console.error(e)
+        return e
+      }
+    },
   },
 });
