@@ -44,6 +44,10 @@
 </template>
 <script setup>
 import {ref} from 'vue'
+import {fetchOffers} from '../api/offers'
+
+
+console.log('fetchOffers()', await fetchOffers())
 
 const listItem = {
   type: 'actor',

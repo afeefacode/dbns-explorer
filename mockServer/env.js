@@ -1,4 +1,4 @@
-const allowCorsFromUrl = 'https://localhost:3000'
+const allowCorsFromUrl = 'http://localhost:9000'
 
 const productionMode = false
 
