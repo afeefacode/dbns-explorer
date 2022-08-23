@@ -9,8 +9,7 @@
           <div class="text-h5 q-mt-sm q-mb-xs">Title</div>
           <div class="text-caption text-grey">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore
-            magna aliqua.
+            dolore magna aliqua.
           </div>
           <q-space/>
           <q-btn :label="displayedType + ' anzeigen'" class="actionbutton" text-color="white"
@@ -44,17 +43,13 @@
 </template>
 <script setup>
 import {ref} from 'vue'
-import {fetchOffers} from '../api/offers'
 
-
-console.log('fetchOffers()', await fetchOffers())
 
 const listItem = {
   type: 'actor',
   name: 'Aeracura - Natur- und Wildnisschule Leipzig',
-
-
 }
+
 let displayedType
 let displayedColor = 'black'
 
