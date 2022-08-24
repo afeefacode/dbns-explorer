@@ -6,6 +6,7 @@
   "author": "Simon <simon_brandt@gmx.de>",
   "private": true,
   "scripts": {
+    "start": "concurrently \"yarn run mockserver\" \"quasar dev\"",
     "lint": "eslint --ext .js,.ts,.vue ./",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
     "test": "echo \"No test specified\" && exit 0",
@@ -23,14 +24,15 @@
     "yarn": "^1.22.19"
   },
   "devDependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.1",
     "@intlify/vite-plugin-vue-i18n": "^3.3.1",
     "@quasar/app-vite": "^1.0.0",
     "@types/node": "^12.20.21",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
     "autoprefixer": "^10.4.2",
+    "concurrently": "^7.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^9.0.0",

@@ -1,6 +1,6 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <ActivitiesList></ActivitiesList>
+    <ActivitiesList />
   </q-page>
 </template>
 

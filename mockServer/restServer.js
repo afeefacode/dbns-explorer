@@ -8,7 +8,7 @@ const run = () => {
 
   const sslCertificate = require('./ssl')
 
-  const {getRandomParticipantList} = require('./lib/randomParticipantFactory')
+  // const {getRandomParticipantList} = require('./lib/randomParticipantFactory')
   const env = require('./env')
 
   app.use(function (req, res, next) {

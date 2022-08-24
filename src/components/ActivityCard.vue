@@ -1,24 +1,21 @@
 <template>
-  <div class="q-pa-md row items-start q-gutter-md">
-    <q-card class="my-card" flat bordered>
+  <div class="q-pa-md items-start q-gutter-xs col-xs-12 col-md-6 col-lg-4">
+    <q-card class="activity-card q-pl-lg q-pb-md" bordered>
       <q-card-section horizontal>
-
-
         <q-card-section>
-          <div class="text-overline text-orange-9">{{ displayedType }}</div>
-          <div class="text-h5 q-mt-sm q-mb-xs">{{ activity.name }}</div>
-          <div class="text-caption text-grey">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua.
+          <div class="text-overline" :style="'color: '+ displayed.color">{{ displayed.type }}</div>
+          <div v-if="activity.type === 'Event'">{{ displayed.start_at }}</div>
+          <div class="text-h5 q-mt-sm q-mb-xs">{{ displayed.name }}</div>
+          <div class="text-caption text-grey activity-card__short-description q-pr-md q-mb-sm">
+            {{ displayed.short_description }}
           </div>
           <q-space/>
-          <q-btn :label="displayedType + ' anzeigen'" class="actionbutton" text-color="white"
-                 :style="'background: '+ displayedColor"></q-btn>
+          <q-btn :label="displayed.type + ' anzeigen'" class="actionbutton" text-color="white"
+                 :style="'background: '+ displayed.color"></q-btn>
         </q-card-section>
-        <q-img
-          src="https://cdn.quasar.dev/img/parallax2.jpg"
+        <q-img v-if="activity.image_url"
+               :src="activity.image_url"
         />
-
       </q-card-section>
       <q-card-actions>
         <q-btn
@@ -34,7 +31,14 @@
         <div v-show="expanded">
           <q-separator/>
           <q-card-section class="text-subitle2">
-            {{ lorem }}
+            <div v-if="activity.full_address">
+              <q-icon name="home"/> &nbsp;
+              {{ activity.full_address }}
+            </div>
+            <div v-if="activity.info_url">
+              <q-icon name="language"/> &nbsp;
+              <a :href="activity.info_url">{{ activity.info_url }}</a>
+            </div>
           </q-card-section>
         </div>
       </q-slide-transition>
@@ -49,31 +53,52 @@ const props = defineProps({
     type: Object
   }
 })
+const shortenStringTo = (characters, string) => string.length > characters ? string.slice(0, characters) + ' ...' : string
 
-
-let displayedType
-let displayedColor = 'black'
+let displayed = {}
+displayed.name = shortenStringTo(50, props.activity.name)
+displayed.short_description = shortenStringTo(150, props.activity.short_description)
 
 switch (props.activity.type) {
   case 'Actor':
-    displayedType = 'Akteur'
-    displayedColor = '#457039'
+    displayed.type = 'Akteur'
+    displayed.color = '#457039'
     break;
+
   case 'Project':
-    displayedType = 'Projekt'
-    displayedColor = '#DB9D37'
+    displayed.type = 'Projekt'
+    displayed.color = '#DB9D37'
     break;
+
   case 'Event':
-    displayedType = 'Veranstaltung'
-    displayedColor = '#9b3041'
+    displayed.type = 'Veranstaltung'
+    displayed.color = '#9b3041'
+    let startAt = new Date(props.activity.start_at)
+    const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
+    displayed.start_at = startAt.toLocaleDateString('de-DE', options)
+    console.log('displayed.start_at', displayed.start_at)
+    break;
+
+  default:
+    displayed.type = 'Angebot'
+    displayed.color = '#5fa93d'
     break;
 }
 
 const expanded = ref(false)
-const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
 </script>
-<style lang="sass" scoped>
-.my-card
-  width: 100%
-  max-width: 450px
+<style lang="scss" scoped>
+.activity-card {
+
+    width: 100%;
+    border: 0;
+    border-radius: 15px;
+    box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.05);
+
+  &__short-description {
+    display: flex;
+    align-items: center;
+    height: 100px;
+  }
+}
 </style>
