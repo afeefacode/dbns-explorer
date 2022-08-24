@@ -1,5 +1,12 @@
 // app global css in SCSS form
 
+$brand: #5FA93D;
+
 $actor: #457039;
 $project: #DB9D37;
 $event: #9b3041;
+
+
+a {
+  color: $brand;
+}
