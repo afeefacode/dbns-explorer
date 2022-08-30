@@ -8,18 +8,6 @@
     </div>
   </div>
   <div class="q-gutter-sm row q-mb-lg">
-    <q-input
-      filled
-      dense
-      v-model="text"
-      label="Suchen"
-      class="col-xs-12 col-sm-3"
-    >
-      <template v-slot:prepend>
-        <q-icon name="search"/>
-      </template>
-    </q-input>
-
     <q-select
       filled
       v-model="regionsRef"
@@ -32,6 +20,7 @@
         <q-icon name="filter_alt"/>
       </template>
     </q-select>
+
     <q-select
       filled
       v-model="categoriesRef"
@@ -44,6 +33,19 @@
         <q-icon name="filter_alt"/>
       </template>
     </q-select>
+
+    <q-input
+      filled
+      dense
+      v-model="text"
+      label="Stichwortsuche"
+      class="col-xs-12 col-sm-3"
+    >
+      <template v-slot:prepend>
+        <q-icon name="search"/>
+      </template>
+    </q-input>
+
   </div>
 </template>
 <script setup>

@@ -73,6 +73,11 @@ switch (props.activity.type) {
     displayed.color = '#DB9D37'
     break;
 
+  case 'Service':
+    displayed.type = 'Service'
+    displayed.color = '#5fa93d'
+    break;
+
   case 'Event':
     displayed.type = 'Veranstaltung'
     displayed.color = '#9b3041'
@@ -100,7 +105,7 @@ const expanded = ref(false)
   &__short-description {
     display: flex;
     align-items: center;
-    height: 100px;
+    height: 60px;
   }
 
   &__image {
