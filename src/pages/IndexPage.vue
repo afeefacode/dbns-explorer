@@ -7,8 +7,9 @@
         at culpa dicta dolorem dolorum ducimus, et incidunt iste libero minima quo reiciendis. Consequuntur delectus,
         molestias necessitatibus nemo neque odio omnis.</p>
       <ItemFilters/>
-      <MapView/>
-      <LeafletMap/>
+      <!--      <MapView/>-->
+      <!--      <LeafletMap/>-->
+      <OpenLayersMap></OpenLayersMap>
     </div>
     <ListView/>
   </q-page>
@@ -18,5 +19,6 @@
 import ItemFilters from 'components/ItemFilters.vue';
 import MapView from 'components/MapView.vue';
 import LeafletMap from 'components/LeafletMap.vue'
+import OpenLayersMap from 'components/OpenLayersMap.vue'
 import ListView from 'components/ListView.vue';
 </script>
