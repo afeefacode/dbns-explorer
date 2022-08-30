@@ -1,12 +1,16 @@
 <template>
-  <l-map style="height:50vh">
-    <l-geo-json :geojson="geoJson" :options="geoJsonOptions"/>
-  </l-map>
+    <l-map style="height:50vh">
+      <l-geo-json :geojson="geoJson" :options="geoJsonOptions"/>
+    </l-map>
+<!--  <div id="container">-->
+<!--    <div id="mapContainer"></div>-->
+<!--  </div>-->
 </template>
 <script setup>
 import "leaflet/dist/leaflet.css"
 import {LMap, LGeoJson} from "@vue-leaflet/vue-leaflet";
-import {onBeforeMount} from 'vue'
+import {onBeforeMount, onMounted} from 'vue'
+
 
 const geoJson = {
   "type": "Feature",
@@ -17,15 +21,37 @@ const geoJson = {
   }
 }
 
-const geoJsonOptions = null
+const geoJsonOptions = {}
 
-
-onBeforeMount(async ()=> {
-  const { circleMarker } = await import("leaflet/dist/leaflet-src.esm");
+onBeforeMount(async () => {
+  const {circleMarker} = await import("leaflet/dist/leaflet-src.esm");
 
   // And now the Leaflet circleMarker function can be used by the options:
   geoJsonOptions.pointToLayer = (feature, latLng) =>
-    circleMarker(latLng, { radius: 8 });
+    circleMarker(latLng, {radius: 8});
   // this.mapIsReady = true;
 })
+
+
+// import L from "leaflet";
+
+// const center = [37, 7749, -122, 4194]
+
+// const setupLeafletMap = () => {
+//   const mapDiv = L.map("mapContainer").setView(this.center, 13);
+//   L.tileLayer(
+//     "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+//     {
+//       attribution:
+//         'Map data (c) <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+//       maxZoom: 18,
+//       id: "mapbox/streets-v11",
+//       accessToken: "XXX",
+//     }).addTo(mapDiv);
+// }
+
+// onMounted(setupLeafletMap)
+
+
+
 </script>

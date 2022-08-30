@@ -7,7 +7,7 @@
         at culpa dicta dolorem dolorum ducimus, et incidunt iste libero minima quo reiciendis. Consequuntur delectus,
         molestias necessitatibus nemo neque odio omnis.</p>
       <ItemFilters/>
-<!--      <MapView/>-->
+      <MapView/>
       <LeafletMap/>
     </div>
     <ListView/>
