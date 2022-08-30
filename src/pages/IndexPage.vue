@@ -7,7 +7,8 @@
         at culpa dicta dolorem dolorum ducimus, et incidunt iste libero minima quo reiciendis. Consequuntur delectus,
         molestias necessitatibus nemo neque odio omnis.</p>
       <ItemFilters/>
-      <MapView/>
+<!--      <MapView/>-->
+      <LeafletMap/>
     </div>
     <ListView/>
   </q-page>
@@ -16,5 +17,6 @@
 <script setup lang="ts">
 import ItemFilters from 'components/ItemFilters.vue';
 import MapView from 'components/MapView.vue';
+import LeafletMap from 'components/LeafletMap.vue'
 import ListView from 'components/ListView.vue';
 </script>
