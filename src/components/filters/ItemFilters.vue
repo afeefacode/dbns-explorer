@@ -50,8 +50,8 @@
 </template>
 <script setup>
 import {ref} from 'vue'
-import {categories} from '../assets/categories'
-import {regions} from '../assets/regions'
+import {categories} from '../../assets/categories'
+import {regions} from '../../assets/regions'
 
 const all = ref(true)
 const actors = ref(false)

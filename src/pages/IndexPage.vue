@@ -7,18 +7,18 @@
         at culpa dicta dolorem dolorum ducimus, et incidunt iste libero minima quo reiciendis. Consequuntur delectus,
         molestias necessitatibus nemo neque odio omnis.</p>
       <ItemFilters/>
-      <!--      <MapView/>-->
+            <MapView/>
       <!--      <LeafletMap/>-->
-      <OpenLayersMap></OpenLayersMap>
+<!--      <OpenLayersMap></OpenLayersMap>-->
     </div>
     <ListView/>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import ItemFilters from 'components/ItemFilters.vue';
-import MapView from 'components/MapView.vue';
-import LeafletMap from 'components/LeafletMap.vue'
-import OpenLayersMap from 'components/OpenLayersMap.vue'
-import ListView from 'components/ListView.vue';
+import ItemFilters from 'components/filters/ItemFilters.vue';
+import MapView from 'components/map-view/MapView.vue';
+import LeafletMap from 'components/map-view/LeafletMap.vue'
+import OpenLayersMap from 'components/map-view/OpenLayersMap.vue'
+import ListView from 'components/list-view/ListView.vue';
 </script>

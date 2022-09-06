@@ -6,8 +6,8 @@
   </div>
 </template>
 <script async setup>
-import {useActivitiesStore} from 'stores/activities-store'
-import ActivityCard from 'components/ListCard.vue'
+import {useActivitiesStore} from 'src/stores/activities-store'
+import ActivityCard from 'src/components/list-view/ListCard.vue'
 
 const activities = useActivitiesStore().activities
 </script>
