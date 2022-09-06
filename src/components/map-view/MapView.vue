@@ -1,15 +1,17 @@
 <template>
   <div class="map-wrapper">
-    <LeafletMap/>
-    <OpenLayersMap></OpenLayersMap>
+    <!--    <LeafletMap/>-->
+    <!--    <OpenLayersMap/>-->
+    <MapLibre/>
   </div>
 </template>
 <script setup>
 import {ref, onUpdated} from 'vue'
 import {useActivitiesStore} from 'src/stores/activities-store'
 
-import LeafletMap from 'components/map-view/LeafletMap.vue'
-import OpenLayersMap from 'components/map-view/OpenLayersMap.vue'
+// import LeafletMap from 'components/map-view/LeafletMap.vue'
+// import OpenLayersMap from 'components/map-view/OpenLayersMap.vue'
+import MapLibre from 'components/map-view/MapLibre.vue'
 
 const detailsOpened = ref(true)
 

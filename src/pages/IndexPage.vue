@@ -6,9 +6,7 @@
         praesentium quaerat quasi rem, soluta voluptates? Beatae laudantium modi odit praesentium voluptatibus. Aperiam
         at culpa dicta dolorem dolorum ducimus, et incidunt iste libero minima quo reiciendis. Consequuntur delectus,
         molestias necessitatibus nemo neque odio omnis.</p>
-      <RegionFilter/>
-      <CategoryFilter/>
-      <EntitySearch/>
+      <Filters />
       <MapView/>
     </div>
     <ListView/>
@@ -16,9 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import CategoryFilter from 'components/filters/CategoryFilter.vue';
-import EntitySearch from 'components/filters/EntitySearch.vue';
-import RegionFilter from 'components/filters/RegionFilter.vue';
+import Filters from 'components/filters/Filters.vue';
 import MapView from 'components/map-view/MapView.vue';
 import ListView from 'components/list-view/ListView.vue';
 </script>
