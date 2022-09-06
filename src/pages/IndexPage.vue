@@ -6,19 +6,19 @@
         praesentium quaerat quasi rem, soluta voluptates? Beatae laudantium modi odit praesentium voluptatibus. Aperiam
         at culpa dicta dolorem dolorum ducimus, et incidunt iste libero minima quo reiciendis. Consequuntur delectus,
         molestias necessitatibus nemo neque odio omnis.</p>
-      <ItemFilters/>
-            <MapView/>
-      <!--      <LeafletMap/>-->
-<!--      <OpenLayersMap></OpenLayersMap>-->
+      <RegionFilter/>
+      <CategoryFilter/>
+      <EntitySearch/>
+      <MapView/>
     </div>
     <ListView/>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import ItemFilters from 'components/filters/ItemFilters.vue';
+import CategoryFilter from 'components/filters/CategoryFilter.vue';
+import EntitySearch from 'components/filters/EntitySearch.vue';
+import RegionFilter from 'components/filters/RegionFilter.vue';
 import MapView from 'components/map-view/MapView.vue';
-import LeafletMap from 'components/map-view/LeafletMap.vue'
-import OpenLayersMap from 'components/map-view/OpenLayersMap.vue'
 import ListView from 'components/list-view/ListView.vue';
 </script>

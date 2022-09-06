@@ -1,24 +1,17 @@
 <template>
   <div class="map-wrapper">
-    <q-img src="../../img/map-placeholder.png" class="map-placeholder" @click="detailsOpened = !detailsOpened"/>
-    <DetailsDrawer :entity="entity" v-show="detailsOpened"></DetailsDrawer>
+    <LeafletMap/>
+    <OpenLayersMap></OpenLayersMap>
   </div>
-  <q-toggle
-    v-model="mapAsListFilter"
-    checked-icon="filter_alt"
-    color="green"
-    label="Kartenausschnitt als Listenfilter"
-    unchecked-icon="filter_alt"
-    class="filter-toggler"
-  />
 </template>
 <script setup>
 import {ref, onUpdated} from 'vue'
 import {useActivitiesStore} from 'src/stores/activities-store'
-import DetailsDrawer from './DetailsDrawer.vue'
+
+import LeafletMap from 'components/map-view/LeafletMap.vue'
+import OpenLayersMap from 'components/map-view/OpenLayersMap.vue'
 
 const detailsOpened = ref(true)
-const mapAsListFilter = ref(true)
 
 onUpdated(() => console.log('detailsOpened', detailsOpened))
 

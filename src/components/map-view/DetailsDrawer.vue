@@ -18,8 +18,10 @@
     </q-card-section>
   </q-card>
 </template>
+
 <script setup>
 import {defineProps} from 'vue'
+
 
 const props = defineProps({
   entity: {
@@ -27,6 +29,7 @@ const props = defineProps({
   }
 })
 </script>
+
 <style lang="scss" scoped>
 .details-drawer {
   position: absolute;
