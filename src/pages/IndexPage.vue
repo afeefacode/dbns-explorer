@@ -1,20 +1,25 @@
 <template>
   <q-page>
     <div class="q-pl-md">
-      <h1>Aktiv in Sachsen</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque deleniti eaque explicabo ipsum nam omnis porro
-        praesentium quaerat quasi rem, soluta voluptates? Beatae laudantium modi odit praesentium voluptatibus. Aperiam
-        at culpa dicta dolorem dolorum ducimus, et incidunt iste libero minima quo reiciendis. Consequuntur delectus,
-        molestias necessitatibus nemo neque odio omnis.</p>
+      <ActorIcon :active="active" @click="active = !active" />
+
+      <h1>{{heading}}</h1>
+      <p>{{introduction}}</p>
       <Filters />
       <MapView/>
     </div>
-<!--    <ListView/>-->
   </q-page>
 </template>
 
 <script setup lang="ts">
+import ActorIcon from 'components/filters/entity-icons/ActorIcon.vue'
 import Filters from 'components/filters/Filters.vue';
 import MapView from 'components/map-view/MapView.vue';
-import ListView from 'components/list-view/ListView.vue';
+import {ref} from 'vue'
+import {useConfigStore} from 'src/stores/config-store'
+
+const heading = useConfigStore().heading
+const introduction = useConfigStore().introduction
+
+const active = ref(false)
 </script>

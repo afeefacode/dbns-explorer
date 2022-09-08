@@ -4,6 +4,7 @@
 <script setup>
 import maplibregl from 'maplibre-gl'
 import {onMounted} from 'vue'
+import {Canvg} from 'canvg'
 
 import pngMarkerActor from 'assets/markers/marker-actor.png'
 
