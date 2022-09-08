@@ -9,7 +9,7 @@
       <Filters />
       <MapView/>
     </div>
-    <ListView/>
+<!--    <ListView/>-->
   </q-page>
 </template>
 
