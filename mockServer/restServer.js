@@ -30,6 +30,16 @@ const run = () => {
     res.send(mockActivities)
   })
 
+  app.get('/configs/lvns', (req, res) => {
+    const lvnsConfig = require('./configs/lvns')
+    res.send(lvnsConfig)
+  })
+
+  app.get('/configs/ladd', (req, res) => {
+    const lvnsConfig = require('./configs/ladd')
+    res.send(lvnsConfig)
+  })
+
   http.createServer(sslCertificate, app)
     .listen(port, function () {
       console.log('REST server listening on port', port)
