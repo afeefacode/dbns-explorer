@@ -1,5 +1,5 @@
 <template>
-  <div class="map-wrapper">
+  <div class="map-view">
     <!--    <LeafletMap/>-->
     <!--    <OpenLayersMap/>-->
     <MapLibre/>
@@ -22,8 +22,9 @@ const entity = useActivitiesStore().activities[1]
 
 </script>
 <style lang="scss" scoped>
-.map-wrapper {
+.map-view {
   position: relative;
+  margin-bottom: 2em;
 }
 
 .map-placeholder {
