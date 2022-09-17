@@ -11,8 +11,8 @@ import {useQuasar} from 'quasar'
 const $q = useQuasar()
 
 const myIcons = {
-  'app:actor': 'img:/src/assets/entities/actor.svg',
-  'app:event': 'img:/src/assets/entities/event.svg',
+  'app:actor': 'img:/src/assets/svg/actor.svg',
+  'app:event': 'img:/src/assets/svg/event.svg',
 }
 
 // Example of adding support for

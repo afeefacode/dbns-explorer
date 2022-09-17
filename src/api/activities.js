@@ -10,6 +10,6 @@ import axios from 'axios'
 export const fetchActivities = async () => {
   const serverUrl = 'http://localhost:6002'
   // const serverUrl = process.env.REST_SERVER_URL
-  const response = await axios.get(serverUrl + '/participants')
+  const response = await axios.get(serverUrl + '/activities')
   return response.data
 }

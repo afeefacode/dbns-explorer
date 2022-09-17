@@ -1,14 +1,9 @@
 const run = () => {
   const express = require('express')
   const http = require('http')
-
   const app = express()
-
   const port = 6002
-
   const sslCertificate = require('./ssl')
-
-  // const {getRandomParticipantList} = require('./lib/randomParticipantFactory')
   const env = require('./env')
 
   app.use(function (req, res, next) {
@@ -24,9 +19,8 @@ const run = () => {
     res.sendStatus(200)
   })
 
-  app.get('/participants', (req, res) => {
+  app.get('/activities', (req, res) => {
     const mockActivities = require('./mockActivities')
-    // res.send(getRandomParticipantList(19))
     res.send(mockActivities)
   })
 
@@ -44,7 +38,6 @@ const run = () => {
     .listen(port, function () {
       console.log('REST server listening on port', port)
     })
-
 }
 
 module.exports = run
