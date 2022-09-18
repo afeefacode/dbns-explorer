@@ -1,20 +1,18 @@
 <template>
-  <!--    <canvas></canvas>-->
-  <div id='map' class="map"></div>
+  <div id='map' class="map" ref="mapRef"></div>
 </template>
 <script setup>
 import maplibregl from 'maplibre-gl'
-import {onMounted, defineEmits} from 'vue'
+import {onMounted, defineEmits, ref} from 'vue'
 import pngMarkerActor from 'assets/markers/marker-actor.png'
 import {useActivitiesStore} from 'src/stores/activities-store'
-// import {Canvg} from 'canvg'
-// import actorsSvg from 'assets/svg/actors.svg'
 
 const entities = useActivitiesStore().activities
-
 const emit = defineEmits(['openDetails', 'closeDetails'])
 
 onMounted(async () => {
+  const activeMarker = ref(null)
+
   const map = new maplibregl.Map({
     container: 'map',
     style: 'https://api.maptiler.com/maps/bright/style.json?key=r6JROvArZPt0irVDImJa',
@@ -22,9 +20,13 @@ onMounted(async () => {
     zoom: 7
   });
 
-  map.on('click', function (event) {
+  map.on('click', (event) => {
     const isClickOnMarker = event.originalEvent.target.classList[0].includes('marker')
-    if(!isClickOnMarker) {
+    console.log('activeMarker', activeMarker)
+    if (!isClickOnMarker) {
+      activeMarker.value.style.width = '60px'
+      activeMarker.value.style.height = '60px'
+      activeMarker.value.style.zIndex = '0'
       emit('closeDetails')
     }
   });
@@ -35,17 +37,34 @@ onMounted(async () => {
     marker.style.backgroundImage = `url(${pngMarkerActor})`
     marker.style.backgroundSize = 'contain'
     marker.style.backgroundRepeat = 'no-repeat'
-    marker.style.width = '50px'
-    marker.style.height = '50px'
+    marker.style.width = '60px'
+    marker.style.height = '60px'
     marker.style.cursor = 'pointer'
 
+    marker.addEventListener('click', () => {
+      if(activeMarker.value) {
+        activeMarker.value.style.width = '60px'
+        activeMarker.value.style.height = '60px'
+        activeMarker.value.style.zIndex = '0'
+      }
 
-    marker.addEventListener('click', (event) => {
-        map.easeTo({center: [
-            entity.latlng[1],
-            entity.latlng[0]
-          ]})
-        emit('openDetails', entity)
+      activeMarker.value = marker
+
+      marker.style.width = '80px'
+      marker.style.height = '80px'
+      marker.value.style.zIndex = '2'
+
+      const offsetX = parseInt(map.getCanvas().style.width) / -4
+
+      map.easeTo({
+        center: [
+          entity.latlng[1],
+          entity.latlng[0]
+        ],
+        offset: [offsetX, 0]
+      })
+
+      emit('openDetails', entity)
     })
 
     new maplibregl.Marker(marker)
@@ -54,17 +73,6 @@ onMounted(async () => {
   }
 
   entities.forEach(createMarkerAndAdd)
-
-  // const createPngFromSvg = async () => {
-  //   const canvas = document.querySelector('canvas');
-  //   const ctx = canvas.getContext('2d');
-  //   let canvg = await Canvg.from(ctx, actorsSvg);
-  //   canvg.start();
-  //   const png = canvas.toDataURL('image/png')
-  //   canvg.stop();
-  //   console.log('png', png)
-  // }
-  // createPngFromSvg()
 })
 </script>
 
