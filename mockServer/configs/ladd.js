@@ -5,24 +5,6 @@ const config = {
   introduction: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque deleniti eaque explicabo ipsum nam omnis porro praesentium quaerat quasi rem, soluta voluptates? Beatae laudantium modi odit praesentium voluptatibus. Aperiam at culpa dicta dolorem dolorum ducimus, et incidunt iste libero minima quo reiciendis. Consequuntur delectus, molestias necessitatibus nemo neque odio omnis.',
   entities: [
     {
-      name: 'actors',
-      filters: {
-        orgType: {
-          showFilter: true
-        },
-        search: {
-          showSearch: true
-        },
-        region: {
-          showFilter: true
-        }
-      },
-      views: [
-        'map',
-        'list'
-      ]
-    },
-    {
       name: 'events',
       filters: [
         'category',

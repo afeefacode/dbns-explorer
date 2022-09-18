@@ -105,7 +105,6 @@ const displayedNames = {
   &__text {
     text-transform: uppercase;
     color: $text-gray-50;
-    font-size: 16px;
   }
 }
 

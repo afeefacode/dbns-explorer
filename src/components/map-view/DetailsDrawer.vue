@@ -4,7 +4,7 @@
       <div class="row items-center no-wrap">
         <div class="col details-drawer__image" :style="`background-image: url(${entity.image_url})`">
         </div>
-        <q-btn color="grey-7" round flat icon="clear" @click="detailsOpened = !detailsOpened"
+        <q-btn color="grey-7" round flat icon="clear" @click="$emit('closeDetails')"
                class="details-drawer__btn-close">
         </q-btn>
       </div>
@@ -36,9 +36,10 @@ const props = defineProps({
   top: 0;
   right: 0;
   float: right;
-  width: 500px;
+  width: 50%;
   height: 100%;
   background: #ffffff;
+  z-index: 3;
 
 &__header {
   background: #EEEDED;

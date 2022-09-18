@@ -1,24 +1,30 @@
 <template>
   <div class="map-view">
-    <!--    <LeafletMap/>-->
-    <!--    <OpenLayersMap/>-->
-    <MapLibre/>
+    <MapLibre
+      @openDetails="openDetails"
+      @closeDetails="closeDetails"
+    />
+    <DetailsDrawer
+      v-if="activeEntity"
+      :entity="activeEntity"
+      @closeDetails="closeDetails"
+    />
   </div>
 </template>
 <script setup>
-import {ref, onUpdated} from 'vue'
-import {useActivitiesStore} from 'src/stores/activities-store'
-
-// import LeafletMap from 'components/map-view/LeafletMap.vue'
-// import OpenLayersMap from 'components/map-view/OpenLayersMap.vue'
+import {ref} from 'vue'
 import MapLibre from 'components/map-view/MapLibre.vue'
+import DetailsDrawer from 'components/map-view/DetailsDrawer.vue'
 
-const detailsOpened = ref(true)
+const activeEntity = ref(null)
 
-onUpdated(() => console.log('detailsOpened', detailsOpened))
+const openDetails = (entity) => {
+  activeEntity.value = entity
+}
 
-
-const entity = useActivitiesStore().activities[1]
+const closeDetails = () => {
+  activeEntity.value = null
+}
 
 </script>
 <style lang="scss" scoped>
