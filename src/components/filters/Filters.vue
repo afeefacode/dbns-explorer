@@ -17,8 +17,8 @@
 import {onUpdated, ref} from 'vue'
 import {useConfigStore} from 'src/stores/config-store'
 import EntitySelector from 'components/filters/EntitySelector.vue'
-import CategoryFilter from 'components/filters/CategoryFilter.vue';
-import RegionFilter from 'components/filters/RegionFilter.vue';
+// import CategoryFilter from 'components/filters/CategoryFilter.vue';
+// import RegionFilter from 'components/filters/RegionFilter.vue';
 
 const config = useConfigStore().config
 const activeEntity = ref('actors')
