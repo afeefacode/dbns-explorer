@@ -1,5 +1,5 @@
 <template>
-  <q-card flat bordered class="my-card bg-grey-1 details-drawer">
+  <q-card flat bordered class="my-card  details-drawer">
     <q-card-section class=details-drawer__header>
       <div class="row items-center no-wrap">
         <div class="col details-drawer__image" :style="`background-image: url(${entity.image_url})`">
@@ -11,25 +11,51 @@
     </q-card-section>
 
     <q-card-section>
-      <div class="text-h6">{{ entity.type }}</div>
-      <div class="text-h6">{{ entity.name }}</div>
-
-      <DetailsButton :entity="entity" />
+      <div class="text-overline">{{ entity.type }}</div>
+      <div v-if="entity.type === 'Event'">{{ displayed.start_at }}</div>
+      <div class="text-h5 q-mb-md">{{ displayed.name }}</div>
+      <div class="text-caption text-grey list-card__short-description q-pr-md q-mb-md">
+        {{ displayed.description }}
+      </div>
+      <div class="q-mb-md">
+        <div v-if="entity.full_address">
+          <q-icon name="home"/> &nbsp;
+          {{ entity.full_address }}
+        </div>
+        <div v-if="entity.info_url">
+          <q-icon name="language"/> &nbsp;
+          <a :href="entity.info_url" target="_blank" :title="displayed.name">{{ displayed.info_url }}</a>
+        </div>
+      </div>
+      <DetailsButton :entity="entity"/>
 
     </q-card-section>
   </q-card>
 </template>
 
 <script setup>
-import {defineProps} from 'vue'
+import {defineProps, computed} from 'vue'
+import {shortenStringTo} from 'src/utils/utils'
 import DetailsButton from 'components/basic/DetailsButton.vue'
-
 
 const props = defineProps({
   entity: {
     type: Object
   }
 })
+
+const displayed = computed(() => {
+  return {
+    name: shortenStringTo(50, props.entity.name),
+    description: shortenStringTo(600, props.entity.description),
+    info_url: shortenStringTo(60, props.entity.info_url)
+  }
+})
+
+// displayed.name = shortenStringTo(50, props.entity.name)
+// displayed.short_description = shortenStringTo(100, props.entity.short_description)
+// displayed.info_url = shortenStringTo(60, props.entity.info_url)
+
 </script>
 
 <style lang="scss" scoped>
@@ -43,22 +69,22 @@ const props = defineProps({
   background: #ffffff;
   z-index: 3;
 
-&__header {
-  background: #EEEDED;
- }
+  &__header {
+    background: #EEEDED;
+  }
 
-&__image {
-   background-size: contain;
-   background-repeat: no-repeat;
-   background-position: center;
-   height: 200px;
- }
+  &__image {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 200px;
+  }
 
-&__btn-close {
-   align-self: flex-start;
-   position: relative;
-   top: -1em;
-   right: -1em;
- }
+  &__btn-close {
+    align-self: flex-start;
+    position: relative;
+    top: -1em;
+    right: -1em;
+  }
 }
 </style>
