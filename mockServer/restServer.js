@@ -25,12 +25,12 @@ const run = () => {
   })
 
   app.get('/configs/lvns', (req, res) => {
-    const lvnsConfig = require('./configs/lvns')
+    const lvnsConfig = require('./configs/lvns/config')
     res.send(lvnsConfig)
   })
 
   app.get('/configs/ladd', (req, res) => {
-    const lvnsConfig = require('./configs/ladd')
+    const lvnsConfig = require('./configs/ladd/config')
     res.send(lvnsConfig)
   })
 
