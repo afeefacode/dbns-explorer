@@ -4,18 +4,18 @@
       <q-card-section horizontal>
         <q-card-section>
           <div class="text-overline" :style="'color: '+ displayed.color">{{ displayed.type }}</div>
-          <div v-if="activity.type === 'Event'">{{ displayed.start_at }}</div>
+          <div v-if="entity.type === 'Event'">{{ displayed.start_at }}</div>
           <div class="text-h5 q-mt-sm q-mb-xs">{{ displayed.name }}</div>
           <div class="text-caption text-grey list-card__short-description q-pr-md q-mb-sm">
             {{ displayed.short_description }}
           </div>
           <q-space/>
-          <q-btn :label="displayed.type + ' anzeigen'" class="actionbutton" text-color="white"
-                 :style="'background: '+ displayed.color"></q-btn>
+          <DetailsButton :entity="entity"/>
+
         </q-card-section>
         <q-img
-          v-if="activity.image_url"
-          :src="activity.image_url"
+          v-if="entity.image_url"
+          :src="entity.image_url"
           class="list-card__image"
         />
       </q-card-section>
@@ -33,13 +33,13 @@
         <div v-show="expanded">
           <q-separator/>
           <q-card-section class="list-card__short-info">
-            <div v-if="activity.full_address">
+            <div v-if="entity.full_address">
               <q-icon name="home"/> &nbsp;
-              {{ activity.full_address }}
+              {{ entity.full_address }}
             </div>
-            <div v-if="activity.info_url">
+            <div v-if="entity.info_url">
               <q-icon name="language"/> &nbsp;
-              <a :href="activity.info_url" target="_blank" :title="displayed.name">{{ displayed.info_url }}</a>
+              <a :href="entity.info_url" target="_blank" :title="displayed.name">{{ displayed.info_url }}</a>
             </div>
           </q-card-section>
         </div>
@@ -49,20 +49,21 @@
 </template>
 <script setup>
 import {ref, defineProps} from 'vue'
+import DetailsButton from 'components/basic/DetailsButton.vue'
 
 const props = defineProps({
-  activity: {
+  entity: {
     type: Object
   }
 })
 const shortenStringTo = (characters, string) => string.length > characters ? string.slice(0, characters - 4) + ' ...' : string
 
 let displayed = {}
-displayed.name = shortenStringTo(50, props.activity.name)
-displayed.short_description = shortenStringTo(100, props.activity.short_description)
-displayed.info_url = shortenStringTo(60, props.activity.info_url)
+displayed.name = shortenStringTo(50, props.entity.name)
+displayed.short_description = shortenStringTo(100, props.entity.short_description)
+displayed.info_url = shortenStringTo(60, props.entity.info_url)
 
-switch (props.activity.type) {
+switch (props.entity.type) {
   case 'Actor':
     displayed.type = 'Akteur'
     displayed.color = '#457039'
@@ -81,7 +82,7 @@ switch (props.activity.type) {
   case 'Event':
     displayed.type = 'Veranstaltung'
     displayed.color = '#9b3041'
-    let startAt = new Date(props.activity.start_at)
+    let startAt = new Date(props.entity.start_at)
     const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
     displayed.start_at = startAt.toLocaleDateString('de-DE', options)
     console.log('displayed.start_at', displayed.start_at)
@@ -98,9 +99,9 @@ const expanded = ref(false)
 <style lang="scss" scoped>
 .list-card {
   width: 100%;
-  border: 0;
+  border: 1px solid #D9D9D9;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.05);
   border-radius: 15px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
 
   &__short-description {
     display: flex;

@@ -1,15 +1,15 @@
 <template>
-  <div class="list-view q-mt-xl">
+  <div class="list-view">
     <div class="row">
-      <ActivityCard v-for="activity in activities" :activity="activity"/>
+      <EntityCard v-for="entity in entitys" :entity="entity"/>
     </div>
   </div>
 </template>
 <script async setup>
 import {useEntitiesStore} from 'src/stores/entities-store'
-import ActivityCard from 'src/components/list-view/ListCard.vue'
+import EntityCard from 'components/list-view/EntityCard.vue'
 
-const activities = useEntitiesStore().actors
+const entitys = useEntitiesStore().actors
 </script>
 <style lang="scss" scoped>
 </style>
