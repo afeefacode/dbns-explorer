@@ -1,13 +1,11 @@
 <template>
-  <q-page>
-    <div>
-      <h1 class="heading">{{ config.heading }}</h1>
-      <p class="introduction">{{ config.introduction }}</p>
-      <Filters @entity-selected="entitySelected"/>
-      <MapListToggle @view-toggled="viewToggled" :active-view="activeView"/>
-      <MapView v-if="activeView === 'map'"/>
-      <ListView v-else/>
-    </div>
+  <q-page class="q-mb-xl">
+    <h1 class="heading">{{ config.heading }}</h1>
+    <p class="introduction">{{ config.introduction }}</p>
+    <Filters @entity-selected="entitySelected"/>
+    <MapListToggle @view-toggled="viewToggled" :active-view="activeView"/>
+    <MapView v-if="activeView === 'map'"/>
+    <ListView v-else/>
   </q-page>
 </template>
 
@@ -21,7 +19,8 @@ import MapListToggle from 'components/basic/MapListToggle.vue'
 
 const config = useConfigStore().config
 const activeView = ref('map')
-const entitySelected = () => {}
+const entitySelected = () => {
+}
 const viewToggled = (newView: string) => {
   activeView.value = newView
 }

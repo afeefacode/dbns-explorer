@@ -41,6 +41,7 @@ onMounted(async () => {
   });
 
   const createMarkerAndAdd = (entity) => {
+    // console.log('REST_SERVER_URL', process.env.REST_SERVER_URL)
     const marker = document.createElement('div')
     marker.className = 'map__marker'
     marker.style.backgroundImage = `url(${pngMarkerActor})`
@@ -78,7 +79,7 @@ onMounted(async () => {
       .setLngLat([entity.latlng[1], entity.latlng[0]])
       .addTo(map)
 
-    // ATTEMPT TO ADD MULTIPLE MARKERS AS SVG:
+    // ATTEMPTS TO ADD MULTIPLE MARKERS AS SVG:
 
     // https://github.com/maplibre/maplibre-gl-js/issues/144
     // https://github.com/mapbox/mapbox-gl-js/issues/5529

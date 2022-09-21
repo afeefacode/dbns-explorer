@@ -10,7 +10,6 @@ export const useConfigStore = defineStore('config', {
   getters: {},
   actions: {
     async getConfig() {
-      console.log('getting config')
       try {
         this.config = await fetchConfig()
       } catch (e) {

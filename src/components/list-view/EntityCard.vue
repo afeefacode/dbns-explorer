@@ -5,8 +5,10 @@
         <q-card-section>
           <div class="text-overline" :style="'color: '+ displayed.color">{{ displayed.type }}</div>
           <div v-if="entity.type === 'Event'">{{ displayed.start_at }}</div>
-          <div class="text-h5 q-mt-sm q-mb-xs">{{ displayed.name }}</div>
-          <div class="text-caption text-grey list-card__short-description q-pr-md q-mb-sm">
+          <div class="text-h5 q-mt-sm q-mb-xs">
+            {{ displayed.name }}
+          </div>
+          <div label="test" class="text-caption text-grey list-card__short-description q-pr-md q-mb-sm">
             {{ displayed.short_description }}
           </div>
           <q-space/>
@@ -85,7 +87,6 @@ switch (props.entity.type) {
     let startAt = new Date(props.entity.start_at)
     const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
     displayed.start_at = startAt.toLocaleDateString('de-DE', options)
-    console.log('displayed.start_at', displayed.start_at)
     break;
 
   default:

@@ -24,11 +24,9 @@ const config = useConfigStore().config
 const activeEntity = ref('actor')
 
 const entityClicked = (entityName: string) => {
-  console.log('entityName', entityName)
 }
 
 onUpdated(()=> {
-  console.log('activeEntity', activeEntity.value)
 })
 
 </script>

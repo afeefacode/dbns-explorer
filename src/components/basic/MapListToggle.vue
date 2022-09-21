@@ -7,7 +7,7 @@
       Karte
     </div>
     <div
-      @click="$emit('view-toggled', 'map')"
+      @click="$emit('view-toggled', 'list')"
       :class="{active: activeView === 'list'}"
     >
       Liste
@@ -39,7 +39,7 @@ const props = defineProps({
     background-color: #F8F8F8;
     width: 200px;
     text-align: center;
-    padding: .2em;
+    padding: .3em;
   }
 
   .active {

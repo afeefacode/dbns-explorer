@@ -10,7 +10,7 @@
       </div>
     </q-card-section>
 
-    <q-card-section>
+    <q-card-section class="bg-white">
       <div class="text-overline">{{ entity.type }}</div>
       <div v-if="entity.type === 'Event'">{{ displayed.start_at }}</div>
       <div class="text-h5 q-mb-md">{{ displayed.name }}</div>
@@ -51,11 +51,6 @@ const displayed = computed(() => {
     info_url: shortenStringTo(60, props.entity.info_url)
   }
 })
-
-// displayed.name = shortenStringTo(50, props.entity.name)
-// displayed.short_description = shortenStringTo(100, props.entity.short_description)
-// displayed.info_url = shortenStringTo(60, props.entity.info_url)
-
 </script>
 
 <style lang="scss" scoped>
@@ -64,10 +59,10 @@ const displayed = computed(() => {
   top: 0;
   right: 0;
   float: right;
-  width: 50%;
   height: 100%;
   background: #ffffff;
   z-index: 3;
+  width: 50%;
 
   &__header {
     background: #EEEDED;
@@ -85,6 +80,12 @@ const displayed = computed(() => {
     position: relative;
     top: -1em;
     right: -1em;
+  }
+}
+
+@media(max-width: 1100px) {
+  .details-drawer {
+    width: 100%;
   }
 }
 </style>

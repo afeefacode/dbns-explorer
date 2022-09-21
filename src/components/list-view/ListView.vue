@@ -1,7 +1,7 @@
 <template>
   <div class="list-view">
     <div class="row">
-      <EntityCard v-for="entity in entitys" :entity="entity"/>
+      <EntityCard v-for="entity in entities" :entity="entity"/>
     </div>
   </div>
 </template>
@@ -9,7 +9,7 @@
 import {useEntitiesStore} from 'src/stores/entities-store'
 import EntityCard from 'components/list-view/EntityCard.vue'
 
-const entitys = useEntitiesStore().actors
+const entities = useEntitiesStore().actors
 </script>
 <style lang="scss" scoped>
 </style>
