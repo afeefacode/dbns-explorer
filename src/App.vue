@@ -4,15 +4,15 @@
 
 <script setup lang="ts">
 import {onMounted} from 'vue'
-import {useActivitiesStore} from 'stores/activities-store'
+import {useEntitiesStore} from 'stores/entities-store'
 import {useConfigStore} from 'stores/config-store'
 import {useQuasar} from 'quasar'
 
 const $q = useQuasar()
 
 const myIcons = {
-  'app:actor': 'img:/src/assets/svg/actors.svg',
-  'app:event': 'img:/src/assets/svg/events.svg',
+  'app:actor': 'img:/src/assets/svg/actor.svg',
+  'app:event': 'img:/src/assets/svg/event.svg',
 }
 
 // Example of adding support for
@@ -41,11 +41,11 @@ $q.iconMapFn = null
 
 
 const configStore = useConfigStore()
-const activitiesStore = useActivitiesStore()
+const entitiesStore = useEntitiesStore()
 
 onMounted(() => {
   configStore.getConfig()
-  activitiesStore.getActivities()
+  entitiesStore.getActors()
 })
 
 </script>

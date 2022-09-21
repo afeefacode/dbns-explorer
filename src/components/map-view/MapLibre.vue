@@ -5,12 +5,14 @@
 import maplibregl from 'maplibre-gl'
 import {onMounted, defineEmits, ref} from 'vue'
 import pngMarkerActor from 'assets/markers/marker-actor.png'
-import {useActivitiesStore} from 'src/stores/activities-store'
+import {useEntitiesStore} from 'stores/entities-store'
 import {useConfigStore} from "stores/config-store";
 // import markerActorDOM from 'assets/markers/marker-actor'
 // import markerActorSvg from 'assets/markers/marker-actor.svg'
 
-const entities = useActivitiesStore().activities
+const entityType = 'actors'
+
+const entities = useEntitiesStore()[entityType]
 const emit = defineEmits(['openDetails', 'closeDetails'])
 const config = useConfigStore().config
 
@@ -26,7 +28,7 @@ onMounted(async () => {
 
   const resetMarkerStyle = () => {
     activeMarker.value.style.width = '40px'
-    activeMarker.value.style.height = '60px'
+    activeMarker.value.style.height = '50px'
     activeMarker.value.style.zIndex = '0'
   }
 
@@ -34,7 +36,7 @@ onMounted(async () => {
     const isClickOnMarker = event.originalEvent.target.classList[0].includes('marker')
     if (!isClickOnMarker) {
       resetMarkerStyle()
-      emit('closeDetails')
+      emit('closeDetails', activeMarker)
     }
   });
 
@@ -44,8 +46,8 @@ onMounted(async () => {
     marker.style.backgroundImage = `url(${pngMarkerActor})`
     marker.style.backgroundSize = 'contain'
     marker.style.backgroundRepeat = 'no-repeat'
-    marker.style.width = '40px'
-    marker.style.height = '60px'
+    marker.style.width = '36px'
+    marker.style.height = '50px'
     marker.style.cursor = 'pointer'
 
     marker.addEventListener('click', () => {
@@ -56,7 +58,7 @@ onMounted(async () => {
       activeMarker.value = marker
 
       marker.style.width = '50px'
-      marker.style.height = '70px'
+      marker.style.height = '60px'
       marker.style.zIndex = '2'
 
       const offsetX = parseInt(map.getCanvas().style.width) / -4
@@ -76,8 +78,10 @@ onMounted(async () => {
       .setLngLat([entity.latlng[1], entity.latlng[0]])
       .addTo(map)
 
-    // ATTEMPT TO ADD MULTIPLE MARKERS AS SVG
+    // ATTEMPT TO ADD MULTIPLE MARKERS AS SVG:
 
+    // https://github.com/maplibre/maplibre-gl-js/issues/144
+    // https://github.com/mapbox/mapbox-gl-js/issues/5529
     // const img = new Image(40, 60);
     // img.onload = () => map.addImage('myId',  img, {pixelRatio: window.devicePixelRatio});
     // img.onerror = console.error;

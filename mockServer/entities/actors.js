@@ -1,6 +1,6 @@
 const mockActivities = [{
   "id": 12854,
-  "type": "Event",
+  "type": "Actor",
   "user_id": 383,
   "short_description": "Kostenloses Online-Angebots (04.03.-20.03.) um Plan f\u00fcr eigenen Naturgarten entwerfen zu k\u00f6nnen.",
   "service_type": "Veranstaltung",
@@ -45,7 +45,7 @@ const mockActivities = [{
   "trade_types": []
 }, {
   "id": 12853,
-  "type": "Event",
+  "type": "Actor",
   "user_id": 397,
   "short_description": "Beim digitalen Strukturwandel-Stammtisch geht es am 7. M\u00e4rz um das Thema Jugendbeteiligung: Wie k\u00f6nnen junge Menschen die Zukunft des Mitteldeutsche Reviers mitgestalten?",
   "service_type": "Veranstaltung",
@@ -90,7 +90,7 @@ const mockActivities = [{
   "trade_types": []
 }, {
   "id": 3936,
-  "type": "Project",
+  "type": "Actor",
   "user_id": 374,
   "short_description": "wir wollen nachhaltig mit Strom versorgt sein",
   "service_type": "Projekt",
@@ -135,7 +135,7 @@ const mockActivities = [{
   "trade_types": ["Sonstige"]
 }, {
   "id": 3783,
-  "type": "Project",
+  "type": "Actor",
   "user_id": 342,
   "short_description": "Mit Schulklassen setzen wir Suffizienz- und Postwachstumsideen um: Es geht um Gl\u00fcck\/Lebensstandard, Permakultur\/G\u00e4rtnern, Klima\/Alltagshandeln.",
   "service_type": "Projekt",
@@ -180,7 +180,7 @@ const mockActivities = [{
   "trade_types": []
 }, {
   "id": 3786,
-  "type": "Service",
+  "type": "Actor",
   "user_id": 342,
   "short_description": "Was ist M\u00fcll? Wie entsteht er? Warum gibt es so viel davon? M\u00fcll ist nicht gleich M\u00fcll!",
   "service_type": "Bildungsangebot",

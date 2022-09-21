@@ -6,10 +6,10 @@
   </div>
 </template>
 <script async setup>
-import {useActivitiesStore} from 'src/stores/activities-store'
+import {useEntitiesStore} from 'src/stores/entities-store'
 import ActivityCard from 'src/components/list-view/ListCard.vue'
 
-const activities = useActivitiesStore().activities
+const activities = useEntitiesStore().actors
 </script>
 <style lang="scss" scoped>
 </style>

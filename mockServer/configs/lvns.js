@@ -7,16 +7,16 @@ const config = {
   categories: 'all',
   entities: [
     {
-      name: 'actors'
+      name: 'actor'
     },
     {
-      name: 'projects'
+      name: 'project'
     },
     {
-      name: 'events'
+      name: 'event'
     },
     {
-      name: 'jobs'
+      name: 'job'
     },
     {
       name: 'education'

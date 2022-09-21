@@ -6,7 +6,7 @@
       <Filters/>
       <MapView/>
       <q-btn :style="`background: ${config.brandColor}; color: ${config.brandTextColor}`"
-             icon="img:/src/assets/svg/actors.svg"
+             icon="img:/src/assets/svg/actor.svg"
              label="Akteur anzeigen"/>
     </div>
   </q-page>

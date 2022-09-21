@@ -45,19 +45,19 @@ onMounted(setBackgroundColor)
 onUpdated(setBackgroundColor)
 
 const displayedNames = {
-  actors: {
+  actor: {
     singular: 'Akteur',
     plural: 'Akteure'
   },
-  projects: {
+  project: {
     singular: 'Projekt',
     plural: 'Projekte'
   },
-  events: {
+  event: {
     singular: 'Veranstaltung',
     plural: 'Veranstaltungen'
   },
-  jobs: {
+  job: {
     singular: 'Job',
     plural: 'Jobs'
   },

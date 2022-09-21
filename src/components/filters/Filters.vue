@@ -21,7 +21,7 @@ import EntitySelector from 'components/filters/EntitySelector.vue'
 // import RegionFilter from 'components/filters/RegionFilter.vue';
 
 const config = useConfigStore().config
-const activeEntity = ref('actors')
+const activeEntity = ref('actor')
 
 const entityClicked = (entityName: string) => {
   console.log('entityName', entityName)

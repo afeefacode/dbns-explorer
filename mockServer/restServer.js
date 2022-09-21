@@ -19,9 +19,9 @@ const run = () => {
     res.sendStatus(200)
   })
 
-  app.get('/activities', (req, res) => {
-    const mockActivities = require('./mockActivities')
-    res.send(mockActivities)
+  app.get('/actors', (req, res) => {
+    const actors = require('./entities/actors')
+    res.send(actors)
   })
 
   app.get('/configs/lvns', (req, res) => {

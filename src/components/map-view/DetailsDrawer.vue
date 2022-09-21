@@ -11,9 +11,10 @@
     </q-card-section>
 
     <q-card-section>
+      <div class="text-h6">{{ entity.type }}</div>
       <div class="text-h6">{{ entity.name }}</div>
 
-      <q-btn>Akteur anzeigen</q-btn>
+      <DetailsButton :entity="entity" />
 
     </q-card-section>
   </q-card>
@@ -21,6 +22,7 @@
 
 <script setup>
 import {defineProps} from 'vue'
+import DetailsButton from 'components/basic/DetailsButton.vue'
 
 
 const props = defineProps({
