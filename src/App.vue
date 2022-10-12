@@ -6,6 +6,7 @@
 import {onMounted} from 'vue'
 import {useConfigStore} from 'stores/config-store'
 import {useEntitiesStore} from "stores/entities-store";
+import {triggerIframeResize} from "src/utils";
 
 const entitiesStore = useEntitiesStore()
 entitiesStore.getActors()
@@ -13,6 +14,11 @@ entitiesStore.getActors()
 const configStore = useConfigStore()
 
 onMounted(async () => {
+  // window.addEventListener('resize', (event) => {
+  //   console.error('resized')
+  //   triggerIframeResize()
+  // });
+
   await configStore.getConfig()
 
   document.documentElement.style

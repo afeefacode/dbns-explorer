@@ -1,0 +1,27 @@
+<style>
+  #dbns-explorer {
+    width: 100%;
+    max-width: 100%;
+    /*min-height: 500px;*/
+    border: 0;
+  }
+
+  .wp-block-spacer, .wp-block-separator {
+    display: none;
+  }
+</style>
+<iframe id="dbns-explorer" title="Aktiv in Sachsen" src="http://localhost:9000/?host=lvns"></iframe>
+<script>
+  function resizeDbnsIframe(newHeight) {
+    var iFrame = document.getElementById( 'dbns-explorer' );
+    iFrame.height = newHeight;
+    console.log('iframe resized', newHeight);
+  }
+
+  window.addEventListener("message", function(event) {
+    if (event.origin !== "http://localhost:9000") {
+      return;
+    }
+    resizeDbnsIframe(event.data);
+  });
+</script>

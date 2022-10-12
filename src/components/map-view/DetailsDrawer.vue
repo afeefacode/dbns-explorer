@@ -35,7 +35,7 @@
 
 <script setup>
 import {defineProps, computed} from 'vue'
-import {shortenStringTo} from 'src/utils/utils'
+import {shortenStringTo} from 'src/utils'
 import DetailsButton from 'components/basic/DetailsButton.vue'
 
 const props = defineProps({

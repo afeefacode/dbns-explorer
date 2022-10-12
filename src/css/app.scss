@@ -6,6 +6,12 @@ $actor: #457039;
 $project: #DB9D37;
 $event: #9b3041;
 
+html {
+  overflow: hidden;
+}
+#q-app {
+  //height: fit-content;
+}
 
 a {
   color: $brand;
