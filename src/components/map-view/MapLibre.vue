@@ -81,12 +81,14 @@ onMounted(async () => {
 
     // ATTEMPTS TO ADD MULTIPLE MARKERS AS SVG:
 
+
     // https://github.com/maplibre/maplibre-gl-js/issues/144
     // https://github.com/mapbox/mapbox-gl-js/issues/5529
     // const img = new Image(40, 60);
     // img.onload = () => map.addImage('myId',  img, {pixelRatio: window.devicePixelRatio});
     // img.onerror = console.error;
     // img.src = markerActorSvg;
+
 
     // new maplibregl.Marker({
     //   element: markerActorDOM.firstChild,
