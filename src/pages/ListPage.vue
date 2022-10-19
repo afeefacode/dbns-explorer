@@ -13,7 +13,6 @@ import Filters from 'components/filters/Filters.vue';
 import MapView from 'components/map-view/MapView.vue';
 import ListView from 'components/list-view/ListView.vue'
 import MapListToggle from 'components/basic/MapListToggle.vue'
-import {triggerIframeResize} from 'src/utils'
 
 const config = useConfigStore().config
 const activeView = ref('map')
@@ -21,10 +20,17 @@ const entitySelected = () => {
 }
 const viewToggled = (newView: string) => {
   activeView.value = newView
-  setTimeout(triggerIframeResize, 200)
 }
 
-onMounted(triggerIframeResize)
+const triggerIframeResize = () => {
+  const appHeight = document.getElementById('q-app').scrollHeight
+  window.parent.postMessage(appHeight, '*')
+}
+
+onMounted(()=>{
+  let qApp = document.getElementById('q-app')
+  new ResizeObserver(triggerIframeResize).observe(qApp)
+})
 
 </script>
 
