@@ -9,8 +9,9 @@ $event: #9b3041;
 html {
   overflow: hidden;
 }
-#q-app {
-  //height: fit-content;
+
+.q-page, .q-layout {
+  min-height: 0 !important;
 }
 
 a {

@@ -63,6 +63,7 @@ const displayed = computed(() => {
   background: #ffffff;
   z-index: 3;
   width: 50%;
+  overflow: scroll;
 
   &__header {
     background: #EEEDED;

@@ -1,7 +1,5 @@
 <template>
   <q-page class="q-mb-xl">
-    <!--    <h1 class="heading">{{ config.heading }}</h1>-->
-    <!--    <p class="introduction">{{ config.introduction }}</p>-->
     <Filters @entity-selected="entitySelected"/>
     <MapListToggle @view-toggled="viewToggled" :active-view="activeView"/>
     <MapView v-if="activeView === 'map'"/>
@@ -23,7 +21,7 @@ const entitySelected = () => {
 }
 const viewToggled = (newView: string) => {
   activeView.value = newView
-  setTimeout(triggerIframeResize, 200  )
+  setTimeout(triggerIframeResize, 200)
 }
 
 onMounted(triggerIframeResize)
@@ -31,6 +29,7 @@ onMounted(triggerIframeResize)
 </script>
 
 <style lang="scss" scoped>
+
 .introduction {
   margin-bottom: 2em;
 }
