@@ -12,8 +12,8 @@ import {ref} from 'vue'
 import {useConfigStore} from 'src/stores/config-store'
 import Filters from 'components/filters/Filters.vue';
 import MapView from 'components/map-view/MapView.vue';
-import ListView from 'components/list-view/ListView.vue'
-import MapListToggle from 'components/basic/MapListToggle.vue'
+import ListView from 'components/CardList.vue'
+import MapListToggle from 'components/MapListToggle.vue'
 
 const config = useConfigStore().config
 const activeView = ref('map')

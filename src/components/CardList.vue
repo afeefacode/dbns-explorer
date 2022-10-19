@@ -7,7 +7,7 @@
 </template>
 <script async setup>
 import {useEntitiesStore} from 'src/stores/entities-store'
-import EntityCard from 'components/list-view/EntityCard.vue'
+import EntityCard from 'components/EntityCard.vue'
 
 const entities = useEntitiesStore().actors
 </script>

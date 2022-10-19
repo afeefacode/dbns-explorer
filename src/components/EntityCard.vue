@@ -51,7 +51,7 @@
 </template>
 <script setup>
 import {ref, defineProps} from 'vue'
-import DetailsButton from 'components/basic/DetailsButton.vue'
+import DetailsButton from './DetailsButton.vue'
 
 const props = defineProps({
   entity: {

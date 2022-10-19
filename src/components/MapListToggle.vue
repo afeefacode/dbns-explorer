@@ -16,7 +16,7 @@
 </template>
 <script setup>
 import {defineProps} from 'vue'
-import {useConfigStore} from "stores/config-store";
+import {useConfigStore} from "src/stores/config-store";
 
 const config = useConfigStore().config
 const props = defineProps({
