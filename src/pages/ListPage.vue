@@ -24,10 +24,14 @@ const viewToggled = (newView: string) => {
 
 const triggerIframeResize = () => {
   const appHeight = document.getElementById('q-app').scrollHeight
-  window.parent.postMessage(appHeight, '*')
+  const resizeMessage = {
+    type: "app_resized",
+    payload: appHeight
+  }
+  window.parent.postMessage(resizeMessage, '*')
 }
 
-onMounted(()=>{
+onMounted(() => {
   let qApp = document.getElementById('q-app')
   new ResizeObserver(triggerIframeResize).observe(qApp)
 })

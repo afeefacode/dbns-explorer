@@ -12,15 +12,32 @@
 </style>
 <iframe id="iframe-dbns-explorer" title="Aktiv in Sachsen" src="http://localhost:9000/?host=lvns"></iframe>
 <script>
+  var iFrame = document.getElementById('iframe-dbns-explorer');
+
   function resizeIframeDbnsExplorer(newHeight) {
-    var iFrame = document.getElementById( 'iframe-dbns-explorer' );
     iFrame.height = newHeight;
   }
 
-  window.addEventListener("message", function(event) {
+  window.addEventListener("message", function (event) {
     if (event.origin !== "http://localhost:9000") {
       return;
     }
-    resizeIframeDbnsExplorer(event.data);
+
+    switch (event.data.type) {
+      case "app_mounted":
+        var acknowledgedMessage = {
+          type: "app_mounted_acknowledged",
+          payload: window.location.search,
+        }
+        iFrame.contentWindow.postMessage(acknowledgedMessage, "*")
+        break;
+
+      case "app_resized":
+        resizeIframeDbnsExplorer(event.data.payload);
+        break;
+
+      default:
+        break;
+    }
   });
 </script>

@@ -6,6 +6,7 @@
 import {onMounted} from 'vue'
 import {useConfigStore} from 'stores/config-store'
 import {useEntitiesStore} from "stores/entities-store";
+import {getSearchParameters} from 'src/utils'
 
 const entitiesStore = useEntitiesStore()
 entitiesStore.getActors()
@@ -14,6 +15,28 @@ const configStore = useConfigStore()
 
 onMounted(async () => {
   await configStore.getConfig()
+
+  window.addEventListener("message", event => {
+    switch (event.data.type) {
+      case "app_mounted_acknowledged":
+        const paramString = event.data.payload.substring(1)
+        const params = getSearchParameters(paramString);
+        console.log('params', params)
+        break;
+
+      default:
+        break;
+    }
+
+  })
+
+  const mountedMessage = {
+    type: "app_mounted",
+    payload: null
+  }
+
+  window.parent.postMessage(mountedMessage, '*')
+
 
   document.documentElement.style
     .setProperty('--primary', configStore.config.brandColor);
