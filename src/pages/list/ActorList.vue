@@ -3,15 +3,15 @@
     <Filters @entity-selected="entitySelected"/>
     <MapListToggle @view-toggled="viewToggled" :active-view="activeView"/>
     <MapView v-if="activeView === 'map'"/>
-    <CardList v-else/>
+    <ListView v-else/>
   </q-page>
 </template>
 <script setup lang="ts">
 import {onMounted, ref} from 'vue'
-import {useConfigStore} from 'src/stores/config-store'
+import {useConfigStore} from 'stores/config-store'
 import Filters from 'components/filters/Filters.vue';
 import MapView from 'components/map-view/MapView.vue';
-import CardList from 'components/CardList.vue'
+import ListView from 'components/ListView.vue'
 import MapListToggle from 'components/MapListToggle.vue'
 
 const config = useConfigStore().config

@@ -6,10 +6,10 @@
   </div>
 </template>
 <script async setup>
-import {useEntitiesStore} from 'src/stores/entities-store'
+import {useActorStore} from 'stores/actor-store'
 import EntityCard from 'components/EntityCard.vue'
 
-const entities = useEntitiesStore().actors
+const entities = useActorStore().actors
 </script>
 <style lang="scss" scoped>
 </style>

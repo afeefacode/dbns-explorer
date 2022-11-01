@@ -7,10 +7,10 @@
       class="entity-selector__icon"
       ref="entitySelectorIcon"
     >
-      <q-icon :name="`img:/src/assets/svg/${entityName}.svg`"/>
+      <q-icon :name="`img:/src/assets/svg/${entityType}.svg`"/>
     </div>
     <div class="entity-selector__text">
-      {{ displayedNames[entityName].plural }}
+      {{ displayedNames[entityType].plural }}
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@ import {useConfigStore} from 'src/stores/config-store'
 const config = useConfigStore().config
 
 const props = defineProps({
-  entityName: {
+  entityType: {
     type: String,
     default: null
   },

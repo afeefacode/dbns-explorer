@@ -3,9 +3,9 @@
     <div class="row entity-icons">
       <EntitySelector
         v-for="entity in config.entities"
-        :entity-name="entity.name"
-        :active="entity.name === activeEntity"
-        @entity-click="activeEntity = entity.name"
+        :entity-type="entity.type"
+        :active="entity.type === activeEntity"
+        @entity-click="onEntityClick(entity.type)"
       />
     </div>
     <q-page-container class="page-container">
@@ -16,11 +16,18 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
+import {useRouter} from 'vue-router'
 import {useConfigStore} from "src/stores/config-store";
 import EntitySelector from 'src/components/filters/EntitySelector.vue'
 
 const config = useConfigStore().config
+const router = useRouter()
 const activeEntity = ref('actor')
+
+const onEntityClick = (entityType: string) => {
+  activeEntity.value = entityType
+  router.push(entityType+'s')
+}
 </script>
 
 <style>

@@ -5,11 +5,11 @@
 <script setup lang="ts">
 import {onMounted} from 'vue'
 import {useConfigStore} from 'stores/config-store'
-import {useEntitiesStore} from "stores/entities-store";
+import {useActorStore} from "stores/actor-store";
 import {getSearchParameters} from 'src/utils'
 
-const entitiesStore = useEntitiesStore()
-entitiesStore.getActors()
+const actorStore = useActorStore()
+actorStore.fetchActorList()
 
 const configStore = useConfigStore()
 
