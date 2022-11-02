@@ -1,3 +1,5 @@
+const lvnsConfig = require("app/mockServer/configs/lvns/config");
+
 const run = () => {
   const express = require('express')
   const http = require('http')
@@ -19,11 +21,6 @@ const run = () => {
     res.sendStatus(200)
   })
 
-  app.get('/actors', (req, res) => {
-    const actors = require('./entities/actors')
-    res.send(actors)
-  })
-
   app.get('/configs/lvns', (req, res) => {
     const lvnsConfig = require('./configs/lvns/config')
     res.send(lvnsConfig)
@@ -32,6 +29,16 @@ const run = () => {
   app.get('/configs/ladd', (req, res) => {
     const lvnsConfig = require('./configs/ladd/config')
     res.send(lvnsConfig)
+  })
+
+  app.get('/actors', (req, res) => {
+    const actors = require('./entities/actors')
+    res.send(actors)
+  })
+
+  app.get('/actors/3783', (req, res) => {
+    const actor = require('./entities/actor')
+    res.send(actor)
   })
 
   http.createServer(sslCertificate, app)

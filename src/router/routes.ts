@@ -7,16 +7,25 @@ const routes: RouteRecordRaw[] = [
     children: [{ path: '', component: () => import('pages/list/ActorList.vue') }],
   },
   {
-    path: '/actors',
+    path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/list/ActorList.vue') }],
+    children: [{ path: '/actors', component: () => import('pages/list/ActorList.vue') }],
   },
   {
-    path: '/actors/:id',
+    path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/detail/ActorDetail.vue') }],
+    children: [{ path: '/actors/:id', component: () => import('pages/detail/ActorDetail.vue') }],
   },
-
+  {
+    path: '/',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '/projects', component: () => import('pages/list/ProjectList.vue') }],
+  },
+  {
+    path: '/',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '/projects/:id', component: () => import('pages/detail/ProjectDetail.vue') }],
+  },
   // Always leave this as last one,
   // but you can also remove it
   {

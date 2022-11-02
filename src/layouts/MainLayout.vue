@@ -26,7 +26,7 @@ const activeEntity = ref('actor')
 
 const onEntityClick = (entityType: string) => {
   activeEntity.value = entityType
-  router.push(entityType+'s')
+  router.push(`/${entityType}s`)
 }
 </script>
 
