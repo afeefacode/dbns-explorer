@@ -1,10 +1,11 @@
 import {defineStore} from 'pinia';
 import {fetchConfig} from "src/api/config";
+import {config} from 'src/assets/lvns-config'
 
 export const useConfigStore = defineStore('config', {
   state: () => {
     return {
-      config: null
+      config: config
     }
   },
   getters: {},

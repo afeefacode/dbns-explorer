@@ -14,7 +14,7 @@ actorStore.fetchActorList()
 const configStore = useConfigStore()
 
 onMounted(async () => {
-  await configStore.getConfig()
+  // await configStore.getConfig()
 
   window.addEventListener("message", event => {
     switch (event.data.type) {
