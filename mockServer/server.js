@@ -1,4 +1,4 @@
-const lvnsConfig = require("app/mockServer/configs/lvns/config");
+// const lvnsConfig = require("app/mockServer/configs/lvns/config");
 
 const run = () => {
   const express = require('express')
@@ -21,15 +21,15 @@ const run = () => {
     res.sendStatus(200)
   })
 
-  app.get('/configs/lvns', (req, res) => {
-    const lvnsConfig = require('./configs/lvns/config')
-    res.send(lvnsConfig)
-  })
-
-  app.get('/configs/ladd', (req, res) => {
-    const lvnsConfig = require('./configs/ladd/config')
-    res.send(lvnsConfig)
-  })
+  // app.get('/configs/lvns', (req, res) => {
+  //   const lvnsConfig = require('./configs/lvns/config')
+  //   res.send(lvnsConfig)
+  // })
+  //
+  // app.get('/configs/ladd', (req, res) => {
+  //   const lvnsConfig = require('./configs/ladd/config')
+  //   res.send(lvnsConfig)
+  // })
 
   app.get('/actors', (req, res) => {
     const actors = require('./entities/actors')
