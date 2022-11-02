@@ -7,9 +7,21 @@
     />
     <div v-else>
       <BackButton class="q-mb-md"/>
-      <DetailCard/>
+      <DetailCard class="q-mb-xl"/>
+      <div class="q-px-lg">
+        <h1 class="text-h4">{{ actor.name }}</h1>
+        <div class="q-mb-xl">
+          {{ actor.description }}
+        </div>
+        <DetailMap class="q-mb-xl"/>
+
+        <h2 class="text-h5">Projekte des Akteurs</h2>
+        <h2 class="text-h5">Veranstaltungen des Akteurs</h2>
+        <q-separator />
+        <h2 class="text-h5">Ähnliche Akteure</h2>
+
+      </div>
     </div>
-    <!--    <ListView />-->
   </q-page>
 </template>
 
@@ -19,13 +31,12 @@ import {storeToRefs} from 'pinia'
 import {useActorStore} from 'stores/actor-store'
 import BackButton from 'components/detail/BackButton.vue'
 import DetailCard from 'components/detail/DetailCard.vue'
-import Filters from 'components/filters/Filters.vue';
-import MapView from 'components/map-view/MapView.vue';
-// import ListView from 'components/ListView.vue'
-
+import DetailMap from 'components/detail/DetailMap.vue'
 
 const route = useRoute()
 const actorId = route.params.id
+
+// @todo edge-case, wenn falsche id in url aufgerufen wird
 
 const actorStore = useActorStore()
 actorStore.fetchActorDetails(actorId)

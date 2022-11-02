@@ -106,6 +106,6 @@ onMounted(async () => {
 <style lang="scss" scoped>
 .map {
   width: 100%;
-  height: 600px;
+  height: 700px;
 }
 </style>

@@ -18,13 +18,15 @@
         {{ displayed.description }}
       </div>
       <div class="q-mb-md">
-        <div v-if="entity.full_address">
-          <q-icon name="home"/> &nbsp;
+        <div class="row" v-if="entity.full_address">
+          <q-icon name="home" class="q-mr-sm"/>
           {{ entity.full_address }}
         </div>
-        <div v-if="entity.info_url">
-          <q-icon name="language"/> &nbsp;
-          <a :href="entity.info_url" target="_blank" :title="displayed.name">{{ displayed.info_url }}</a>
+        <div class="row" v-if="entity.info_url">
+          <q-icon name="language" class="q-mr-sm"/> &nbsp;
+          <div>
+            <a :href="entity.info_url" target="_blank" :title="displayed.name">{{ displayed.info_url }}</a>
+          </div>
         </div>
       </div>
       <DetailsButton :entity="entity"/>
@@ -63,7 +65,8 @@ const displayed = computed(() => {
   background: #ffffff;
   z-index: 3;
   width: 50%;
-  overflow: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   &__header {
     background: #EEEDED;
@@ -81,6 +84,11 @@ const displayed = computed(() => {
     position: relative;
     top: -1em;
     right: -1em;
+  }
+
+  .q-icon {
+    scale: 1.5;
+    color: #333
   }
 }
 

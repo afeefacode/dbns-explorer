@@ -1,5 +1,6 @@
 <template>
   <q-card class="detail-card">
+    <div class="text-overline">Akteur</div>
     <div class="row">
       <div class="detail-card__text col-12 col-sm-7">
         <h1 class="text-h4">{{ actor.name }}</h1>
@@ -19,7 +20,6 @@
 </template>
 <script setup>
 import {useActorStore} from 'stores/actor-store'
-
 const actor = useActorStore().actor
 
 const details = [
