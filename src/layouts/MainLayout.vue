@@ -4,7 +4,7 @@
       <EntitySelector
         v-for="entity in config.entities"
         :entity-type="entity.type"
-        :active="entity.type === activeEntity"
+        :active="entity.type+'s' === path"
         @entity-click="onEntityClick(entity.type)"
       />
     </div>
@@ -15,18 +15,45 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
-import {useRouter} from 'vue-router'
+import {ref, watch} from "vue";
+import {onBeforeRouteUpdate, useRouter} from 'vue-router'
 import {useConfigStore} from "src/stores/config-store";
 import EntitySelector from 'src/components/filters/EntitySelector.vue'
 
 const config = useConfigStore().config
 const router = useRouter()
-const activeEntity = ref('actor')
+// const path = ref(router.currentRoute.value.fullPath.split('/')[1])
+const path = router.currentRoute.value.fullPath.split('/')[1]
+
+onBeforeRouteUpdate(() => {
+    
+})
+
+
+const activeEntity = ref(path)
+
+
+watch(path, () => {
+  console.log('path changed')
+})
+
 
 const onEntityClick = (entityType: string) => {
-  activeEntity.value = entityType
-  router.push(`/${entityType}s`)
+
+  console.log('path.value', path.value)
+
+  // const path = router.currentRoute.value.fullPath.split('/')[1]
+  //
+  // console.log('entityType', entityType)
+  //
+  // activeEntity.value = path
+  // // activeEntity.value = entityType
+  // // router.push(`/${entityType}s`)
+  //
+  //
+  // console.log('path', path)
+  // console.log('activeEntity.value', activeEntity.value)
+  // console.log("path === activeEntity.value", path === activeEntity.value)
 }
 </script>
 
