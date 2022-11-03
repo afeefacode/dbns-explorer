@@ -1,7 +1,7 @@
 <template>
   <q-btn :style="`background: ${config.brandColor}; color: ${config.brandTextColor}`"
          :icon="`img:/src/assets/svg/${entity.type}.svg`"
-         :label="`${entity.type} anzeigen`"
+         :label="`${getGermanEntityName(entity.type, 'singular')} anzeigen`"
          @click="openDetailPage"
   />
 </template>
@@ -9,6 +9,7 @@
 import {defineProps} from 'vue'
 import {useRouter} from 'vue-router'
 import {useConfigStore} from 'src/stores/config-store'
+import {getGermanEntityName} from 'src/utils'
 
 const props = defineProps({
   entity: {

@@ -15,3 +15,31 @@ export const getSearchParameters = (paramString: string) => {
   return paramString != null && paramString != "" ? transformToAssocArray(paramString) : {};
 }
 
+
+export const getGermanEntityName = (entityName: string, numerus: 'singular' | 'plural') => {
+  switch (entityName.toLowerCase()) {
+    case 'actor':
+    case 'actors':
+      return numerus === 'singular' ? 'Akteur' : 'Akteure'
+    case 'project':
+    case 'projects':
+      return numerus === 'singular' ? 'Projekt' : 'Projekte'
+    case 'event':
+    case 'events':
+      return numerus === 'singular' ? 'Veranstaltung' : 'Veranstaltungen'
+    case 'job':
+    case 'jobs':
+      return numerus === 'singular' ? 'Job' : 'Jobs'
+    case 'education':
+    case 'educations':
+      return numerus === 'singular' ? 'Bildungsangebot' : 'Bildungsangebote'
+    case 'consultation':
+    case 'consultations':
+      return numerus === 'singular' ? 'Beratung' : 'Beratungen'
+    case 'shop':
+    case 'shops':
+      return numerus === 'singular' ? 'Filiale' : 'Filialen'
+    default:
+      return entityName.toUpperCase()
+  }
+}

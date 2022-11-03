@@ -15,9 +15,14 @@
         </div>
         <DetailMap class="q-mb-xl"/>
 
-        <h2 class="text-h5">Projekte des Akteurs</h2>
-        <h2 class="text-h5">Veranstaltungen des Akteurs</h2>
-        <q-separator />
+        <div class="q-mb-xl">
+          <h2 class="text-h5">Projekte des Akteurs</h2>
+          <router-link to="/">Alle Projekte des Akteurs anzeigen</router-link>
+
+          <h2 class="text-h5">Veranstaltungen des Akteurs</h2>
+          <router-link to="/">Alle Veranstaltungen des Akteurs anzeigen</router-link>
+        </div>
+        <q-separator/>
         <h2 class="text-h5">Ähnliche Akteure</h2>
 
       </div>

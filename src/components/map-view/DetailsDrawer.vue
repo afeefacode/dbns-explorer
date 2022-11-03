@@ -11,7 +11,7 @@
     </q-card-section>
 
     <q-card-section class="bg-white">
-      <div class="text-overline">{{ entity.type }}</div>
+      <div class="text-overline">{{ getGermanEntityName(entity.type, 'singular') }}</div>
       <div v-if="entity.type === 'Event'">{{ displayed.start_at }}</div>
       <div class="text-h5 q-mb-md">{{ displayed.name }}</div>
       <div class="text-caption text-grey list-card__short-description q-pr-md q-mb-md">
@@ -39,6 +39,7 @@
 import {defineProps, computed} from 'vue'
 import {shortenStringTo} from 'src/utils'
 import DetailsButton from 'components/DetailsButton.vue'
+import {getGermanEntityName} from 'src/utils'
 
 const props = defineProps({
   entity: {
