@@ -1,6 +1,7 @@
 <template>
   <q-page class="q-mb-xl">
-    <Filters @entity-selected="entitySelected"/>
+    <Filters />
+    <q-separator class="q-mb-xl"/>
     <MapListToggle @view-toggled="viewToggled" :active-view="activeView"/>
     <MapView v-if="activeView === 'map'"/>
     <ListView v-else/>

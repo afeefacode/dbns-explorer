@@ -23,8 +23,6 @@ const actorId = route.params.id
 const actorStore = useActorStore()
 actorStore.fetchActorDetails(actorId)
 
-console.log('actorId', actorId)
-
 
 </script>
 
