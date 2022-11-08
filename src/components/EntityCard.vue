@@ -8,7 +8,7 @@
           <div class="text-h5 q-mt-sm q-mb-xs">
             {{ displayed.name }}
           </div>
-          <div label="test" class="text-caption text-grey list-card__short-description q-pr-md q-mb-sm">
+          <div label="test" class="text-grey list-card__short-description q-pr-md q-mb-sm">
             {{ displayed.short_description }}
           </div>
           <q-space/>
@@ -100,9 +100,9 @@ const expanded = ref(false)
 <style lang="scss" scoped>
 .list-card {
   width: 100%;
-  border: 1px solid #D9D9D9;
-  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.05);
-  border-radius: 15px;
+  border: 0;
+  border-radius: 0;
+  box-shadow: 0 5px 30px -10px rgb(18 63 82 / 30%) !important;
 
   &__short-description {
     display: flex;

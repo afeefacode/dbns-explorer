@@ -22,3 +22,14 @@ a {
 div {
   outline: 0px #999 dashed;
 }
+
+.q-btn {
+  border-radius: 3px;
+  font-weight: normal;
+  text-transform: none;
+  font-size: 16px;
+}
+.q-btn::before  {
+    box-shadow: none;
+
+}
