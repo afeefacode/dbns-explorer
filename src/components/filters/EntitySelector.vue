@@ -10,13 +10,14 @@
       <q-icon :name="`img:/src/assets/svg/${entityType}.svg`"/>
     </div>
     <div class="entity-selector__text">
-      {{ displayedNames[entityType].plural }}
+      {{ getGermanEntityName(entityType, 'plural') }}
     </div>
   </div>
 </template>
 <script setup>
 import {defineProps, onUpdated, ref, onMounted} from 'vue'
 import {useConfigStore} from 'src/stores/config-store'
+import {getGermanEntityName} from 'src/utils'
 
 const config = useConfigStore().config
 
@@ -44,36 +45,6 @@ const setBackgroundColor = () => {
 onMounted(setBackgroundColor)
 onUpdated(setBackgroundColor)
 
-const displayedNames = {
-  actor: {
-    singular: 'Akteur',
-    plural: 'Akteure'
-  },
-  project: {
-    singular: 'Projekt',
-    plural: 'Projekte'
-  },
-  event: {
-    singular: 'Veranstaltung',
-    plural: 'Veranstaltungen'
-  },
-  job: {
-    singular: 'Job',
-    plural: 'Jobs'
-  },
-  education: {
-    singular: 'Bildungsangebot',
-    plural: 'Bildung'
-  },
-  consultation: {
-    singular: 'Beratungsangebot',
-    plural: 'Beratung'
-  },
-  trade: {
-    singular: 'Shop',
-    plural: 'Fairer Handel'
-  },
-}
 </script>
 
 <style lang="scss" scoped>

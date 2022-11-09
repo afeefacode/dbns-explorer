@@ -8,16 +8,16 @@ import {useConfigStore} from 'stores/config-store'
 import {useActorStore} from "stores/actor-store";
 import {getSearchParameters} from 'src/utils'
 
+const configStore = useConfigStore()
+configStore.getConfigFromUrl()
+
 const actorStore = useActorStore()
 actorStore.fetchActorList()
 
-const configStore = useConfigStore()
-
 onMounted(async () => {
-  // await configStore.getConfig()
-
   window.addEventListener("message", event => {
     switch (event.data.type) {
+
       case "app_mounted_acknowledged":
         const paramString = event.data.payload.substring(1)
         const params = getSearchParameters(paramString);
@@ -27,7 +27,6 @@ onMounted(async () => {
       default:
         break;
     }
-
   })
 
   const mountedMessage = {
@@ -36,7 +35,6 @@ onMounted(async () => {
   }
 
   window.parent.postMessage(mountedMessage, '*')
-
 
   document.documentElement.style
     .setProperty('--primary', configStore.config.brandColor);

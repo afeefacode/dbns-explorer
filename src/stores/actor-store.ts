@@ -16,7 +16,6 @@ export const useActorStore = defineStore('actors', {
       this.actorsLoading = true
       try {
         this.actors = await fetchActorListApiV2()
-        console.log('this.actors', this.actors)
       } catch (e) {
         console.error(e)
         return e

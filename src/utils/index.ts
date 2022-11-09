@@ -33,13 +33,21 @@ export const getGermanEntityName = (entityName: string, numerus: 'singular' | 'p
     case 'education':
     case 'educations':
       return numerus === 'singular' ? 'Bildungsangebot' : 'Bildungsangebote'
-    case 'consultation':
-    case 'consultations':
+    case 'counseling':
+    case 'counselings':
       return numerus === 'singular' ? 'Beratung' : 'Beratungen'
-    case 'shop':
-    case 'shops':
+    case 'service':
+    case 'services':
+      return numerus === 'singular' ? 'Service' : 'Services'
+    case 'trade':
+    case 'trades':
       return numerus === 'singular' ? 'Filiale' : 'Filialen'
     default:
       return entityName.toUpperCase()
   }
+}
+
+export const configJsonToUrlParam = (json: object) => {
+  const string = JSON.stringify(json)
+  return 'config=' + encodeURI(string)
 }

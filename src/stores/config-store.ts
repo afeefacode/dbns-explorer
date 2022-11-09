@@ -1,22 +1,17 @@
 import {defineStore} from 'pinia';
-import {fetchConfig} from "src/api/config";
-import {config} from 'src/assets/lvns-config'
 
 export const useConfigStore = defineStore('config', {
   state: () => {
     return {
-      config: config
+      config: null
     }
   },
-  getters: {},
   actions: {
-    async getConfig() {
-      try {
-        this.config = await fetchConfig()
-      } catch (e) {
-        console.error(e)
-        return e
+    getConfigFromUrl() {
+      const configString = (new URL(window.location.href)).searchParams.get('config')
+      if (configString) {
+        this.config = JSON.parse(decodeURI(configString))
       }
-    },
-  },
-});
+    }
+  }
+})
