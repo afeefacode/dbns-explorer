@@ -14,6 +14,4 @@ const config = {
   ]
 }
 
-const configJsonToString =
-
 module.exports = config
