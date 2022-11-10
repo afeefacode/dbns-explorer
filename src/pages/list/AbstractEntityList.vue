@@ -29,10 +29,3 @@ const viewToggled = (newView: string) => {
   activeView.value = newView
 }
 </script>
-
-<style lang="scss" scoped>
-
-.introduction {
-  margin-bottom: 2em;
-}
-</style>

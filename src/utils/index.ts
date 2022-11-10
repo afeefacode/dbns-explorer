@@ -51,3 +51,13 @@ export const configJsonToUrlParam = (json: object) => {
   const string = JSON.stringify(json)
   return 'config=' + encodeURI(string)
 }
+
+
+export const triggerIframeResize = () => {
+  const appHeight = document.getElementById('q-app')!.scrollHeight
+  const resizeMessage = {
+    type: "app_resized",
+    payload: appHeight
+  }
+  window.parent.postMessage(resizeMessage, '*')
+}

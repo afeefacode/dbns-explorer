@@ -7,14 +7,12 @@ import {onMounted} from 'vue'
 import {useRouter} from 'vue-router'
 import {useConfigStore} from 'stores/config-store'
 import {useActorStore} from "stores/actor-store";
-import {getSearchParameters} from 'src/utils'
+import {getSearchParameters, triggerIframeResize} from 'src/utils'
 
 const configStore = useConfigStore()
 configStore.getConfigFromUrl()
 const config = configStore.config
 useRouter().push(`/${config.entities[0].type}s`)
-
-
 
 const actorStore = useActorStore()
 actorStore.fetchActorList()
@@ -37,11 +35,13 @@ onMounted(async () => {
     type: "app_mounted",
     payload: null
   }
-
   window.parent.postMessage(mountedMessage, '*')
 
   document.documentElement.style
     .setProperty('--primary', '#' + configStore.config.brandColor);
+
+  let qApp = document.getElementById('q-app')
+  new ResizeObserver(triggerIframeResize).observe(qApp)
 })
 
 

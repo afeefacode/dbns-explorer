@@ -20,21 +20,6 @@ const entitySelected = () => {
 const viewToggled = (newView: string) => {
   activeView.value = newView
 }
-
-const triggerIframeResize = () => {
-  const appHeight = document.getElementById('q-app').scrollHeight
-  const resizeMessage = {
-    type: "app_resized",
-    payload: appHeight
-  }
-  window.parent.postMessage(resizeMessage, '*')
-}
-
-onMounted(() => {
-  let qApp = document.getElementById('q-app')
-  new ResizeObserver(triggerIframeResize).observe(qApp)
-})
-
 </script>
 
 <style lang="scss" scoped>

@@ -9,6 +9,8 @@
 import {useActorStore} from 'stores/actor-store'
 import EntityCard from 'components/EntityCard.vue'
 
+
+
 const entities = useActorStore().actors
 </script>
 <style lang="scss" scoped>
