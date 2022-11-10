@@ -1,9 +1,13 @@
 <template>
   <q-page class="q-mb-xl">
-    <Filters @entity-selected="entitySelected" v-if="config.entities."/>
-    <MapListToggle @view-toggled="viewToggled" :active-view="activeView"/>
-    <MapView v-if="activeView === 'map'"/>
-    <ListView v-else/>
+    <Filters @entity-selected="entitySelected" v-if="entityConfig.showFilters"/>
+    <MapListToggle
+      @view-toggled="viewToggled"
+      :active-view="activeView"
+      v-if="entityConfig.showListView && entityConfig.showMapView"
+    />
+    <MapView v-if="showMap"/>
+    <ListView v-if="showList"/>
   </q-page>
 </template>
 <script setup lang="ts">
@@ -15,7 +19,16 @@ import ListView from 'components/ListView.vue'
 import MapListToggle from 'components/MapListToggle.vue'
 
 const config = useConfigStore().config
-const activeView = ref('map')
+const entityConfig = config.entities.find(entity => entity.type === 'event')
+
+const activeView = entityConfig!.showMapView
+  ? ref('map')
+  : ref('list')
+
+const showMap = ref(entityConfig!.showMapView && activeView.value === 'map')
+const showList = ref(entityConfig!.showListView && activeView.value === 'list')
+
+
 const entitySelected = () => {
 }
 const viewToggled = (newView: string) => {

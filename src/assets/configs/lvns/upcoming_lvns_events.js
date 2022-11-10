@@ -4,11 +4,11 @@ export const config = {
   entities: [
     {
       type: 'event',
-      pre_filter: {
+      preFilter: {
         'actors': ['432'],
       },
       limit: 3,
-      show_views: ['list'],
+      showListView: true,
       cardStyle: 'vertical'
     }
   ]

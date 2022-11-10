@@ -15,6 +15,8 @@ import Filters from 'components/filters/Filters.vue';
 import MapView from 'components/map-view/MapView.vue';
 // import ListView from 'components/ListView.vue'
 
+
+
 const config = useConfigStore().config
 
 const route = useRoute()

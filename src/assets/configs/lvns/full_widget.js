@@ -4,38 +4,45 @@ export const config = {
   entities: [
     {
       type: 'actor',
-      show_filters: 'all',
-      show_views: ['list', 'map']
+      showFilters: true,
+      showMapView: true,
+      showListView: true
     },
     {
       type: 'project',
-      show_filters: 'all',
-      show_views: ['list', 'map']
+      showFilters: true,
+      showMapView: true,
+      showListView: true
     },
     {
       type: 'event',
-      show_filters: 'all',
-      show_views: ['list', 'map']
+      showFilters: true,
+      showMapView: true,
+      showListView: true
     },
     {
       type: 'education',
-      show_filters: 'all',
-      show_views: ['list', 'map']
+      showFilters: true,
+      showMapView: true,
+      showListView: true
     },
     {
       type: 'counseling',
-      show_filters: 'all',
-      show_views: ['list', 'map']
+      showFilters: true,
+      showMapView: true,
+      showListView: true
     },
     {
       type: 'service',
-      show_filters: 'all',
-      show_views: ['list', 'map']
+      showFilters: true,
+      showMapView: true,
+      showListView: true
     },
     {
       type: 'trade',
-      show_filters: 'all',
-      show_views: ['list', 'map']
+      showFilters: true,
+      showMapView: true,
+      showListView: true
     }
   ]
 }

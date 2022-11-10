@@ -26,7 +26,7 @@ const router = useRouter()
 const path = router.currentRoute.value.fullPath.split('/')[1]
 const activeEntity = ref(path)
 
-const showEntitySelector = config.entities.length > 1
+const showEntitySelector = Object.keys(config.entities).length > 1
 
 const onEntityClick = (entityType: string) => {
   activeEntity.value = entityType + 's'
