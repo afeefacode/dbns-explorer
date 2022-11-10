@@ -1,9 +1,10 @@
 import {defineStore} from 'pinia';
+import {config as full_widget} from 'src/assets/configs/lvns/full_widget'
 
 export const useConfigStore = defineStore('config', {
   state: () => {
     return {
-      config: null
+      config: full_widget
     }
   },
   actions: {

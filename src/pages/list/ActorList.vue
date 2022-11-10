@@ -17,8 +17,6 @@ import MapListToggle from 'components/MapListToggle.vue'
 
 const config = useConfigStore().config
 const activeView = ref('map')
-const entitySelected = () => {
-}
 const viewToggled = (newView: string) => {
   activeView.value = newView
 }

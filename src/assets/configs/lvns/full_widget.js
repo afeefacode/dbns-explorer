@@ -4,35 +4,38 @@ export const config = {
   entities: [
     {
       type: 'actor',
-      filters: 'none',
-      show_filters: 'all'
+      show_filters: 'all',
+      show_views: ['list', 'map']
     },
     {
       type: 'project',
-      filters: 'none'
+      show_filters: 'all',
+      show_views: ['list', 'map']
     },
     {
       type: 'event',
-      filters: 'none'
+      show_filters: 'all',
+      show_views: ['list', 'map']
     },
     {
       type: 'education',
-      filters: 'none'
+      show_filters: 'all',
+      show_views: ['list', 'map']
     },
     {
       type: 'counseling',
-      filters: 'none'
+      show_filters: 'all',
+      show_views: ['list', 'map']
     },
     {
       type: 'service',
-      filters: 'none'
+      show_filters: 'all',
+      show_views: ['list', 'map']
     },
     {
       type: 'trade',
-      filters: 'none'
+      show_filters: 'all',
+      show_views: ['list', 'map']
     }
   ]
 }
-
-export const urlParam = 'config=%7B%22brandColor%22:%225FA93D%22,%22contrastTextColor%22:%22FFFFFF%22,%22regions%22:%22all%22,%22entities%22:%5B%7B%22type%22:%22actor%22,%22filters%22:%22all%22%7D,%7B%22type%22:%22project%22,%22filters%22:%22all%22%7D,%7B%22type%22:%22event%22,%22filters%22:%22all%22%7D,%7B%22type%22:%22education%22,%22filters%22:%22all%22%7D,%7B%22type%22:%22counseling%22,%22filters%22:%22all%22%7D,%7B%22type%22:%22service%22,%22filters%22:%22all%22%7D,%7B%22type%22:%22trade%22,%22filters%22:%22all%22%7D%5D%7D'
-

@@ -1,5 +1,5 @@
 <template>
-  <q-btn :style="`background: #${config.brandColor}; color: ${config.brandTextColor}`"
+  <q-btn :style="`background: #${config.brandColor}; color: #${config.contrastTextColor}`"
          :icon="`img:/src/assets/svg/${entity.type}.svg`"
          :label="`${getGermanEntityName(entity.type, 'singular')} anzeigen`"
          @click="openDetailPage"
@@ -23,5 +23,4 @@ const router = useRouter()
 const openDetailPage = () => {
   router.push(`/${props.entity.type.toLowerCase()}s/${props.entity.id}`)
 }
-
 </script>

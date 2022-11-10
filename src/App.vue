@@ -21,7 +21,6 @@ onMounted(async () => {
       case "app_mounted_acknowledged":
         const paramString = event.data.payload.substring(1)
         const params = getSearchParameters(paramString);
-        console.log('params', params)
         break;
 
       default:
