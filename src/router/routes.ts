@@ -4,11 +4,6 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/list/ActorList.vue') }],
-  },
-  {
-    path: '/',
-    component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '/actors', component: () => import('pages/list/ActorList.vue') }],
   },
   {
@@ -25,6 +20,16 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '/projects/:id', component: () => import('pages/detail/ProjectDetail.vue') }],
+  },
+  {
+    path: '/',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '/events', component: () => import('pages/list/EventList.vue') }],
+  },
+  {
+    path: '/',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '/events/:id', component: () => import('pages/detail/EventDetail.vue') }],
   },
   {
     path: '/',
