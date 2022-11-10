@@ -37,7 +37,7 @@ onMounted(async () => {
   window.parent.postMessage(mountedMessage, '*')
 
   document.documentElement.style
-    .setProperty('--primary', configStore.config.brandColor);
+    .setProperty('--primary', '#' + configStore.config.brandColor);
 })
 
 

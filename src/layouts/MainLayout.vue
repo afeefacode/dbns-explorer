@@ -2,6 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <div class="row entity-icons">
       <EntitySelector
+        v-if="showEntitySelector"
         v-for="entity in config.entities"
         :entity-type="entity.type"
         :active="entity.type + 's' === activeEntity"
@@ -24,6 +25,8 @@ const config = useConfigStore().config
 const router = useRouter()
 const path = router.currentRoute.value.fullPath.split('/')[1]
 const activeEntity = ref(path)
+
+const showEntitySelector = config.entities.length > 1
 
 const onEntityClick = (entityType: string) => {
   activeEntity.value = entityType + 's'

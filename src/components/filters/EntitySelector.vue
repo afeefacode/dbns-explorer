@@ -36,7 +36,7 @@ const entitySelectorIcon = ref(null)
 
 const setBackgroundColor = () => {
   if (props.active) {
-    entitySelectorIcon.value.style.backgroundColor = config.brandColor
+    entitySelectorIcon.value.style.backgroundColor = '#' + config.brandColor
   } else {
     entitySelectorIcon.value.style.backgroundColor = '#D9D9D9'
   }

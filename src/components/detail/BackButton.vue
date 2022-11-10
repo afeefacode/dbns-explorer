@@ -1,7 +1,7 @@
 <template>
   <q-btn
     flat
-    :style="`color: ${config.brandColor}`"
+    :style="`color: #${config.brandColor}`"
     label="Zurück"
     icon="chevron_left"
     @click="$router.go(-1)"

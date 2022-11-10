@@ -1,35 +1,35 @@
 export const config = {
   brandColor: '5FA93D',
   contrastTextColor: 'FFFFFF',
-  regions: 'all',
   entities: [
     {
       type: 'actor',
-      filters: 'all'
+      filters: 'none',
+      show_filters: 'all'
     },
     {
       type: 'project',
-      filters: 'all'
+      filters: 'none'
     },
     {
       type: 'event',
-      filters: 'all'
+      filters: 'none'
     },
     {
       type: 'education',
-      filters: 'all'
+      filters: 'none'
     },
     {
       type: 'counseling',
-      filters: 'all'
+      filters: 'none'
     },
     {
       type: 'service',
-      filters: 'all'
+      filters: 'none'
     },
     {
       type: 'trade',
-      filters: 'all'
+      filters: 'none'
     }
   ]
 }
