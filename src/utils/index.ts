@@ -52,7 +52,6 @@ export const configJsonToUrlParam = (json: object) => {
   return 'config=' + encodeURI(string)
 }
 
-
 export const triggerIframeResize = () => {
   const appHeight = document.getElementById('q-app')!.scrollHeight
   const resizeMessage = {

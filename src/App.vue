@@ -18,9 +18,12 @@ const config = configStore.config
 
 configStore.getConfigFromUrl()
 router.push(`/${config.entities[0].type}`)
-baseStore.getActiveEntity(useRouter)
-// baseStore.activeEntityConfig =  config.entities.find(
-//   entity => entity.type === baseStore.activeEntity.substring(0, baseStore.activeEntity.length - 1)
+baseStore.init(router)
+
+// await baseStore.getActiveEntity(useRouter)
+// console.log('baseStore.activeEntity', baseStore.activeEntity)
+// baseStore.activeEntityConfig = config.entities.find(
+//   entity => entity.type === baseStore.activeEntity
 // )
 
 onMounted(async () => {
@@ -56,8 +59,8 @@ onMounted(async () => {
 // const $q = useQuasar()
 //
 // const myIcons = {
-//   'app:actor': 'img:/src/assets/svg/actor.svg',
-//   'app:event': 'img:/src/assets/svg/event.svg',
+//   'app:actor': 'img:/src/assets/svg/actors.svg',
+//   'app:event': 'img:/src/assets/svg/events.svg',
 // }
 //
 // // Example of adding support for

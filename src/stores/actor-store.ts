@@ -10,7 +10,6 @@ export const useActorStore = defineStore('actors', {
       actorLoading: false,
     }
   },
-  getters: {},
   actions: {
     async fetchActorList() {
       this.actorsLoading = true
