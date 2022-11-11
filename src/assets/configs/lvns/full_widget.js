@@ -32,12 +32,6 @@ export const config = {
       showListView: true
     },
     {
-      type: 'services',
-      showFilters: true,
-      showMapView: true,
-      showListView: true
-    },
-    {
       type: 'trades',
       showFilters: true,
       showMapView: true,
