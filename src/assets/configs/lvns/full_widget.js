@@ -5,7 +5,6 @@ export const config = {
     {
       type: 'actor',
       showFilters: true,
-      showMapView: true,
       showListView: true
     },
     {

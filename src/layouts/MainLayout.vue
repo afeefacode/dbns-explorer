@@ -20,17 +20,20 @@ import {ref} from "vue";
 import {useRouter} from 'vue-router'
 import {useConfigStore} from "src/stores/config-store";
 import EntitySelector from 'src/components/filters/EntitySelector.vue'
+import {useBaseStore} from "stores/base-store";
 
 const config = useConfigStore().config
 const router = useRouter()
-const path = router.currentRoute.value.fullPath.split('/')[1]
-const activeEntity = ref(path)
+useBaseStore().activeEntity = router.currentRoute.value.fullPath.split('/')[1]
+// todo: single source of truth - this should not be a ref but only handled in the base store
+const activeEntity = ref(router.currentRoute.value.fullPath.split('/')[1])
 
 const showEntitySelector = Object.keys(config.entities).length > 1
 
 const onEntityClick = (entityType: string) => {
   activeEntity.value = entityType + 's'
   router.push(`/${entityType}s`)
+  useBaseStore().activeEntity = entityType + 's'
 }
 </script>
 

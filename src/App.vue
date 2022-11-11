@@ -5,17 +5,23 @@
 <script setup lang="ts">
 import {onMounted} from 'vue'
 import {useRouter} from 'vue-router'
+
+import {useBaseStore} from "stores/base-store"
 import {useConfigStore} from 'stores/config-store'
-import {useActorStore} from "stores/actor-store";
+
 import {getSearchParameters, triggerIframeResize} from 'src/utils'
 
+const baseStore = useBaseStore()
 const configStore = useConfigStore()
-configStore.getConfigFromUrl()
+const router = useRouter()
 const config = configStore.config
-useRouter().push(`/${config.entities[0].type}s`)
 
-const actorStore = useActorStore()
-actorStore.fetchActorList()
+configStore.getConfigFromUrl()
+router.push(`/${config.entities[0].type}s`)
+baseStore.getActiveEntity(useRouter)
+// baseStore.activeEntityConfig =  config.entities.find(
+//   entity => entity.type === baseStore.activeEntity.substring(0, baseStore.activeEntity.length - 1)
+// )
 
 onMounted(async () => {
   window.addEventListener("message", event => {

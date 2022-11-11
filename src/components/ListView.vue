@@ -8,10 +8,11 @@
 <script async setup>
 import {useActorStore} from 'stores/actor-store'
 import EntityCard from 'components/EntityCard.vue'
-
-
-
-const entities = useActorStore().actors
+const activeEntity = 'actors'
+let entities = null
+switch (activeEntity) {
+  case 'actors':
+    entities = useActorStore().actors
+}
+// const entities = useActorStore()[activeEntity]
 </script>
-<style lang="scss" scoped>
-</style>

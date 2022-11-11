@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md items-start q-gutter-xs col-xs-12 col-md-6">
+  <div :class="`entity-card q-pa-md items-start q-gutter-xs col-12 ${entity.type === 'Event' ? '' : 'col-md-6'}`">
     <q-card class="list-card q-pl-md q-pb-md" bordered>
       <q-card-section horizontal>
         <q-card-section>
@@ -13,7 +13,6 @@
           </div>
           <q-space/>
           <DetailsButton :entity="entity"/>
-
         </q-card-section>
         <q-img
           v-if="entity.image_url"
@@ -36,12 +35,14 @@
           <q-separator/>
           <q-card-section class="list-card__short-info">
             <div v-if="entity.full_address">
-              <q-icon name="home"/> &nbsp;
-              {{ entity.full_address }}
+              <q-icon name="home" class="q-mr-sm"/>
+              <span>{{ entity.full_address }}</span>
             </div>
             <div v-if="entity.info_url">
-              <q-icon name="language"/> &nbsp;
-              <a :href="entity.info_url" target="_blank" :title="displayed.name">{{ displayed.info_url }}</a>
+              <q-icon name="language" class="q-mr-sm"/>
+              <span>
+                <a :href="entity.info_url" target="_blank" :title="displayed.name">{{ displayed.info_url }}</a>
+              </span>
             </div>
           </q-card-section>
         </div>

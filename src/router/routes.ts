@@ -24,7 +24,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '/events', component: () => import('pages/list/EventList.vue') }],
+    children: [{ path: '/events', component: () => import('pages/list/AbstractEntityList.vue') }],
   },
   {
     path: '/',
