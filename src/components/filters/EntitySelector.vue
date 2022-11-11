@@ -16,10 +16,10 @@
 </template>
 <script setup>
 import {defineProps, onUpdated, ref, onMounted} from 'vue'
-import {useConfigStore} from 'src/stores/config-store'
+import {useBaseStore} from 'src/stores/base-store'
 import {getGermanEntityName} from 'src/utils'
 
-const config = useConfigStore().config
+const config = useBaseStore().config
 
 const props = defineProps({
   entityType: {

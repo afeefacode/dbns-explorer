@@ -8,7 +8,6 @@
   ></q-btn>
 </template>
 <script setup>
-import {useConfigStore} from "src/stores/config-store";
-
-const config = useConfigStore().config
+import {useBaseStore} from "src/stores/base-store";
+const config = useBaseStore().config
 </script>

@@ -8,7 +8,7 @@
 <script setup>
 import {defineProps} from 'vue'
 import {useRouter} from 'vue-router'
-import {useConfigStore} from 'src/stores/config-store'
+import {useBaseStore} from 'src/stores/base-store'
 import {getGermanEntityName} from 'src/utils'
 
 const props = defineProps({
@@ -17,7 +17,7 @@ const props = defineProps({
     default: null
   }
 })
-const config = useConfigStore().config
+const config = useBaseStore().config
 const router = useRouter()
 
 const openDetailPage = () => {

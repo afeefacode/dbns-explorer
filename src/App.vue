@@ -7,24 +7,15 @@ import {onMounted} from 'vue'
 import {useRouter} from 'vue-router'
 
 import {useBaseStore} from "stores/base-store"
-import {useConfigStore} from 'stores/config-store'
-
 import {getSearchParameters, triggerIframeResize} from 'src/utils'
 
 const baseStore = useBaseStore()
-const configStore = useConfigStore()
 const router = useRouter()
-const config = configStore.config
+const config = baseStore.config
 
-configStore.getConfigFromUrl()
 router.push(`/${config.entities[0].type}`)
 baseStore.init(router)
 
-// await baseStore.getActiveEntity(useRouter)
-// console.log('baseStore.activeEntity', baseStore.activeEntity)
-// baseStore.activeEntityConfig = config.entities.find(
-//   entity => entity.type === baseStore.activeEntity
-// )
 
 onMounted(async () => {
   window.addEventListener("message", event => {
@@ -47,7 +38,7 @@ onMounted(async () => {
   window.parent.postMessage(mountedMessage, '*')
 
   document.documentElement.style
-    .setProperty('--primary', '#' + configStore.config.brandColor);
+    .setProperty('--primary', '#' + baseStore.config.brandColor);
 
   let qApp = document.getElementById('q-app')
   new ResizeObserver(triggerIframeResize).observe(qApp)

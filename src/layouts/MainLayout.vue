@@ -19,14 +19,13 @@
 import {ref} from "vue";
 import {useRouter} from 'vue-router'
 
-import {useBaseStore} from "stores/base-store";
-import {useConfigStore} from "src/stores/config-store";
+import {useBaseStore} from "src/stores/base-store";
 
 import EntitySelector from 'src/components/filters/EntitySelector.vue'
 
 const router = useRouter()
 const baseStore = useBaseStore()
-const config = useConfigStore().config
+const config = useBaseStore().config
 
 baseStore.activeEntity = router.currentRoute.value.fullPath.split('/')[1]
 // todo: single source of truth - this should not be a ref but only handled in the base store

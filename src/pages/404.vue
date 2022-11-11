@@ -6,7 +6,7 @@
   </q-page>
 </template>
 <script setup lang="ts">
-import {useConfigStore} from 'stores/config-store'
+import {useBaseStore} from 'stores/base-store'
 
-const config = useConfigStore().config
+const config = useBaseStore().config
 </script>

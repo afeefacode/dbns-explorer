@@ -16,9 +16,9 @@
 </template>
 <script setup>
 import {defineProps} from 'vue'
-import {useConfigStore} from "src/stores/config-store";
+import {useBaseStore} from "src/stores/base-store";
 
-const config = useConfigStore().config
+const config = useBaseStore().config
 const props = defineProps({
   activeView: {
     type: String,

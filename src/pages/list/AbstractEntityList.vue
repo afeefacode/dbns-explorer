@@ -14,7 +14,6 @@
 import {ref, onUpdated} from 'vue'
 
 import {useBaseStore} from 'stores/base-store'
-import {useConfigStore} from 'stores/config-store'
 import {useActorStore} from "stores/actor-store";
 
 import Filters from 'components/filters/Filters.vue';
@@ -23,7 +22,7 @@ import ListView from 'components/ListView.vue'
 import MapListToggle from 'components/MapListToggle.vue'
 
 const baseStore = useBaseStore()
-const config = useConfigStore().config
+const config = useBaseStore().config
 
 const entityStore = useActorStore()
 entityStore.fetchActorList()

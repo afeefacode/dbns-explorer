@@ -9,13 +9,13 @@
 
 <script setup lang="ts">
 import {useRoute} from 'vue-router'
-import {useConfigStore} from 'stores/config-store'
+import {useBaseStore} from 'stores/base-store'
 import {useActorStore} from 'stores/actor-store'
 import Filters from 'components/filters/Filters.vue';
 import MapView from 'components/map-view/MapView.vue';
 // import ListView from 'components/ListView.vue'
 
-const config = useConfigStore().config
+const config = useBaseStore().config
 
 const route = useRoute()
 const actorId = route.params.id
