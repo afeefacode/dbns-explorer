@@ -3,42 +3,42 @@ export const config = {
   contrastTextColor: 'FFFFFF',
   entities: [
     {
-      type: 'actor',
+      type: 'actors',
       showFilters: true,
       showListView: true
     },
     {
-      type: 'project',
-      showFilters: true,
-      showMapView: true,
-      showListView: true
-    },
-    {
-      type: 'event',
+      type: 'projects',
       showFilters: true,
       showMapView: true,
       showListView: true
     },
     {
-      type: 'education',
+      type: 'events',
       showFilters: true,
       showMapView: true,
       showListView: true
     },
     {
-      type: 'counseling',
+      type: 'educations',
       showFilters: true,
       showMapView: true,
       showListView: true
     },
     {
-      type: 'service',
+      type: 'counselings',
       showFilters: true,
       showMapView: true,
       showListView: true
     },
     {
-      type: 'trade',
+      type: 'services',
+      showFilters: true,
+      showMapView: true,
+      showListView: true
+    },
+    {
+      type: 'trades',
       showFilters: true,
       showMapView: true,
       showListView: true

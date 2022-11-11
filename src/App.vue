@@ -17,7 +17,7 @@ const router = useRouter()
 const config = configStore.config
 
 configStore.getConfigFromUrl()
-router.push(`/${config.entities[0].type}s`)
+router.push(`/${config.entities[0].type}`)
 baseStore.getActiveEntity(useRouter)
 // baseStore.activeEntityConfig =  config.entities.find(
 //   entity => entity.type === baseStore.activeEntity.substring(0, baseStore.activeEntity.length - 1)

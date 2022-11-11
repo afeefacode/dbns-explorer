@@ -3,7 +3,7 @@ export const config = {
   contrastTextColor: 'FFFFFF',
   entities: [
     {
-      type: 'event',
+      type: 'events',
       preFilter: {
         'actors': ['432'],
       },

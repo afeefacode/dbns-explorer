@@ -6,7 +6,7 @@
         v-for="entity in config.entities"
         :entity-type="entity.type"
         :active="entity.type + 's' === activeEntity"
-        @entity-click="onEntityClick(entity.type)"
+        @entity-click="onEntityClick(entity.type+'s')"
       />
     </div>
     <q-page-container class="page-container">
@@ -31,9 +31,9 @@ const activeEntity = ref(router.currentRoute.value.fullPath.split('/')[1])
 const showEntitySelector = Object.keys(config.entities).length > 1
 
 const onEntityClick = (entityType: string) => {
-  activeEntity.value = entityType + 's'
-  router.push(`/${entityType}s`)
-  useBaseStore().activeEntity = entityType + 's'
+  activeEntity.value = entityType
+  router.push(`/${entityType}`)
+  useBaseStore().activeEntity = entityType
 }
 </script>
 
