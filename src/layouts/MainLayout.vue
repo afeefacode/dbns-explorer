@@ -5,8 +5,8 @@
         v-if="showEntitySelector"
         v-for="entity in config.entities"
         :entity-type="entity.type"
-        :active="entity.type + 's' === activeEntity"
-        @entity-click="onEntityClick(entity.type+'s')"
+        :active="entity.type === activeEntity"
+        @entity-click="onEntityClick(entity.type)"
       />
     </div>
     <q-page-container class="page-container">

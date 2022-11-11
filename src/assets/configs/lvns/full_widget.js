@@ -5,7 +5,8 @@ export const config = {
     {
       type: 'actors',
       showFilters: true,
-      showListView: true
+      showListView: true,
+      showMapView: true
     },
     {
       type: 'projects',

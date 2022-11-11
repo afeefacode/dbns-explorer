@@ -12,6 +12,7 @@ export const useActorStore = defineStore('actors', {
   },
   actions: {
     async fetchActorList() {
+      console.log('fetching')
       this.actorsLoading = true
       try {
         this.actors = await fetchActorList()

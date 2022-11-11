@@ -1,13 +1,13 @@
 <template>
   <q-page class="q-mb-xl">
-    <Filters v-if="entityConfig.showFilters"/>
+    <Filters v-if="baseStore.entityConfig.showFilters"/>
     <MapListToggle
       @view-toggled="viewToggled"
       :active-view="activeView"
-      v-if="entityConfig.showListView && entityConfig.showMapView"
+      v-if="baseStore.entityConfig.showListView && baseStore.entityConfig.showMapView"
     />
-    <MapView v-if="entityConfig.showMapView && activeView === 'map'"/>
-    <ListView v-if="entityConfig.showListView && activeView === 'list'"/>
+    <MapView v-if="baseStore.entityConfig.showMapView && activeView === 'map'"/>
+    <ListView v-if="baseStore.entityConfig.showListView && activeView === 'list'"/>
   </q-page>
 </template>
 <script setup lang="ts">
@@ -25,24 +25,22 @@ import MapListToggle from 'components/MapListToggle.vue'
 const baseStore = useBaseStore()
 const config = useConfigStore().config
 
-let entityConfig = baseStore.entityConfig
+const entityStore = useActorStore()
+entityStore.fetchActorList()
 
-const actorStore = useActorStore()
-actorStore.fetchActorList()
-
-
-onUpdated(() => {
-  console.log('update')
-  entityConfig = config.entities.find(
-    entity => entity.type === baseStore.activeEntity.substring(0, baseStore.activeEntity.length - 1)
-  )
-})
-
-const activeView = entityConfig!.showMapView
+const activeView = baseStore.entityConfig.showMapView
   ? ref('map')
   : ref('list')
 
 const viewToggled = (newView: string) => {
   activeView.value = newView
 }
+
+onUpdated(() => {
+  console.log('update')
+  // entityConfig = config.entities.find(
+  //   entity => entity.type === baseStore.activeEntity.substring(0, baseStore.activeEntity.length - 1)
+  // )
+})
+
 </script>
