@@ -12,20 +12,20 @@
 </template>
 <script setup lang="ts">
 import {ref, onUpdated} from 'vue'
-
 import {useBaseStore} from 'stores/base-store'
-import {useActorStore} from "stores/actor-store";
-
+import {useEntityStore} from "stores/entity-store";
 import Filters from 'components/filters/Filters.vue';
 import MapView from 'components/map-view/MapView.vue';
 import ListView from 'components/ListView.vue'
 import MapListToggle from 'components/MapListToggle.vue'
+import {request} from 'src/api/requestBodies'
 
 const baseStore = useBaseStore()
 const config = useBaseStore().config
 
-const entityStore = useActorStore()
-entityStore.fetchActorList()
+const entityStore = useEntityStore()
+//@ts-ignore
+entityStore.fetchEntityList(request[baseStore.activeEntity].list)
 
 const activeView = baseStore.entityConfig.showMapView
   ? ref('map')
@@ -36,10 +36,8 @@ const viewToggled = (newView: string) => {
 }
 
 onUpdated(() => {
-  console.log('update')
-  // entityConfig = config.entities.find(
-  //   entity => entity.type === baseStore.activeEntity.substring(0, baseStore.activeEntity.length - 1)
-  // )
+  //@ts-ignore
+  entityStore.fetchEntityList(request[baseStore.activeEntity].list)
 })
 
 </script>
