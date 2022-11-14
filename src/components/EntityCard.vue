@@ -3,7 +3,7 @@
     <q-card class="list-card q-pl-md q-pb-md" bordered>
       <q-card-section horizontal>
         <q-card-section>
-          <div class="text-overline" :style="'color: '+ displayed.color">{{ displayed.type }}</div>
+          <div class="text-overline">{{ displayed.type }}</div>
           <div v-if="entity.type === 'Event'">{{ displayed.start_at }}</div>
           <div class="text-h5 q-mt-sm q-mb-xs">
             {{ displayed.name }}
@@ -62,29 +62,25 @@ const props = defineProps({
 const shortenStringTo = (characters, string) => string.length > characters ? string.slice(0, characters - 4) + ' ...' : string
 
 let displayed = {}
-displayed.name = shortenStringTo(50, props.entity.name)
-displayed.short_description = shortenStringTo(100, props.entity.short_description)
-displayed.info_url = shortenStringTo(60, props.entity.info_url)
+displayed.title = props.entity.title ? shortenStringTo(50, props.entity.title) : ''
+displayed.description = props.entity.description ? shortenStringTo(100, props.entity.description) : ''
+displayed.info_url = props.entity.info_url ? shortenStringTo(60, props.entity.info_url) : ''
 
 switch (props.entity.type) {
-  case 'Actor':
+  case 'NLS.Actor':
     displayed.type = 'Akteur'
-    displayed.color = '#457039'
     break;
 
-  case 'Project':
+  case 'NLS.Project':
     displayed.type = 'Projekt'
-    displayed.color = '#DB9D37'
     break;
 
-  case 'Service':
+  case 'NLS.Service':
     displayed.type = 'Service'
-    displayed.color = '#5fa93d'
     break;
 
-  case 'Event':
+  case 'NLS.Event':
     displayed.type = 'Veranstaltung'
-    displayed.color = '#9b3041'
     let startAt = new Date(props.entity.start_at)
     const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
     displayed.start_at = startAt.toLocaleDateString('de-DE', options)
@@ -92,7 +88,6 @@ switch (props.entity.type) {
 
   default:
     displayed.type = 'Angebot'
-    displayed.color = '#5fa93d'
     break;
 }
 

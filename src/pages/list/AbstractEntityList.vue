@@ -6,16 +6,21 @@
       :active-view="activeView"
       v-if="baseStore.entityConfig.showListView && baseStore.entityConfig.showMapView"
     />
-    <MapView v-if="baseStore.entityConfig.showMapView && activeView === 'map'"/>
-    <ListView v-if="baseStore.entityConfig.showListView && activeView === 'list'"/>
+    <div v-if="entityStore.entityList">
+      <MapView v-if="baseStore.entityConfig.showMapView && activeView === 'map'"/>
+      <ListView v-if="baseStore.entityConfig.showListView && activeView === 'list'"/>
+    </div>
+    <div v-else>
+    <!-- Skeleton loader -->
+    </div>
   </q-page>
 </template>
 <script setup lang="ts">
 import {ref, onUpdated} from 'vue'
 import {useBaseStore} from 'stores/base-store'
-import {useEntityStore} from "stores/entity-store";
-import Filters from 'components/filters/Filters.vue';
-import MapView from 'components/map-view/MapView.vue';
+import {useEntityStore} from "stores/entity-store"
+import Filters from 'components/filters/Filters.vue'
+import MapView from 'components/map-view/MapView.vue'
 import ListView from 'components/ListView.vue'
 import MapListToggle from 'components/MapListToggle.vue'
 import {request} from 'src/api/requestBodies'

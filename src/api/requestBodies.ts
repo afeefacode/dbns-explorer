@@ -49,4 +49,16 @@ export const request = {
     },
     details: {}
   },
+  categories: {
+    list: {
+      "resource": "NLS.CategoryResource",
+      "action": "list",
+      "fields": {
+        "title": true,
+        "description": true,
+        "sub_categories": true,
+      }
+    }
+  }
+
 }
