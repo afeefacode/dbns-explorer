@@ -5,9 +5,9 @@
 import maplibregl from 'maplibre-gl'
 import {onMounted, defineEmits, ref} from 'vue'
 import pngMarkerActor from 'assets/markers/marker-actors.png'
-import {useActorStore} from 'stores/actor-store'
+// import {useActorStore} from 'stores/actor-store'
 
-const actor = useActorStore().actor
+// const actor = useActorStore().actor
 onMounted(async () => {
 
   const map = new maplibregl.Map({
