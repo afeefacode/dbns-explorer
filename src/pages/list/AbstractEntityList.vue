@@ -23,14 +23,14 @@ import Filters from 'components/filters/Filters.vue'
 import MapView from 'components/map-view/MapView.vue'
 import ListView from 'components/ListView.vue'
 import MapListToggle from 'components/MapListToggle.vue'
-import {request} from 'src/api/requestBodies'
+import {entityRequests} from 'src/api/entityRequests'
 
 const baseStore = useBaseStore()
 const config = useBaseStore().config
 
 const entityStore = useEntityStore()
 //@ts-ignore
-entityStore.fetchEntityList(request[baseStore.activeEntity].list)
+entityStore.fetchEntityList(entityRequests[baseStore.activeEntity].list)
 
 const activeView = baseStore.entityConfig.showMapView
   ? ref('map')
@@ -42,7 +42,7 @@ const viewToggled = (newView: string) => {
 
 onUpdated(() => {
   //@ts-ignore
-  entityStore.fetchEntityList(request[baseStore.activeEntity].list)
+  entityStore.fetchEntityList(entityRequests[baseStore.activeEntity].list)
 })
 
 </script>
