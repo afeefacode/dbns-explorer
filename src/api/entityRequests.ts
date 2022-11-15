@@ -39,7 +39,14 @@ getOfferList().forEach(({key, id}) => {
         "offer_type_id": id
       },
     },
-    details: {}
+    details: {
+      "resource": "NLS.OfferResource",
+      "action": "get",
+      "fields": {...offerFields},
+      "filters": {
+        "offer_type_id": id
+      },
+    }
   }
 })
 

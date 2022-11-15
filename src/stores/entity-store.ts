@@ -24,7 +24,7 @@ export const useEntityStore = defineStore('entities', {
     async fetchEntityDetails(requestBody: object, id: number) {
       this.entityDetailLoading = true
       try {
-        this.entityDetail = await fetchEntityDetails(requestBody)
+        this.entityDetail = await fetchEntityDetails(requestBody, id)
       } catch (e) {
         console.error(e)
         return e
