@@ -180,7 +180,7 @@ const mockActivities = [{
   "trade_types": []
 }, {
   "id": 3786,
-  "type": "Actor",
+  "type": "Event",
   "user_id": 342,
   "short_description": "Was ist M\u00fcll? Wie entsteht er? Warum gibt es so viel davon? M\u00fcll ist nicht gleich M\u00fcll!",
   "service_type": "Bildungsangebot",

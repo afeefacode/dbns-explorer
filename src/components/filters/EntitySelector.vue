@@ -10,15 +10,16 @@
       <q-icon :name="`img:/src/assets/svg/${entityType}.svg`"/>
     </div>
     <div class="entity-selector__text">
-      {{ displayedNames[entityType].plural }}
+      {{ getGermanEntityName(entityType, 'plural') }}
     </div>
   </div>
 </template>
 <script setup>
 import {defineProps, onUpdated, ref, onMounted} from 'vue'
-import {useConfigStore} from 'src/stores/config-store'
+import {useBaseStore} from 'src/stores/base-store'
+import {getGermanEntityName} from 'src/utils'
 
-const config = useConfigStore().config
+const config = useBaseStore().config
 
 const props = defineProps({
   entityType: {
@@ -35,7 +36,7 @@ const entitySelectorIcon = ref(null)
 
 const setBackgroundColor = () => {
   if (props.active) {
-    entitySelectorIcon.value.style.backgroundColor = config.brandColor
+    entitySelectorIcon.value.style.backgroundColor = '#' + config.brandColor
   } else {
     entitySelectorIcon.value.style.backgroundColor = '#D9D9D9'
   }
@@ -44,36 +45,6 @@ const setBackgroundColor = () => {
 onMounted(setBackgroundColor)
 onUpdated(setBackgroundColor)
 
-const displayedNames = {
-  actor: {
-    singular: 'Akteur',
-    plural: 'Akteure'
-  },
-  project: {
-    singular: 'Projekt',
-    plural: 'Projekte'
-  },
-  event: {
-    singular: 'Veranstaltung',
-    plural: 'Veranstaltungen'
-  },
-  job: {
-    singular: 'Job',
-    plural: 'Jobs'
-  },
-  education: {
-    singular: 'Bildungsangebot',
-    plural: 'Bildung'
-  },
-  consultation: {
-    singular: 'Beratungsangebot',
-    plural: 'Beratung'
-  },
-  trade: {
-    singular: 'Shop',
-    plural: 'Fairer Handel'
-  },
-}
 </script>
 
 <style lang="scss" scoped>

@@ -1,15 +1,15 @@
 <template>
-  <q-btn :style="`background: ${config.brandColor}; color: ${config.brandTextColor}`"
-         :icon="`img:/src/assets/svg/${entity.type}.svg`"
-         :label="`${getGermanEntityName(entity.type, 'singular')} anzeigen`"
+  <q-btn :style="`background: #${config.brandColor}; color: #${config.contrastTextColor}`"
+         :icon="`img:/src/assets/svg/${entityType}s.svg`"
+         :label="`${getGermanEntityName(entityType, 'singular')} anzeigen`"
          @click="openDetailPage"
   />
 </template>
 <script setup>
 import {defineProps} from 'vue'
 import {useRouter} from 'vue-router'
-import {useConfigStore} from 'src/stores/config-store'
-import {getGermanEntityName} from 'src/utils'
+import {useBaseStore} from 'src/stores/base-store'
+import {getGermanEntityName, getTypeFromEntity} from 'src/utils'
 
 const props = defineProps({
   entity: {
@@ -17,11 +17,11 @@ const props = defineProps({
     default: null
   }
 })
-const config = useConfigStore().config
+const config = useBaseStore().config
 const router = useRouter()
+const entityType = getTypeFromEntity(props.entity)
 
 const openDetailPage = () => {
-  router.push(`/${props.entity.type.toLowerCase()}s/${props.entity.id}`)
+  router.push(`/${entityType}s/${props.entity.id}`)
 }
-
 </script>

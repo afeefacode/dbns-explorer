@@ -4,17 +4,17 @@
 <script setup>
 import maplibregl from 'maplibre-gl'
 import {onMounted, defineEmits, ref} from 'vue'
-import pngMarkerActor from 'assets/markers/marker-actor.png'
-import {useActorStore} from 'stores/actor-store'
-import {useConfigStore} from "stores/config-store";
+import pngMarkerActor from 'assets/markers/marker-actors.png'
+// import {useActorStore} from 'stores/actor-store'
+import {useBaseStore} from "stores/base-store";
 // import markerActorDOM from 'assets/markers/marker-actor'
-// import markerActorSvg from 'assets/markers/marker-actor.svg'
+// import markerActorSvg from 'assets/markers/marker-actors.svg'
 
 const entityType = 'actors'
 
 const entities = useActorStore()[entityType]
 const emit = defineEmits(['openDetails', 'closeDetails'])
-const config = useConfigStore().config
+const config = useBaseStore().config
 
 onMounted(async () => {
   const activeMarker = ref(null)

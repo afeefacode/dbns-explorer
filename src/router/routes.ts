@@ -1,37 +1,33 @@
-import { RouteRecordRaw } from 'vue-router';
+import {RouteRecordRaw} from 'vue-router';
+import {getEntityList} from 'src/utils'
+
+const entityRoutes: RouteRecordRaw[] = []
+
+getEntityList().forEach(entityName => {
+  entityRoutes.push({
+    path: '/',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{path: `/${entityName}s`, component: () => import('pages/list/AbstractEntityList.vue')}],
+  })
+  entityRoutes.push({
+    path: '/',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{path: `/${entityName}s/:id`, component: () => import(`pages/detail/AbstractEntityDetail.vue`)}],
+  })
+})
 
 const routes: RouteRecordRaw[] = [
+    ...entityRoutes,
   {
     path: '/',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/list/ActorList.vue') }],
-  },
-  {
-    path: '/',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '/actors', component: () => import('pages/list/ActorList.vue') }],
-  },
-  {
-    path: '/',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '/actors/:id', component: () => import('pages/detail/ActorDetail.vue') }],
-  },
-  {
-    path: '/',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '/projects', component: () => import('pages/list/ProjectList.vue') }],
-  },
-  {
-    path: '/',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '/projects/:id', component: () => import('pages/detail/ProjectDetail.vue') }],
+    children: [{path: '/configurator', component: () => import('pages/Configurator.vue')}],
   },
   // Always leave this as last one,
   // but you can also remove it
   {
     path: '/:catchAll(.*)*',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/404.vue') }],
+    children: [{path: '', component: () => import('pages/404.vue')}],
 
   },
 ];

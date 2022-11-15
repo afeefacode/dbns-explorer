@@ -12,12 +12,12 @@
 </template>
 
 <script setup lang="ts">
-// import {useConfigStore} from 'src/stores/config-store'
+// import {useBaseStore} from 'src/stores/base-store'
 import OrgTypeFilter from 'components/filters/OrgTypeFilter.vue';
 import CategoryFilter from 'components/filters/CategoryFilter.vue';
 import RegionFilter from 'components/filters/RegionFilter.vue';
 import EntitySearch from 'components/filters/EntitySearch.vue';
-// const config = useConfigStore().config
+// const config = useBaseStore().config
 
 
 </script>

@@ -1,15 +1,16 @@
 <template>
   <div class="list-view">
     <div class="row">
-      <EntityCard v-for="entity in entities" :entity="entity"/>
+      <EntityCard v-for="entity in entityList?.data" :entity="entity" :key="entity.id"/>
     </div>
   </div>
 </template>
 <script async setup>
-import {useActorStore} from 'stores/actor-store'
+import {storeToRefs} from 'pinia'
+import {useEntityStore} from 'stores/entity-store'
 import EntityCard from 'components/EntityCard.vue'
 
-const entities = useActorStore().actors
+const entityStore = useEntityStore()
+const {entityList} = storeToRefs(entityStore)
 </script>
-<style lang="scss" scoped>
-</style>
+

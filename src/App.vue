@@ -4,42 +4,45 @@
 
 <script setup lang="ts">
 import {onMounted} from 'vue'
-import {useConfigStore} from 'stores/config-store'
-import {useActorStore} from "stores/actor-store";
-import {getSearchParameters} from 'src/utils'
+import {useRouter} from 'vue-router'
 
-const actorStore = useActorStore()
-actorStore.fetchActorList()
+import {useBaseStore} from "stores/base-store"
+import {getSearchParameters, triggerIframeResize} from 'src/utils'
 
-const configStore = useConfigStore()
+const baseStore = useBaseStore()
+const router = useRouter()
+const config = baseStore.config
+
+// if (window.location.hash === '#/') {
+  router.push(`/${config.entities[0].type}`)
+// }
+baseStore.init(router)
 
 onMounted(async () => {
-  // await configStore.getConfig()
-
   window.addEventListener("message", event => {
     switch (event.data.type) {
+
       case "app_mounted_acknowledged":
         const paramString = event.data.payload.substring(1)
         const params = getSearchParameters(paramString);
-        console.log('params', params)
         break;
 
       default:
         break;
     }
-
   })
 
   const mountedMessage = {
     type: "app_mounted",
     payload: null
   }
-
   window.parent.postMessage(mountedMessage, '*')
 
-
   document.documentElement.style
-    .setProperty('--primary', configStore.config.brandColor);
+    .setProperty('--primary', '#' + baseStore.config.brandColor);
+
+  let qApp = document.getElementById('q-app')
+  new ResizeObserver(triggerIframeResize).observe(qApp)
 })
 
 
@@ -48,8 +51,8 @@ onMounted(async () => {
 // const $q = useQuasar()
 //
 // const myIcons = {
-//   'app:actor': 'img:/src/assets/svg/actor.svg',
-//   'app:event': 'img:/src/assets/svg/event.svg',
+//   'app:actor': 'img:/src/assets/svg/actors.svg',
+//   'app:event': 'img:/src/assets/svg/events.svg',
 // }
 //
 // // Example of adding support for

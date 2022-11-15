@@ -18,15 +18,15 @@
         {{ displayed.description }}
       </div>
       <div class="q-mb-md">
-        <div class="row" v-if="entity.full_address">
+        <div v-if="entity.full_address">
           <q-icon name="home" class="q-mr-sm"/>
-          {{ entity.full_address }}
+          <span>{{ entity.full_address }}</span>
         </div>
-        <div class="row" v-if="entity.info_url">
-          <q-icon name="language" class="q-mr-sm"/> &nbsp;
-          <div>
-            <a :href="entity.info_url" target="_blank" :title="displayed.name">{{ displayed.info_url }}</a>
-          </div>
+        <div v-if="entity.info_url">
+          <q-icon name="language" class="q-mr-sm"/>
+          <span>
+                <a :href="entity.info_url" target="_blank" :title="displayed.name">{{ displayed.info_url }}</a>
+              </span>
         </div>
       </div>
       <DetailsButton :entity="entity"/>

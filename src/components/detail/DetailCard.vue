@@ -1,9 +1,9 @@
 <template>
   <q-card class="detail-card">
-    <div class="text-overline">Akteur</div>
+    <div class="text-overline">{{ getGermanEntityName(getTypeFromEntity(entity), 'singular') }}</div>
     <div class="row">
       <div class="detail-card__text col-12 col-sm-7">
-        <h1 class="text-h4">{{ actor.name }}</h1>
+        <h1 class="text-h4">{{ entity.title }}</h1>
         <div class="row" v-for="detail in details">
           <div class="col-1">
             <q-icon :name="detail.icon"></q-icon>
@@ -13,28 +13,36 @@
       </div>
       <div
         class="detail-card__logo col-12 col-sm-5"
-        :style="`background-image: url('${actor.organization_logo_url}')`"
+        :style="`background-image: url('${entity.info_url}')`"
       />
     </div>
   </q-card>
 </template>
 <script setup>
-import {useActorStore} from 'stores/actor-store'
-const actor = useActorStore().actor
+import {defineProps} from "vue";
+// import {useEntityStore} from 'stores/entity-store'
+// const entity = useEntityStore().entityDetail
+import {getTypeFromEntity, getGermanEntityName} from "src/utils";
+
+const props = defineProps({
+  entity: {
+    type: Object
+  }
+})
 
 const details = [
-  {icon: 'home', content: actor.full_address},
+  // {icon: 'home', content: entity.full_address},
   {
     icon: 'language',
-    content: `<a href="${actor.organization_url}">${actor.organization_url}</a>`
+    content: `<a href="${props.entity.info_url}" target="_blank">${props.entity.info_url}</a>`
   },
-  {icon: 'phone', content: actor.phone_primary},
-  {
-    icon: 'mail_outline',
-    content: `<a href="mailto:${actor.email}">${actor.email}</a>`
-
-  },
-  {icon: 'person', content: actor.full_address},
+  // {icon: 'phone', content: entity.phone_primary},
+  // {
+  //   icon: 'mail_outline',
+  //   content: `<a href="mailto:${entity.email}">${entity.email}</a>`
+  //
+  // },
+  // {icon: 'person', content: entity.full_address},
 ]
 </script>
 <style lang="scss" scoped>
@@ -42,6 +50,7 @@ const details = [
   background: #f8f8f8;
   box-shadow: none;
   padding: 2em;
+  border-radius: 10px;
 
   &__text {
     .row {
