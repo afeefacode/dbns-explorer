@@ -1,18 +1,14 @@
 <template>
   <q-page class="q-mb-xl">
-    <Filters v-if="baseStore.entityConfig.showFilters"/>
-    <MapListToggle
-      @view-toggled="viewToggled"
-      :active-view="activeView"
-      v-if="baseStore.entityConfig.showListView && baseStore.entityConfig.showMapView"
-    />
-    <div v-if="entityStore.entityList">
-      <MapView v-if="baseStore.entityConfig.showMapView && activeView === 'map'"/>
-      <ListView v-if="baseStore.entityConfig.showListView && activeView === 'list'"/>
-    </div>
-    <div v-else>
-    <!-- Skeleton loader -->
-    </div>
+<!--    <Filters v-if="baseStore.entityConfig.showFilters"/>-->
+<!--    <MapListToggle-->
+<!--      @view-toggled="viewToggled"-->
+<!--      :active-view="activeView"-->
+<!--      v-if="baseStore.entityConfig.showListView && baseStore.entityConfig.showMapView"-->
+<!--    />-->
+<!--    <MapView v-if="baseStore.entityConfig.showMapView && activeView === 'map'"/>-->
+<!--    <ListView v-if="baseStore.entityConfig.showListView && activeView === 'list'"/>-->
+    <ListView />
   </q-page>
 </template>
 <script setup lang="ts">
@@ -43,6 +39,15 @@ const viewToggled = (newView: string) => {
 onUpdated(() => {
   //@ts-ignore
   entityStore.fetchEntityList(entityRequests[baseStore.activeEntity].list)
+
+  // the 2 statements below handle the edge case when navigation from an
+  // entity on listView to an entity with ONLY mapView (and vice versa)
+  if(!baseStore.entityConfig.showMapView && activeView.value === 'map') {
+    activeView.value = 'list'
+  }
+  if(!baseStore.entityConfig.showListView && activeView.value === 'list') {
+    activeView.value = 'map'
+  }
 })
 
 </script>

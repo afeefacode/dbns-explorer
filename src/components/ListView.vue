@@ -1,7 +1,7 @@
 <template>
   <div class="list-view">
     <div class="row">
-      <EntityCard v-for="entity in entityList.data" :entity="entity" :key="entity.id"/>
+      <EntityCard v-for="entity in entityList?.data" :entity="entity" :key="entity.id"/>
     </div>
   </div>
 </template>

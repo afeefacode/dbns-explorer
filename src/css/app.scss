@@ -19,6 +19,10 @@ a {
   color: $brand;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 div {
   outline: 0px #999 dashed;
 }

@@ -4,9 +4,9 @@ import {fetchEntityDetails, fetchEntityList} from "src/api/entities";
 export const useEntityStore = defineStore('entities', {
   state: () => {
     return {
-      entityList: null,
+      entityList: [],
       entityListLoading: false,
-      entityDetail: null,
+      entityDetail: {},
       entityDetailLoading: false,
     }
   },
@@ -21,7 +21,7 @@ export const useEntityStore = defineStore('entities', {
       }
       this.entityListLoading = false
     },
-    async fetchEntityDetails(requestBody: object) {
+    async fetchEntityDetails(requestBody: object, id: number) {
       this.entityDetailLoading = true
       try {
         this.entityDetail = await fetchEntityDetails(requestBody)

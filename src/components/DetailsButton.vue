@@ -22,6 +22,6 @@ const router = useRouter()
 const entityType = getTypeFromEntity(props.entity)
 
 const openDetailPage = () => {
-  router.push(`/${props.entity.type.toLowerCase()}s/${props.entity.id}`)
+  router.push(`/${entityType}s/${props.entity.id}`)
 }
 </script>

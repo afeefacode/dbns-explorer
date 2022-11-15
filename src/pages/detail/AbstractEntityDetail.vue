@@ -3,50 +3,70 @@
     <q-spinner
       color="primary"
       size="3em"
-      v-if="actorLoading"
+      v-if="entityDetailLoading"
     />
     <div v-else>
       <BackButton class="q-mb-md"/>
-      <DetailCard class="q-mb-xl"/>
+      <DetailCard :entity="entityDetail" class="q-mb-xl"/>
       <div class="q-px-lg">
-        <h1 class="text-h4">{{ actor.name }}</h1>
-        <div class="q-mb-xl">
-          {{ actor.description }}
+        <h1 class="text-h4">{{ entityDetail.title }}</h1>
+        <div class="q-mb-xl" style="white-space: pre-line">
+          {{ entityDetail.description }}
         </div>
-        <DetailMap class="q-mb-xl"/>
+        <!--        <DetailMap class="q-mb-xl"/>-->
 
-        <div class="q-mb-xl">
-          <h2 class="text-h5">Projekte des Akteurs</h2>
-          <router-link to="/">Alle Projekte des Akteurs anzeigen</router-link>
+        <div v-if="entityType === 'actor'">
+          <div class="q-mb-xl">
+            <h2 class="text-h5">Projekte des Akteurs</h2>
+            <router-link to="/">Alle Projekte des Akteurs anzeigen</router-link>
 
-          <h2 class="text-h5">Veranstaltungen des Akteurs</h2>
-          <router-link to="/">Alle Veranstaltungen des Akteurs anzeigen</router-link>
+            <h2 class="text-h5">Veranstaltungen des Akteurs</h2>
+            <router-link to="/">Alle Veranstaltungen des Akteurs anzeigen</router-link>
+          </div>
         </div>
         <q-separator/>
-        <h2 class="text-h5">Ähnliche Akteure</h2>
-
+        <h2 class="text-h5">Ähnliche {{ getGermanEntityName(entityType, 'plural') }}</h2>
+        <ListView/>
       </div>
     </div>
   </q-page>
 </template>
 
 <script setup lang="ts">
+import {onUpdated, ref} from 'vue'
 import {useRoute} from 'vue-router'
 import {storeToRefs} from 'pinia'
-import {useActorStore} from 'stores/actor-store'
 import BackButton from 'components/detail/BackButton.vue'
 import DetailCard from 'components/detail/DetailCard.vue'
 import DetailMap from 'components/detail/DetailMap.vue'
+import ListView from 'components/ListView.vue'
+import {useBaseStore} from "stores/base-store";
+import {useEntityStore} from "stores/entity-store";
+import {entityRequests} from "src/api/entityRequests";
+import {getTypeFromEntity, getGermanEntityName} from "src/utils";
 
 const route = useRoute()
-const actorId = route.params.id
+const entityId = route.params.id
 
-// @todo edge-case, wenn falsche id in url aufgerufen wird
+const config = useBaseStore().config
+const entityStore = useEntityStore()
 
-const actorStore = useActorStore()
-actorStore.fetchActorDetails(actorId)
+entityStore.entityDetail = entityStore.entityList.data.find(
+  (entity: any) => entity.id === entityId
+)
 
-const {actorLoading, actor} = storeToRefs(actorStore)
+const {entityDetailLoading, entityDetail} = storeToRefs(entityStore)
+const entityType = getTypeFromEntity(entityDetail.value)
+
+//@ts-ignore
+// entityStore.fetchEntityDetails(entityRequests[baseStore.activeEntity].list, entityId)
+
+onUpdated(() => {
+  console.log('updated')
+  entityStore.entityDetail = entityStore.entityList.data.find(
+    (entity: any) => entity.id === route.params.id
+  )
+})
 </script>
 
 <style lang="scss" scoped>
