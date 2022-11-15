@@ -74,3 +74,19 @@ export const getOfferList = () => {
     {key: 'store', id: 5},
   ]
 }
+
+export const getTypeFromEntity = (entity: any) => {
+  let entityType = ''
+  switch (entity.type) {
+    case 'NLS.Actor':
+      entityType = 'actor'
+      break;
+    case 'NLS.Offer':
+      entityType = entity.offer_type.key
+      break;
+    default:
+      entityType = 'offer'
+  }
+  return entityType
+}
+

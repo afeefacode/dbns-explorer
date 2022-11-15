@@ -33,7 +33,7 @@ export const config = {
       showListView: true
     },
     {
-      type: 'trades',
+      type: 'stores',
       showFilters: true,
       showMapView: true,
       showListView: true

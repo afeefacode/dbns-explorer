@@ -14,8 +14,7 @@ export const useEntityStore = defineStore('entities', {
     async fetchEntityList(requestBody: object) {
       this.entityListLoading = true
       try {
-        const response = await fetchEntityList(requestBody)
-        this.entityList = response
+        this.entityList = await fetchEntityList(requestBody)
       } catch (e) {
         console.error(e)
         return e

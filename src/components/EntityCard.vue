@@ -1,12 +1,12 @@
 <template>
   <div :class="`entity-card q-pa-md items-start q-gutter-xs col-12 ${entity.type === 'Event' ? '' : 'col-md-6'}`">
-    <q-card class="list-card q-pl-md q-pb-md" bordered>
+    <q-card v-if="!entityStore.entityListLoading" class="list-card q-pl-md q-pb-md" bordered>
       <q-card-section horizontal>
         <q-card-section>
           <div class="text-overline">{{ displayed.type }}</div>
           <div v-if="entity.type === 'Event'">{{ displayed.start_at }}</div>
           <div class="text-h5 q-mt-sm q-mb-xs">
-            {{ displayed.name }}
+            {{ displayed.title }}
           </div>
           <div label="test" class="text-grey list-card__short-description q-pr-md q-mb-sm">
             {{ displayed.short_description }}
@@ -48,11 +48,27 @@
         </div>
       </q-slide-transition>
     </q-card>
+    <q-card v-else class="list-card q-pa-xl">
+      <div class="row">
+        <q-skeleton type="text" class="col-1"/>
+      </div>
+      <div class="row">
+        <q-skeleton type="text" class="col-6"/>
+      </div>
+      <div class="row" style="height: 90px">
+        <q-skeleton type="text" class="col-8"/>
+      </div>
+      <q-skeleton type="QBtn"/>
+    </q-card>
   </div>
 </template>
 <script setup>
 import {ref, defineProps} from 'vue'
 import DetailsButton from './DetailsButton.vue'
+import {useEntityStore} from 'src/stores/entity-store'
+import {getGermanEntityName, getTypeFromEntity} from "src/utils";
+
+const entityStore = useEntityStore()
 
 const props = defineProps({
   entity: {
@@ -62,7 +78,7 @@ const props = defineProps({
 const shortenStringTo = (characters, string) => string.length > characters ? string.slice(0, characters - 4) + ' ...' : string
 
 let displayed = {}
-displayed.title = props.entity.title ? shortenStringTo(50, props.entity.title) : ''
+displayed.title = props.entity.title ? shortenStringTo(150, props.entity.title) : ''
 displayed.description = props.entity.description ? shortenStringTo(100, props.entity.description) : ''
 displayed.info_url = props.entity.info_url ? shortenStringTo(60, props.entity.info_url) : ''
 
@@ -73,10 +89,6 @@ switch (props.entity.type) {
 
   case 'NLS.Project':
     displayed.type = 'Projekt'
-    break;
-
-  case 'NLS.Service':
-    displayed.type = 'Service'
     break;
 
   case 'NLS.Event':
@@ -90,6 +102,8 @@ switch (props.entity.type) {
     displayed.type = 'Angebot'
     break;
 }
+
+displayed.type = getGermanEntityName(getTypeFromEntity(props.entity), 'singular')
 
 const expanded = ref(false)
 </script>
