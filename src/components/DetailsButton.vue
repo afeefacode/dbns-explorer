@@ -1,6 +1,6 @@
 <template>
   <q-btn :style="`background: #${config.brandColor}; color: #${config.contrastTextColor}`"
-         :icon="`img:/src/assets/svg/${entityType}s.svg`"
+         :icon="`app:${entityType}s`"
          :label="`${getGermanEntityName(entityType, 'singular')} anzeigen`"
          @click="openDetailPage"
   />

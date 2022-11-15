@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import {onMounted} from 'vue'
 import {useRouter} from 'vue-router'
-
+import {useQuasar} from 'quasar'
 import {useBaseStore} from "stores/base-store"
 import {getSearchParameters, triggerIframeResize} from 'src/utils'
 
@@ -14,7 +14,7 @@ const router = useRouter()
 const config = baseStore.config
 
 // if (window.location.hash === '#/') {
-  router.push(`/${config.entities[0].type}`)
+router.push(`/${config.entities[0].type}`)
 // }
 baseStore.init(router)
 
@@ -46,37 +46,24 @@ onMounted(async () => {
 })
 
 
-// import {useQuasar} from 'quasar'
-
-// const $q = useQuasar()
-//
-// const myIcons = {
-//   'app:actor': 'img:/src/assets/svg/actors.svg',
-//   'app:event': 'img:/src/assets/svg/events.svg',
-// }
-//
-// // Example of adding support for
-// // <q-icon name="app:...." />
-// // This includes support for all "icon" props
-// // of Quasar components
-//
-// $q.iconMapFn = (iconName) => {
-//   // iconName is the content of QIcon "name" prop
-//
-//   // your custom approach, the following
-//   // is just an example:
-//   $q.iconMapFn = (iconName) => {
-//     const icon = myIcons[iconName]
-//     if (icon !== void 0) {
-//       return { icon: icon }
-//     }
-//   }
-//
-//   // when we don't return anything from our
-//   // iconMapFn, the default Quasar icon mapping
-//   // takes over
-// }
-//
+const $q = useQuasar()
+const myIcons = {
+  'app:actors': 'img:/src/assets/svg/actors.svg',
+  'app:counselings': 'img:/src/assets/svg/counselings.svg',
+  'app:educations': 'img:/src/assets/svg/educations.svg',
+  'app:events': 'img:/src/assets/svg/events.svg',
+  'app:projects': 'img:/src/assets/svg/projects.svg',
+  'app:stores': 'img:/src/assets/svg/stores.svg',
+}
+$q.iconMapFn = (iconName) => {
+  $q.iconMapFn = (iconName) => {
+    //@ts-ignore
+    const icon = myIcons[iconName]
+    if (icon !== void 0) {
+      return {icon: icon}
+    }
+  }
+}
 // $q.iconMapFn = null
 
 
