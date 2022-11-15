@@ -48,12 +48,18 @@ import {getTypeFromEntity, getGermanEntityName} from "src/utils";
 const route = useRoute()
 const entityId = route.params.id
 
-const config = useBaseStore().config
+const baseStore = useBaseStore()
 const entityStore = useEntityStore()
+const config = baseStore.config
 
-entityStore.entityDetail = entityStore.entityList.data.find(
+entityStore.entityDetail = entityStore.entityList.data?.find(
   (entity: any) => entity.id === entityId
 )
+// if(!entityStore.entityDetail) {
+//   console.log('fetching')
+//@ts-ignore
+//   await entityStore.fetchEntityDetails(entityRequests[baseStore.activeEntity].details, 3173)
+// }
 
 const {entityDetailLoading, entityDetail} = storeToRefs(entityStore)
 const entityType = getTypeFromEntity(entityDetail.value)
@@ -62,7 +68,6 @@ const entityType = getTypeFromEntity(entityDetail.value)
 // entityStore.fetchEntityDetails(entityRequests[baseStore.activeEntity].list, entityId)
 
 onUpdated(() => {
-  console.log('updated')
   entityStore.entityDetail = entityStore.entityList.data.find(
     (entity: any) => entity.id === route.params.id
   )

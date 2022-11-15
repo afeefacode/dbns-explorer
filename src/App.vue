@@ -13,9 +13,10 @@ const baseStore = useBaseStore()
 const router = useRouter()
 const config = baseStore.config
 
-router.push(`/${config.entities[0].type}`)
+// if (window.location.hash === '#/') {
+  router.push(`/${config.entities[0].type}`)
+// }
 baseStore.init(router)
-
 
 onMounted(async () => {
   window.addEventListener("message", event => {
