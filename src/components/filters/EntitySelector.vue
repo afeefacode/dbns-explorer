@@ -7,7 +7,7 @@
       class="entity-selector__icon"
       ref="entitySelectorIcon"
     >
-      <q-icon :name="`img:/src/assets/svg/${entityType}.svg`"/>
+      <q-icon :name="`app:${entityType}`"/>
     </div>
     <div class="entity-selector__text">
       {{ getGermanEntityName(entityType, 'plural') }}

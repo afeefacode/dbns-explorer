@@ -30,20 +30,22 @@ const props = defineProps({
   }
 })
 
-const details = [
-  // {icon: 'home', content: entity.full_address},
-  {
-    icon: 'language',
-    content: `<a href="${props.entity.info_url}" target="_blank">${props.entity.info_url}</a>`
-  },
-  // {icon: 'phone', content: entity.phone_primary},
-  // {
-  //   icon: 'mail_outline',
-  //   content: `<a href="mailto:${entity.email}">${entity.email}</a>`
-  //
-  // },
-  // {icon: 'person', content: entity.full_address},
-]
+const details = props.entity.info_url
+  ? [
+    // {icon: 'home', content: entity.full_address},
+    {
+      icon: 'language',
+      content: `<a href="${props.entity.info_url}" target="_blank">${props.entity.info_url}</a>`
+    },
+    // {icon: 'phone', content: entity.phone_primary},
+    // {
+    //   icon: 'mail_outline',
+    //   content: `<a href="mailto:${entity.email}">${entity.email}</a>`
+    //
+    // },
+    // {icon: 'person', content: entity.full_address},
+  ]
+  : null
 </script>
 <style lang="scss" scoped>
 .detail-card {
