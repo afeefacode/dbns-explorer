@@ -15,7 +15,6 @@ export const getSearchParameters = (paramString: string) => {
   return paramString != null && paramString != "" ? transformToAssocArray(paramString) : {};
 }
 
-
 export const getGermanEntityName = (entityName: string, numerus: 'singular' | 'plural') => {
   switch (entityName.toLowerCase()) {
     case 'actor':
@@ -90,11 +89,30 @@ export const getTypeFromEntity = (entity: any) => {
   return entityType
 }
 
-
 export const inIframe = () => {
   try {
     return window.self !== window.top;
   } catch (e) {
     return true;
+  }
+}
+
+export const debounce = (callback: () => {}, timeout = 300) => {
+  let timer: any;
+  return (...args: []) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      callback.apply(this, args);
+    }, timeout);
+  };
+}
+
+export const appendFiltersToRequest = (request: {}, filters: {}) => {
+  return {
+    ...request,
+    filters: {
+      ...request.filters,
+      ...filters
+    }
   }
 }
