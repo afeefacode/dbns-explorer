@@ -90,3 +90,11 @@ export const getTypeFromEntity = (entity: any) => {
   return entityType
 }
 
+
+export const inIframe = () => {
+  try {
+    return window.self !== window.top;
+  } catch (e) {
+    return true;
+  }
+}
