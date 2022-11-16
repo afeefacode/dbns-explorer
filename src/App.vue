@@ -43,7 +43,10 @@ onMounted(async () => {
   window.parent.postMessage(mountedMessage, '*')
 
   document.documentElement.style
-    .setProperty('--primary', '#' + baseStore.config.brandColor);
+    .setProperty('--brandColor', '#' + baseStore.config.brandColor);
+
+  document.documentElement.style
+    .setProperty('--contrastTextColor', '#' + baseStore.config.contrastTextColor);
 
   let qApp = document.getElementById('q-app')
   new ResizeObserver(triggerIframeResize).observe(qApp)

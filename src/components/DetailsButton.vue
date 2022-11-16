@@ -1,7 +1,7 @@
 <template>
-  <q-btn :style="`background: #${config.brandColor}; color: #${config.contrastTextColor}`"
-         :label="`${getGermanEntityName(entityType, 'singular')} anzeigen`"
-         @click="openDetailPage"
+  <q-btn
+    :label="`${getGermanEntityName(entityType, 'singular')} anzeigen`"
+    @click="openDetailPage"
   />
 </template>
 <script setup>
