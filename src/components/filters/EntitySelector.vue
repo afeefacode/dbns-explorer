@@ -7,7 +7,7 @@
       class="entity-selector__icon"
       ref="entitySelectorIcon"
     >
-      <q-icon :name="`app:${entityType}`"/>
+      <EntitySvg :type="entityType" />
     </div>
     <div class="entity-selector__text">
       {{ getGermanEntityName(entityType, 'plural') }}
@@ -18,6 +18,7 @@
 import {defineProps, onUpdated, ref, onMounted} from 'vue'
 import {useBaseStore} from 'src/stores/base-store'
 import {getGermanEntityName} from 'src/utils'
+import EntitySvg from 'assets/svg/EntitySvg.vue'
 
 const config = useBaseStore().config
 

@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-mb-xl">
-<!--    <Filters v-if="baseStore.entityConfig.showFilters"/>-->
+    <Filters v-if="baseStore.entityConfig.showFilters"/>
 <!--    <MapListToggle-->
 <!--      @view-toggled="viewToggled"-->
 <!--      :active-view="activeView"-->
@@ -28,7 +28,7 @@ const entityStore = useEntityStore()
 //@ts-ignore
 entityStore.fetchEntityList(entityRequests[baseStore.activeEntity].list)
 
-const activeView = baseStore.entityConfig.showMapView
+const activeView = baseStore.entityConfig?.showMapView
   ? ref('map')
   : ref('list')
 

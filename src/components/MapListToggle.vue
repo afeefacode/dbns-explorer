@@ -44,7 +44,7 @@ const props = defineProps({
 
   .active {
     color: white;
-    background-color: var(--primary)
+    background-color: var(--brandColor)
   }
 }
 </style>
