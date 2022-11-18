@@ -15,7 +15,14 @@
             <div class="col" v-html="detail.content"></div>
           </div>
         </div>
-
+        <div v-if="entityDetail.type === 'NLS.Offer'" class="row">
+          <div class="col-1">
+            <q-icon name="group"></q-icon>
+          </div>
+          <div class="col">
+            Dies ist ein Angebot von: <b>{{entityDetail.actor.title}}</b> <router-link :to="`/actors/${entityDetail.actor.id}`">(Akteur anzeigen)</router-link>
+          </div>
+        </div>
       </div>
       <div
         v-if="false"
@@ -83,12 +90,6 @@ const updateDetails = () => {
           break;
       }
     }
-  }
-  if (entityDetail.value.type === 'NLS.Offer') {
-    details.value.push({
-      icon: 'group',
-      content: `Dies ist ein Angebot von: <b>${entityDetail.value.actor.title}</b>`
-    })
   }
 }
 

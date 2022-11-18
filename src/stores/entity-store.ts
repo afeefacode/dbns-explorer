@@ -1,12 +1,12 @@
 import {defineStore} from 'pinia';
-import {fetchEntityDetails, fetchEntityList} from "src/api/entities";
+import {fetchActorOffers, fetchEntityDetails, fetchEntityList} from "src/api/entities";
 
 export const useEntityStore = defineStore('entities', {
   state: () => {
     return {
       entityList: [],
       entityListLoading: false,
-      entityDetail: {},
+      entityDetail: {offers: []},
       entityDetailLoading: false,
     }
   },
@@ -21,10 +21,17 @@ export const useEntityStore = defineStore('entities', {
       }
       this.entityListLoading = false
     },
-    async fetchEntityDetails(requestBody: object, id: number) {
+    async fetchEntityDetails(entityType: string, id: string | string[]) {
       this.entityDetailLoading = true
       try {
-        this.entityDetail = await fetchEntityDetails(requestBody, id)
+        let response = await fetchEntityDetails(entityType, id)
+        this.entityDetail = response.data
+
+        if (entityType === 'actors') {
+          response = await fetchActorOffers(id)
+          this.entityDetail.offers = response.data
+        }
+
       } catch (e) {
         console.error(e)
         return e

@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
-import {useRouter} from 'vue-router'
+import {useRouter, onBeforeRouteUpdate} from 'vue-router'
 
 import {useBaseStore} from "src/stores/base-store";
 
@@ -38,6 +38,7 @@ const onEntityClick = (entityType: string) => {
   router.push(`/${entityType}`)
   baseStore.activeEntity = entityType
 }
+
 </script>
 
 <style>

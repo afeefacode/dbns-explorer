@@ -64,14 +64,20 @@ export const getEntityList = () => {
   return ['actor', 'counseling', 'education', 'event', 'project', 'store']
 }
 
-export const getOfferList = () => {
-  return [
-    {key: 'counseling', id: 1},
-    {key: 'education', id: 2},
-    {key: 'event', id: 3},
-    {key: 'project', id: 4},
-    {key: 'store', id: 5},
-  ]
+export const getOfferList = (mode = "verbose") => {
+  switch (mode) {
+    case "flat":
+      return ['counseling', 'education', 'event', 'project', 'store']
+    case "verbose":
+    default:
+      return [
+        {key: 'counseling', id: 1},
+        {key: 'education', id: 2},
+        {key: 'event', id: 3},
+        {key: 'project', id: 4},
+        {key: 'store', id: 5},
+      ]
+  }
 }
 
 export const getTypeFromEntity = (entity: any) => {
