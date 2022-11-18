@@ -40,7 +40,7 @@ export const fetchActorOffers = async (actorId: string | string[]) => {
     const response = await axios.post(serverUrl, {...entityRequest, ...filters})
     if (response.data.data.length) {
       // @ts-ignore
-      offerList[offerType.key + 's'] = response.data
+      offerList[offerType.key + 's'] = response.data.data
     }
   }
 

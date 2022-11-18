@@ -1,11 +1,7 @@
 <template>
   <q-page class="q-mb-xl">
-    <q-spinner
-      color="primary"
-      size="3em"
-      v-if="entityDetailLoading"
-    />
-    <div v-else>
+
+    <div v-if="!entityDetailLoading">
       <BackButton class="q-mb-md"/>
       <DetailCard :entity="entityDetail" class="q-mb-xl"/>
       <div class="q-px-lg">
@@ -17,16 +13,37 @@
 
         <div v-if="getTypeFromEntity(entityDetail) === 'actor'">
           <div class="q-mb-xl">
-            <h2 class="text-h5">Projekte des Akteurs</h2>
-            <router-link to="/">Alle Projekte des Akteurs anzeigen</router-link>
-
-            <h2 class="text-h5">Veranstaltungen des Akteurs</h2>
-            <router-link to="/">Alle Veranstaltungen des Akteurs anzeigen</router-link>
+            <ActorsOfferList/>
           </div>
         </div>
         <q-separator/>
         <h2 class="text-h5">Ähnliche {{ getGermanEntityName(entityType, 'plural') }}</h2>
         <ListView/>
+      </div>
+    </div>
+
+    <div v-else  class="q-ma-md">
+      <q-skeleton type="QBtn" class="q-mb-md"/>
+      <q-card class="detail-card">
+        <div class="row  q-mb-md">
+          <q-skeleton type="text" class="col-3"/>
+        </div>
+        <div class="row q-mb-md" style="height: 50px">
+          <q-skeleton type="text" class="col-8"/>
+        </div>
+        <div v-for="i in 3" class="row flex-center" style="display: flex; justify-content: flex-start; height: 30px;">
+          <q-skeleton type="circle" style="scale: .5" class="q-mr-xl"/>
+          <q-skeleton type="text" class="col-3"/>
+        </div>
+      </q-card>
+
+      <div class="q-ma-lg">
+        <div class="row" style="height: 70px">
+          <q-skeleton type="text" class="col-8"/>
+        </div>
+        <div v-for="i in 10" class="row">
+          <q-skeleton type="text" :class="`col-${9 + Math.floor(Math.random()* 4)}`"/>
+        </div>
       </div>
     </div>
   </q-page>
@@ -36,13 +53,14 @@
 import {onUpdated} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 import {storeToRefs} from 'pinia'
+import {useBaseStore} from "stores/base-store";
+import {useEntityStore} from "stores/entity-store";
+import {getTypeFromEntity, getGermanEntityName, getOfferList} from "src/utils";
 import BackButton from 'components/detail/BackButton.vue'
 import DetailCard from 'components/detail/DetailCard.vue'
 import DetailMap from 'components/detail/DetailMap.vue'
 import ListView from 'components/ListView.vue'
-import {useBaseStore} from "stores/base-store";
-import {useEntityStore} from "stores/entity-store";
-import {getTypeFromEntity, getGermanEntityName} from "src/utils";
+import ActorsOfferList from 'components/detail/ActorsOfferList.vue'
 
 const route = useRoute()
 

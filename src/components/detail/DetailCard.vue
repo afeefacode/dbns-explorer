@@ -51,7 +51,7 @@ const updateDetails = () => {
         case 'locations':
           details.value.push({
             icon: 'home',
-            content: `${value[0].street}, ${value[0].zip}, ${value[0].city}`
+            content: `${value[0]?.street}, ${value[0]?.zip}, ${value[0]?.city}`
           })
           break;
         case 'info_url':
@@ -101,7 +101,7 @@ onUpdated(() => {
 })
 
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .detail-card {
   background: #f8f8f8;
   box-shadow: none;
