@@ -24,9 +24,7 @@ export const fetchEntityDetails = async (entityType: string, id: string | string
 }
 
 export const fetchActorOffers = async (actorId: string | string[]) => {
-
   const serverUrl = 'https://daten.nachhaltiges-sachsen.de/api/v2'
-
   let offerList = {}
 
   const fetchOffers = async (offerType: { id: number }) => {
@@ -40,18 +38,16 @@ export const fetchActorOffers = async (actorId: string | string[]) => {
     // @ts-ignore
     const entityRequest = entityRequests[offerType.key + 's'].list
     const response = await axios.post(serverUrl, {...entityRequest, ...filters})
-    // console.log('{...entityRequest, ...filters}', {...entityRequest, ...filters})
-
-    offerList = {
-      ...offerList,
-      ...response.data
+    if (response.data.data.length) {
+      // @ts-ignore
+      offerList[offerType.key + 's'] = response.data
     }
   }
 
-  console.log('offerList', offerList)
-
   const offerTypes = getOfferList()
-  // @ts-ignore
-  offerTypes.forEach(offerType => fetchOffers(offerType))
+  for (let i = 0; i < offerTypes.length; i++) {
+    // @ts-ignore
+    await fetchOffers(offerTypes[i])
+  }
   return offerList
 }

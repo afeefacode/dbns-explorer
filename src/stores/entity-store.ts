@@ -6,7 +6,7 @@ export const useEntityStore = defineStore('entities', {
     return {
       entityList: [],
       entityListLoading: false,
-      entityDetail: {offers: []},
+      entityDetail: {offers: {}},
       entityDetailLoading: false,
     }
   },
@@ -24,12 +24,12 @@ export const useEntityStore = defineStore('entities', {
     async fetchEntityDetails(entityType: string, id: string | string[]) {
       this.entityDetailLoading = true
       try {
-        let response = await fetchEntityDetails(entityType, id)
-        this.entityDetail = response.data
+        const details = await fetchEntityDetails(entityType, id)
+        this.entityDetail = details.data
 
         if (entityType === 'actors') {
-          response = await fetchActorOffers(id)
-          this.entityDetail.offers = response.data
+          const offers = await fetchActorOffers(id)
+          this.entityDetail.offers = offers
         }
 
       } catch (e) {
