@@ -1,4 +1,5 @@
 export const config = {
+  name: 'upcoming_lvns_events',
   brandColor: '5FA93D',
   contrastTextColor: 'FFFFFF',
   entities: [
