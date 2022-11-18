@@ -60,7 +60,14 @@ export const entityRequests = {
         "description": true,
         "slug": true,
         "info_url": true,
-        "locations": true
+        "locations": {
+          "title": true,
+          "street": true,
+          "city": true,
+          "zip": true,
+          "lat": true,
+          "long": true
+        }
       }
     },
     details: {}
