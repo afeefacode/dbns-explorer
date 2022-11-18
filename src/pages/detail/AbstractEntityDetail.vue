@@ -9,7 +9,7 @@
       <BackButton class="q-mb-md"/>
       <DetailCard :entity="entityDetail" class="q-mb-xl"/>
       <div class="q-px-lg">
-        <h1 class="text-h4">{{ entityDetail.title }}</h1>
+        <h1 class="text-h5">{{ entityDetail.title }}</h1>
         <div class="q-mb-xl" style="white-space: pre-line">
           {{ entityDetail.description }}
         </div>

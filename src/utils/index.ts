@@ -107,7 +107,7 @@ export const debounce = (callback: () => {}, timeout = 300) => {
   };
 }
 
-export const appendFiltersToRequest = (request: {}, filters: {}) => {
+export const appendFiltersToRequest = (request: { filters: {} }, filters: {}) => {
   return {
     ...request,
     filters: {
