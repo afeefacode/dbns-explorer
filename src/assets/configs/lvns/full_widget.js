@@ -1,4 +1,5 @@
 export const config = {
+  name: 'full_widget',
   brandColor: '5FA93D',
   contrastTextColor: 'FFFFFF',
   entities: [

@@ -13,13 +13,5 @@ export const useBaseStore = defineStore('base', {
       return this.config.entities.find((entity: any) => entity.type === this.activeEntity)
     }
   },
-  actions: {
-    init(router: any) {
-      this.activeEntity = router.currentRoute.value.fullPath.split('/')[1]
-      const configString = (new URL(window.location.href)).searchParams.get('config')
-      if (configString) {
-        this.config = JSON.parse(decodeURI(configString))
-      }
-    },
-  },
+  actions: {},
 });

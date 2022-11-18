@@ -10,13 +10,16 @@ import {inIframe, triggerIframeResize} from 'src/utils'
 
 const baseStore = useBaseStore()
 const router = useRouter()
-const config = baseStore.config
 
-// if (window.location.hash === '#/') {
-router.push(`/${config.entities[0].type}`)
-// }
-baseStore.init(router)
-
+// get config from url
+const configString = (new URL(window.location.href)).searchParams.get('config')
+if (configString) {
+  baseStore.config = JSON.parse(decodeURI(configString))
+}
+// set activeEntity to first config entity
+baseStore.activeEntity = baseStore.config.entities[0].type
+// navigate to activeEntity
+router.push(`/${baseStore.activeEntity}`)
 
 onMounted(async () => {
   if (!inIframe()) {
@@ -27,6 +30,7 @@ onMounted(async () => {
     switch (event.data.type) {
 
       case "app_mounted_acknowledged":
+        console.log('app_mounted_acknowledged')
         // const paramString = event.data.payload.substring(1)
         // const params = getSearchParameters(paramString);
         break;
@@ -51,5 +55,4 @@ onMounted(async () => {
   let qApp = document.getElementById('q-app')
   new ResizeObserver(triggerIframeResize).observe(qApp)
 })
-
 </script>

@@ -28,6 +28,7 @@ const offerFields = {
 
 const offerRequests: object = {}
 
+// @ts-ignore
 getOfferList().forEach(({key, id}) => {
   //@ts-ignore
   offerRequests[`${key}s`] = {
@@ -60,10 +61,34 @@ export const entityRequests = {
         "description": true,
         "slug": true,
         "info_url": true,
-        "locations": true
+        "locations": {
+          "title": true,
+          "street": true,
+          "city": true,
+          "zip": true,
+          "lat": true,
+          "long": true
+        }
       }
     },
-    details: {}
+    details: {
+      "resource": "NLS.ActorResource",
+      "action": "get",
+      "fields": {
+        "title": true,
+        "description": true,
+        "slug": true,
+        "info_url": true,
+        "locations": {
+          "title": true,
+          "street": true,
+          "city": true,
+          "zip": true,
+          "lat": true,
+          "long": true
+        },
+      }
+    }
   },
   ...offerRequests
 }
