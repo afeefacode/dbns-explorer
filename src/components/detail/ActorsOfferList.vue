@@ -4,7 +4,7 @@
       <h2 class="text-h5">{{ getGermanEntityName(offer.key, 'plural') }} des Akteurs</h2>
       <div v-for="(offers, key) in entityDetail.offers"></div>
       <div class="row">
-        <EntityCard v-for="entity in  entityDetail.offers" :entity="entity" :key="entity.id"/>
+        <EntityCard v-for="entity in  entityDetail.offers[offer.key+'s']" :entity="entity" :key="entity.id"/>
       </div>
     </div>
   </div>

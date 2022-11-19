@@ -10,7 +10,7 @@
       <EntitySvg :type="entityType" />
     </div>
     <div class="entity-selector__text">
-      {{ getGermanEntityName(entityType, 'plural') }}
+      {{ getGermanEntityName(entityType, 'category')}}
     </div>
   </div>
 </template>

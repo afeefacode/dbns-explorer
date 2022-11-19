@@ -15,34 +15,59 @@ export const getSearchParameters = (paramString: string) => {
   return paramString != null && paramString != "" ? transformToAssocArray(paramString) : {};
 }
 
-export const getGermanEntityName = (entityName: string, numerus: 'singular' | 'plural') => {
+export const getGermanEntityName = (entityName: string, mode: 'singular' | 'plural' | 'category') => {
   switch (entityName.toLowerCase()) {
     case 'actor':
     case 'actors':
     case 'nls.actor':
-      return numerus === 'singular' ? 'Akteur' : 'Akteure'
+      return mode === 'singular' ? 'Akteur' : 'Akteure'
     case 'project':
     case 'projects':
     case 'nls.project':
-      return numerus === 'singular' ? 'Projekt' : 'Projekte'
+      return mode === 'singular' ? 'Projekt' : 'Projekte'
     case 'event':
     case 'events':
     case 'nls.event':
-      return numerus === 'singular' ? 'Veranstaltung' : 'Veranstaltungen'
+      return mode === 'singular' ? 'Veranstaltung' : 'Veranstaltungen'
     case 'education':
     case 'educations':
     case 'nls.education':
-      return numerus === 'singular' ? 'Bildungsangebot' : 'Bildungsangebote'
+      switch (mode) {
+        case "singular":
+          return 'Bildungsangebot'
+        case "plural":
+          return 'Bildungsangebote'
+        case "category":
+          return 'Bildung'
+      }
+      break;
     case 'counseling':
     case 'counselings':
     case 'nls.counseling':
-      return numerus === 'singular' ? 'Beratung' : 'Beratungen'
+      switch (mode) {
+        case "singular":
+          return 'Beratungsangebot'
+        case "plural":
+          return 'Beratungsangebote'
+        case "category":
+          return 'Beratung'
+      }
+      break;
     case 'store':
     case 'stores':
     case 'nls.store':
-      return numerus === 'singular' ? 'Filiale' : 'Filialen'
+      switch (mode) {
+        case "singular":
+          return 'Filiale'
+        case "plural":
+          return 'Filialen'
+        case "category":
+          return 'Handel'
+      }
+      break;
     default:
-      return entityName.toUpperCase()
+      console.log('entityName', entityName)
+      return capitalizeFirstLetter(entityName)
   }
 }
 
@@ -121,4 +146,26 @@ export const appendFiltersToRequest = (request: { filters: {} }, filters: {}) =>
       ...filters
     }
   }
+}
+
+
+export const capitalizeFirstLetter = (string: string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export const prettifyUrl = (url: string) => {
+  const http = 'http://'
+  const https = 'https://'
+  const slash = '/'
+
+  let prettyUrl = ''
+
+  if (url.startsWith(https))
+    prettyUrl = url.slice(https.length);
+  if (url.startsWith(http))
+    prettyUrl = url.slice(http.length);
+  if (prettyUrl.endsWith(slash))
+    prettyUrl = prettyUrl.slice(0, prettyUrl.length - 1)
+
+  return prettyUrl
 }

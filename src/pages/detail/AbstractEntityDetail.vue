@@ -7,7 +7,12 @@
       <div class="q-px-lg">
         <h1 class="text-h5">{{ entityDetail.title }}</h1>
         <div class="q-mb-xl" style="white-space: pre-line">
-          {{ entityDetail.description }}
+          <div v-if="entityDetail.description">
+            {{ entityDetail.description }}
+          </div>
+          <div v-else>
+            <i>Keine Beschreibung vorhanden</i>
+          </div>
         </div>
         <!--        <DetailMap class="q-mb-xl"/>-->
 
@@ -16,13 +21,14 @@
             <ActorsOfferList/>
           </div>
         </div>
-        <q-separator/>
-        <h2 class="text-h5">Ähnliche {{ getGermanEntityName(entityType, 'plural') }}</h2>
-        <ListView/>
+        <div class="similar-entities">
+          <h2 class="text-h5 q-ml-md">Ähnliche {{ getGermanEntityName(getTypeFromEntity(entityDetail), 'plural') }}</h2>
+          <ListView/>
+        </div>
       </div>
     </div>
 
-    <div v-else  class="q-ma-md">
+    <div v-else class="q-ma-md">
       <q-skeleton type="QBtn" class="q-mb-md"/>
       <q-card class="detail-card">
         <div class="row  q-mb-md">
@@ -71,7 +77,6 @@ const router = useRouter()
 const config = baseStore.config
 
 const {entityDetailLoading, entityDetail} = storeToRefs(entityStore)
-const entityType = getTypeFromEntity(entityDetail.value)
 entityStore.fetchEntityDetails(baseStore.activeEntity, route.params.id)
 
 onUpdated(() => {
@@ -84,5 +89,12 @@ onUpdated(() => {
 <style lang="scss" scoped>
 .introduction {
   margin-bottom: 2em;
+}
+
+.similar-entities {
+  background: #f3f3f3;
+  margin-top: 8em;
+  padding: 1em;
+  border-radius: 10px
 }
 </style>
