@@ -7,7 +7,7 @@
         <h1 class="text-h4">{{ entityDetail.title }}</h1>
 
         <div class="row" v-for="(detail, index) in details" :key="index">
-          <div class="col-1">
+          <div class="col" style="max-width: 35px">
             <q-icon :name="detail.icon"></q-icon>
           </div>
           <div class="col">
@@ -16,11 +16,12 @@
           </div>
         </div>
         <div v-if="entityDetail.type === 'NLS.Offer'" class="row">
-          <div class="col-1">
+          <div class="col" style="max-width: 35px">
             <q-icon name="group"></q-icon>
           </div>
           <div class="col">
-            Dies ist ein Angebot von: <b>{{entityDetail.actor.title}}</b> <router-link :to="`/actors/${entityDetail.actor.id}`">(Akteur anzeigen)</router-link>
+            Dies ist ein Angebot von: <b>{{ entityDetail.actor.title }}</b>&nbsp;
+            <router-link :to="`/actors/${entityDetail.actor.id}`">(Akteur anzeigen)</router-link>
           </div>
         </div>
       </div>
@@ -36,10 +37,10 @@
 import {ref, onUpdated} from 'vue'
 import {storeToRefs} from "pinia/dist/pinia";
 import {useEntityStore} from "stores/entity-store";
-import {getTypeFromEntity, getGermanEntityName, shortenStringTo} from "src/utils";
+import {getTypeFromEntity, getGermanEntityName, shortenStringTo, prettifyUrl} from "src/utils";
 
 const entityStore = useEntityStore()
-const {entityDetailLoading, entityDetail} = storeToRefs(entityStore)
+const {entityDetail} = storeToRefs(entityStore)
 
 const details = ref([])
 
@@ -49,6 +50,7 @@ const updateDetails = () => {
     if (value) {
       switch (key) {
         case 'locations':
+          if (!value[0] || value[0]?.city === null) break;
           details.value.push({
             icon: 'home',
             content: `${value[0]?.street}, ${value[0]?.zip}, ${value[0]?.city}`
@@ -57,7 +59,7 @@ const updateDetails = () => {
         case 'info_url':
           details.value.push({
             icon: 'language',
-            content: `<a href="${value}" target="_blank">${shortenStringTo(60, value)}</a>`
+            content: `<a href="${value}" target="_blank">${shortenStringTo(60, prettifyUrl(value))}</a>`
           })
           break;
         case 'requirements':
@@ -96,7 +98,6 @@ const updateDetails = () => {
 
 updateDetails()
 onUpdated(() => {
-  console.log('updated')
   updateDetails()
 })
 
@@ -114,8 +115,8 @@ onUpdated(() => {
     }
 
     .q-icon {
-      scale: 1.5;
-      color: #444;
+      scale: 1.3;
+      color: #666;
     }
   }
 

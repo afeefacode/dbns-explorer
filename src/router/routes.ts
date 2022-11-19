@@ -7,12 +7,12 @@ getEntityList().forEach(entityName => {
   entityRoutes.push({
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{path: `/${entityName}s`, component: () => import('pages/list/AbstractEntityList.vue')}],
+    children: [{path: `/${entityName}s`, component: () => import('pages/EntityListPage.vue')}],
   })
   entityRoutes.push({
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{path: `/${entityName}s/:id`, component: () => import(`pages/detail/AbstractEntityDetail.vue`)}],
+    children: [{path: `/${entityName}s/:id`, component: () => import('pages/EntityDetailPage.vue')}],
   })
 })
 
