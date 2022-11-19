@@ -27,9 +27,7 @@
         <ListView/>
       </div>
     </div>
-    <div v-else>
-      <EntityDetailSkeleton/>
-    </div>
+    <EntityDetailSkeleton v-else/>
   </q-page>
 </template>
 
