@@ -13,7 +13,7 @@
 </template>
 <script setup>
 import {ref} from 'vue'
-import {useCategoryStore} from 'stores/category-store'
+import {useCategoryStore} from 'src/stores/category-store'
 
 const {mainCategories} = useCategoryStore()
 const categoriesRef = ref(null)
