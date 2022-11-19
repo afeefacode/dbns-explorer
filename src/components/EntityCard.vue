@@ -5,12 +5,14 @@
         <q-card-section>
           <div class="text-overline">{{ displayed.type }}</div>
           <div v-if="entity.type === 'Event'">{{ displayed.start_at }}</div>
-          <div class="text-h5 q-mt-sm ">
-            {{ displayed.title }}
-          </div>
-          <div v-if="entity.info_url" class="q-mb-md">
-            <q-icon name="language" class="q-mr-sm" :style="`color: #${config.brandColor}`"/>
-                <a :href="entity.info_url" target="_blank" :title="displayed.name">{{ displayed.info_url }}</a>
+          <div class="q-mt-sm q-mb-md">
+            <div class="text-h5">
+              {{ displayed.title }}
+            </div>
+            <div v-if="entity.info_url">
+              <q-icon name="language" class="q-mr-sm" :style="`color: #${config.brandColor}`"/>
+              <a :href="entity.info_url" target="_blank" :title="displayed.name">{{ displayed.info_url }}</a>
+            </div>
           </div>
           <div label="test" class="text-grey list-card__short-description q-pr-xl q-mb-lg">
             {{ displayed.short_description }}
@@ -59,7 +61,7 @@ const shortenStringTo = (characters, string) => string.length > characters ? str
 let displayed = {}
 displayed.title = props.entity.title ? shortenStringTo(150, props.entity.title) : ''
 displayed.short_description = props.entity.short_description ? shortenStringTo(200, props.entity.short_description) : ''
-displayed.info_url = props.entity.info_url ? shortenStringTo(60, prettifyUrl(props.entity.info_url)) : ''
+displayed.info_url = props.entity.info_url ? shortenStringTo(35, prettifyUrl(props.entity.info_url)) : ''
 
 if (props.entity.offer_type?.key === 'NLS.Event') {
   let startAt = new Date(props.entity.start_at)
@@ -81,7 +83,7 @@ const expanded = ref(false)
   &__short-description {
     display: flex;
     align-items: center;
-    height: 60px;
+    //height: 60px;
   }
 
   &__image {

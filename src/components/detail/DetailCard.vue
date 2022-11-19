@@ -7,7 +7,7 @@
         <h1 class="text-h4">{{ entityDetail.title }}</h1>
 
         <div class="row" v-for="(detail, index) in details" :key="index">
-          <div class="col-1">
+          <div class="col" style="max-width: 35px">
             <q-icon :name="detail.icon"></q-icon>
           </div>
           <div class="col">
@@ -16,7 +16,7 @@
           </div>
         </div>
         <div v-if="entityDetail.type === 'NLS.Offer'" class="row">
-          <div class="col-1">
+          <div class="col" style="max-width: 35px">
             <q-icon name="group"></q-icon>
           </div>
           <div class="col">
@@ -115,7 +115,7 @@ onUpdated(() => {
     }
 
     .q-icon {
-      scale: 1.5;
+      scale: 1.3;
       color: #666;
     }
   }
