@@ -5,7 +5,7 @@
       dense
       clearable
       v-model="searchInput"
-      label="Suchen"
+      label="Stichwortsuche"
       @keyup="onSearchInput"
     >
       <template v-slot:prepend>

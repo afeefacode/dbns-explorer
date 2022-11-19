@@ -1,13 +1,18 @@
 <template>
-  <div id='map' class="map"></div>
+  <div id='map'></div>
 </template>
 <script setup>
-import maplibregl from 'maplibre-gl'
 import {onMounted, defineEmits, ref} from 'vue'
+import {storeToRefs} from 'pinia'
+import maplibregl from 'maplibre-gl'
 import pngMarkerActor from 'assets/markers/marker-actors.png'
-// import {useActorStore} from 'stores/actor-store'
+import {useEntityStore} from 'src/stores/entity-store'
 
-// const actor = useActorStore().actor
+const entityStore = useEntityStore()
+const {entityDetail} = storeToRefs(entityStore)
+
+console.log('entityDetail', entityDetail.value)
+
 onMounted(async () => {
 
   const map = new maplibregl.Map({

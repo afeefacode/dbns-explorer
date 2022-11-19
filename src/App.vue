@@ -5,10 +5,12 @@
 <script setup lang="ts">
 import {onMounted} from 'vue'
 import {useRouter} from 'vue-router'
-import {useBaseStore} from "stores/base-store"
+import {useBaseStore} from "src/stores/base-store"
+import {useCategoryStore} from "src/stores/category-store"
 import {inIframe, triggerIframeResize} from 'src/utils'
 
 const baseStore = useBaseStore()
+const categoryStore = useCategoryStore()
 const router = useRouter()
 
 // get config from url
@@ -16,6 +18,9 @@ const configString = (new URL(window.location.href)).searchParams.get('config')
 if (configString) {
   baseStore.config = JSON.parse(decodeURI(configString))
 }
+
+categoryStore.fetchCategoryList()
+
 // set activeEntity to first config entity
 baseStore.activeEntity = baseStore.config.entities[0].type
 // navigate to activeEntity

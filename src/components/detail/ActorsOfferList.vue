@@ -17,5 +17,4 @@ import EntityCard from 'components/EntityCard.vue'
 
 const entityStore = useEntityStore()
 const {entityDetail} = storeToRefs(entityStore)
-console.log('entityDetail.offers', entityDetail.offers)
 </script>

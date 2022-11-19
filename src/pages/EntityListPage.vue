@@ -1,6 +1,8 @@
 <template>
   <q-page class="q-mb-xl">
-    <Filters v-if="baseStore.entityConfig?.showFilters"/>
+    <div class="q-mb-md">
+      <Filters v-if="baseStore.entityConfig?.showFilters"/>
+    </div>
     <!--    <MapListToggle-->
     <!--      @view-toggled="viewToggled"-->
     <!--      :active-view="activeView"-->
