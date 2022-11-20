@@ -55,7 +55,6 @@ onUpdated(setBackgroundColor)
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer;
   margin-bottom: 2em;
 
   &__icon {
@@ -67,11 +66,16 @@ onUpdated(setBackgroundColor)
     align-items: center;
     margin-bottom: .5em;
     background-color: #D9D9D9;
+    cursor: pointer;
   }
 
   &__text {
     text-transform: uppercase;
     color: $text-gray-50;
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
   }
 }
 

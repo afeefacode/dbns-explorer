@@ -169,3 +169,7 @@ export const prettifyUrl = (url: string) => {
 
   return prettyUrl
 }
+
+export const isActiveEntity = (activeEntities: string[], entityType: string) => {
+  return !!activeEntities.find(activeEntity => activeEntity === entityType)
+}

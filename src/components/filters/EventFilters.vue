@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-center text-h5 q-mt-lg q-mb-xs">
-    Zeitraum einschränken
+    Veranstaltungen
   </div>
   <div class="row justify-center q-mb-sm">
     <q-chip v-for="timeSpan in defaultTimeSpans">

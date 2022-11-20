@@ -1,10 +1,10 @@
 <template>
-  <q-page class="q-mb-xl">
+  <q-page class="q-my-xl">
     <div v-if="!entityDetailLoading">
       <BackButton class="q-mb-md"/>
       <DetailCard :entity="entityDetail" class="q-mb-xl"/>
       <div class="q-px-lg">
-        <h1 class="text-h5">{{ entityDetail.title }}</h1>
+        <h1 class="text-h5 break-word">{{ entityDetail.title }}</h1>
         <div class="q-mb-xl" style="white-space: pre-line">
           <div v-if="entityDetail.description">
             {{ entityDetail.description }}
@@ -17,8 +17,10 @@
           </div>
         </div>
         <div class="q-mb-xl">
-          <DetailMap/>
+<!--          <DetailMap/>-->
         </div>
+      </div>
+      <div>
         <div class="q-mb-xl">
           <ActorsOfferList v-if="getTypeFromEntity(entityDetail) === 'actor'"/>
         </div>

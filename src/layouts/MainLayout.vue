@@ -1,14 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <div class="row entity-icons">
-      <EntitySelector
-        v-if="showEntitySelector"
-        v-for="entity in config.entities"
-        :entity-type="entity.type"
-        :active="entity.type === activeEntity"
-        @entity-click="onEntityClick(entity.type)"
-      />
-    </div>
+
     <q-page-container class="page-container">
       <router-view/>
     </q-page-container>

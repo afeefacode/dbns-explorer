@@ -1,7 +1,7 @@
 <template>
   <div v-for="offer in getOfferList()">
     <div v-if="entityDetail.offers[offer.key + 's']">
-      <h2 class="text-h5">{{ getGermanEntityName(offer.key, 'plural') }} des Akteurs</h2>
+      <h2 class="text-h5 q-px-lg">{{ getGermanEntityName(offer.key, 'plural') }} des Akteurs</h2>
       <div v-for="(offers, key) in entityDetail.offers"></div>
       <div class="row">
         <EntityCard v-for="entity in  entityDetail.offers[offer.key+'s']" :entity="entity" :key="entity.id"/>
