@@ -53,3 +53,7 @@ div {
 .break-word {
   word-wrap:break-word;
 }
+
+.hide-expansion-header > .q-expansion-item__container > .q-item {
+  display: none;
+}

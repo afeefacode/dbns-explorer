@@ -6,18 +6,36 @@
       <EntitySearch class="col-12 col-sm-6 col-md-3"/>
     </div>
     <q-expansion-item
-      class="test"
-      v-model="expanded"
-      :label="`Weitere Filter ${expanded ? 'ausblenden' : 'einblenden'}`"
-      v-if="showAdditionalFilters"
+      class="additional-filters"
+      v-model="additionalFiltersExpanded"
+      :label="`Weitere Filter ${additionalFiltersExpanded ? 'ausblenden' : 'einblenden'}`"
+      duration="150"
     >
       <div class="q-mb-lg">
-        <!--        <q-slide-transition duration="150">-->
-        <!--          <ActorFilters v-show="isActiveEntity(activeEntities,'actors')"/>-->
-        <!--        </q-slide-transition>-->
-        <ActorFilters v-if="isActiveEntity(activeEntities,'actors')"/>
-        <EventFilters v-if="isActiveEntity(activeEntities,'events')"/>
-        <StoreFilters v-if="isActiveEntity(activeEntities,'stores')"/>
+        <q-expansion-item
+          class="hide-expansion-header"
+          v-model="showActorFilters"
+          duration="150"
+        >
+          <ActorFilters/>
+        </q-expansion-item>
+        <q-expansion-item
+          class="hide-expansion-header"
+          v-model="showEventFilters"
+          duration="150"
+        >
+          <EventFilters/>
+        </q-expansion-item>
+        <q-expansion-item
+          class="hide-expansion-header"
+          v-model="showStoreFilters"
+          duration="150"
+        >
+          <StoreFilters/>
+        </q-expansion-item>
+        <div v-if="!showAdditionalFilters" class="text-center">
+          <i>Keine weiteren Filter vorhanden</i>
+        </div>
       </div>
     </q-expansion-item>
     <div class="row q-mt-xs justify-center">
@@ -43,12 +61,19 @@ import StoreFilters from 'components/filters/StoreFilters.vue';
 import {isActiveEntity} from 'src/utils'
 
 const baseStore = useBaseStore()
-const {activeEntities, showAdditionalFilters} = storeToRefs(baseStore)
+const {
+  activeEntities,
+  showAdditionalFilters,
+  showActorFilters,
+  showEventFilters,
+  showStoreFilters,
+  additionalFiltersExpanded
+} = storeToRefs(baseStore)
 
 const expanded = ref(true)
 </script>
 <style lang="scss">
-.test {
+.additional-filters {
   .q-expansion-item__container {
     .q-item__label {
       text-align: center;
@@ -73,5 +98,9 @@ const expanded = ref(true)
 .slide-fade-leave-to {
   transform: translateY(-20px);
   opacity: 0;
+}
+
+.hide-expansion-header > .q-expansion-item__container > .q-item {
+  display: none;
 }
 </style>

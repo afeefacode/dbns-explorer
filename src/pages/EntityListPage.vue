@@ -10,7 +10,13 @@
       />
     </div>
     <div class="q-mb-md">
-      <Filters v-if="baseStore.entityConfig?.showFilters"/>
+      <q-expansion-item
+        class="hide-expansion-header"
+        v-model="showFilters"
+        duration="150"
+      >
+        <Filters/>
+      </q-expansion-item>
     </div>
     <!--    <MapListToggle-->
     <!--      @view-toggled="viewToggled"-->
@@ -40,7 +46,7 @@ import {isActiveEntity} from 'src/utils'
 const baseStore = useBaseStore()
 const config = useBaseStore().config
 
-const {activeEntities} = baseStore
+const {activeEntities, showFilters} = storeToRefs(baseStore)
 
 const entityStore = useEntityStore()
 //@ts-ignore
