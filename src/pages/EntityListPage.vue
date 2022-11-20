@@ -1,5 +1,14 @@
 <template>
   <q-page class="q-mb-xl">
+    <div class="row entity-icons">
+      <EntitySelector
+        v-if="showEntitySelector"
+        v-for="entity in config.entities"
+        :entity-type="entity.type"
+        :active="isActiveEntity(activeEntities, entity.type)"
+        @entity-click="onEntityClick(entity.type)"
+      />
+    </div>
     <div class="q-mb-md">
       <Filters v-if="baseStore.entityConfig?.showFilters"/>
     </div>
@@ -15,16 +24,23 @@
 </template>
 <script setup lang="ts">
 import {ref, onUpdated} from 'vue'
+import {useRouter} from "vue-router";
+import {storeToRefs} from "pinia";
+import {entityRequests} from 'src/api/entityRequests'
 import {useBaseStore} from 'stores/base-store'
 import {useEntityStore} from "stores/entity-store"
+import EntitySelector from 'src/components/filters/EntitySelector.vue'
 import Filters from 'components/filters/Filters.vue'
 import MapView from 'components/map-view/MapView.vue'
 import ListView from 'components/ListView.vue'
 import MapListToggle from 'components/MapListToggle.vue'
-import {entityRequests} from 'src/api/entityRequests'
+import {isActiveEntity} from 'src/utils'
+
 
 const baseStore = useBaseStore()
 const config = useBaseStore().config
+
+const {activeEntities} = baseStore
 
 const entityStore = useEntityStore()
 //@ts-ignore
@@ -36,6 +52,17 @@ const activeView = baseStore.entityConfig?.showMapView
 
 const viewToggled = (newView: string) => {
   activeView.value = newView
+}
+const router = useRouter()
+const showEntitySelector = Object.keys(config.entities).length > 1
+
+const onEntityClick = (entityType: string) => {
+  if (isActiveEntity(baseStore.activeEntities, entityType)) {
+    const index = baseStore.activeEntities.findIndex(activeEntity => activeEntity === entityType)
+    baseStore.activeEntities.splice(index, 1)
+  } else {
+    baseStore.activeEntities.push(entityType)
+  }
 }
 
 onUpdated(() => {
@@ -53,3 +80,8 @@ onUpdated(() => {
 })
 
 </script>
+<style>
+.entity-icons {
+  justify-content: center;
+}
+</style>
