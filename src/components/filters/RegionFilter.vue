@@ -1,7 +1,7 @@
 <template>
   <q-select
     filled
-    v-model="regionsRef"
+    v-model="activeFilters.main.region"
     dense
     :options="regionNames"
     label="Region filtern"
@@ -13,11 +13,13 @@
   </q-select>
 </template>
 <script setup>
-import {ref} from 'vue'
+import {storeToRefs} from 'pinia'
+import {useBaseStore} from 'src/stores/base-store'
 import {useCategoryStore} from 'src/stores/category-store'
 
 const {regions} = useCategoryStore()
-
-const regionsRef = ref(null)
 const regionNames = regions.map(region => region.title)
+
+const baseStore = useBaseStore()
+const {activeFilters} = storeToRefs(baseStore)
 </script>

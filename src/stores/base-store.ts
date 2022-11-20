@@ -21,9 +21,9 @@ export const useBaseStore = defineStore('base', {
           endDate: null,
         },
         stores: {
-          targetGroups: null,
-          tradeTypes: null,
           tradeCategories: null,
+          tradeTypes: null,
+          productTypes: null,
         }
       }
     }
@@ -61,7 +61,6 @@ export const useBaseStore = defineStore('base', {
     hasActiveFilters(): any {
       let hasActiveFilter = false
       for (const [filterCategory, subCategories] of Object.entries(this.activeFilters)) {
-        console.log(filterCategory, subCategories)
         for (const [subcategory, filterValue] of Object.entries(subCategories)) {
           if (!!filterValue) hasActiveFilter = true
         }
@@ -69,5 +68,14 @@ export const useBaseStore = defineStore('base', {
       return hasActiveFilter
     }
   },
-  actions: {},
+  actions: {
+    clearFilters(): any {
+      for (const [filterCategory, subCategories] of Object.entries(this.activeFilters)) {
+        for (const [subcategory, filterValue] of Object.entries(subCategories)) {
+          // @ts-ignore
+          this.activeFilters[filterCategory][subcategory] = null
+        }
+      }
+    }
+  },
 });

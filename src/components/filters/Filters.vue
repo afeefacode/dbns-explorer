@@ -44,7 +44,14 @@
         v-model="hasActiveFilters"
         :duration="150"
       >
-        <q-btn label="Filter anwenden"></q-btn>
+        <div class="q-gutter-sm">
+          <div class="q-mb-lg">
+            <q-btn label="Filter anwenden"></q-btn>
+          </div>
+          <div class="text-center clear-filter-button" @click="baseStore.clearFilters()">
+            alle Filter löschen
+          </div>
+        </div>
       </q-expansion-item>
     </div>
   </div>
@@ -55,7 +62,6 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue'
 import {storeToRefs} from 'pinia'
 import {useBaseStore} from 'src/stores/base-store'
 import ActorFilters from 'components/filters/ActorFilters.vue';
@@ -64,20 +70,16 @@ import RegionFilter from 'components/filters/RegionFilter.vue';
 import EntitySearch from 'components/filters/EntitySearch.vue';
 import EventFilters from 'components/filters/EventFilters.vue';
 import StoreFilters from 'components/filters/StoreFilters.vue';
-import {isActiveEntity} from 'src/utils'
 
 const baseStore = useBaseStore()
 const {
-  activeEntities,
   hasActiveFilters,
   showAdditionalFilters,
   showActorFilters,
   showEventFilters,
   showStoreFilters,
-  additionalFiltersExpanded
+  additionalFiltersExpanded,
 } = storeToRefs(baseStore)
-
-const expanded = ref(true)
 </script>
 <style lang="scss">
 .additional-filters {
@@ -93,21 +95,8 @@ const expanded = ref(true)
   }
 }
 
-.slide-fade-enter-active {
-  transition: all 0.3s ease-out;
-}
-
-.slide-fade-leave-active {
-  transition: all 0.3s ease-out;
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  transform: translateY(-20px);
-  opacity: 0;
-}
-
-.hide-expansion-header > .q-expansion-item__container > .q-item {
-  display: none;
+.clear-filter-button {
+  text-decoration: underline;
+  cursor: pointer;
 }
 </style>

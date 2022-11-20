@@ -6,7 +6,7 @@
     <div class="col-12 col-sm-6 col-md-3">
       <q-select
         filled
-        v-model="tradeCategoriesRef"
+        v-model="activeFilters.stores.tradeCategories"
         dense
         :options="tradeCategoriesNames"
         label="Handelskategorien"
@@ -20,7 +20,7 @@
     <div class="col-12 col-sm-6 col-md-3">
       <q-select
         filled
-        v-model="tradeTypesRef"
+        v-model="activeFilters.stores.tradeTypes"
         dense
         :options="tradeTypesNames"
         label="Handelstypen"
@@ -34,7 +34,7 @@
     <div class="col-12 col-sm-6 col-md-3">
       <q-select
         filled
-        v-model="productTypesRef"
+        v-model="activeFilters.stores.productTypes"
         dense
         :options="productTypesNames"
         label="Produkttypen"
@@ -48,17 +48,16 @@
   </div>
 </template>
 <script setup>
-import {ref} from 'vue'
+import {storeToRefs} from 'pinia'
+import {useBaseStore} from 'src/stores/base-store'
 import {useCategoryStore} from 'src/stores/category-store'
 
 const {tradeCategories, tradeTypes, productTypes} = useCategoryStore()
 
-const tradeCategoriesRef = ref(null)
 const tradeCategoriesNames = tradeCategories.map(category => category.title)
-
-const tradeTypesRef = ref(null)
 const tradeTypesNames = tradeTypes.map(category => category.title)
-
-const productTypesRef = ref(null)
 const productTypesNames = productTypes.map(category => category.title)
+
+const baseStore = useBaseStore()
+const {activeFilters} = storeToRefs(baseStore)
 </script>

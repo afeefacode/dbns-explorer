@@ -1,7 +1,7 @@
 <template>
     <q-select
       filled
-      v-model="categoriesRef"
+      v-model="activeFilters.main.category"
       dense
       :options="categoryNames"
       label="Kategorie filtern"
@@ -13,10 +13,13 @@
     </q-select>
 </template>
 <script setup>
-import {ref} from 'vue'
+import {storeToRefs} from 'pinia'
+import {useBaseStore} from 'src/stores/base-store'
 import {useCategoryStore} from 'src/stores/category-store'
 
 const {mainCategories} = useCategoryStore()
-const categoriesRef = ref(null)
 const categoryNames = mainCategories.map(category => category.title)
+
+const baseStore = useBaseStore()
+const {activeFilters} = storeToRefs(baseStore)
 </script>
