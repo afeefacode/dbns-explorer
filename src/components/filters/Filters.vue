@@ -9,27 +9,27 @@
       class="additional-filters"
       v-model="additionalFiltersExpanded"
       :label="`Weitere Filter ${additionalFiltersExpanded ? 'ausblenden' : 'einblenden'}`"
-      duration="150"
+      :duration="150"
     >
       <div class="q-mb-lg">
         <q-expansion-item
           class="hide-expansion-header"
           v-model="showActorFilters"
-          duration="150"
+          :duration="150"
         >
           <ActorFilters/>
         </q-expansion-item>
         <q-expansion-item
           class="hide-expansion-header"
           v-model="showEventFilters"
-          duration="150"
+          :duration="150"
         >
           <EventFilters/>
         </q-expansion-item>
         <q-expansion-item
           class="hide-expansion-header"
           v-model="showStoreFilters"
-          duration="150"
+          :duration="150"
         >
           <StoreFilters/>
         </q-expansion-item>
@@ -39,7 +39,13 @@
       </div>
     </q-expansion-item>
     <div class="row q-mt-xs justify-center">
-      <!--      <q-btn label="Und los"></q-btn>-->
+      <q-expansion-item
+        class="hide-expansion-header"
+        v-model="hasActiveFilters"
+        :duration="150"
+      >
+        <q-btn label="Filter anwenden"></q-btn>
+      </q-expansion-item>
     </div>
   </div>
 
@@ -49,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref, Transition} from 'vue'
+import {ref} from 'vue'
 import {storeToRefs} from 'pinia'
 import {useBaseStore} from 'src/stores/base-store'
 import ActorFilters from 'components/filters/ActorFilters.vue';
@@ -63,6 +69,7 @@ import {isActiveEntity} from 'src/utils'
 const baseStore = useBaseStore()
 const {
   activeEntities,
+  hasActiveFilters,
   showAdditionalFilters,
   showActorFilters,
   showEventFilters,

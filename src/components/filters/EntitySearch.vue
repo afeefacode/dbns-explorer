@@ -4,7 +4,7 @@
       filled
       dense
       clearable
-      v-model="searchInput"
+      v-model="activeFilters.main.search"
       label="Stichwortsuche"
       @keyup="onSearchInput"
     >
@@ -16,6 +16,7 @@
 </template>
 <script setup>
 import {ref} from 'vue'
+import {storeToRefs} from 'pinia'
 import {debounce, appendFiltersToRequest} from 'src/utils'
 import {useBaseStore} from 'src/stores/base-store'
 import {useEntityStore} from 'src/stores/entity-store'
@@ -23,6 +24,8 @@ import {entityRequests} from "src/api/entityRequests";
 
 const entityStore = useEntityStore()
 const baseStore = useBaseStore()
+
+const {activeFilters} = storeToRefs(baseStore)
 
 const searchInput = ref(null)
 const onSearchInput = debounce(() => {

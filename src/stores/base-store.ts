@@ -7,6 +7,25 @@ export const useBaseStore = defineStore('base', {
       config: full_widget,
       activeEntities: ['actors'],
       additionalFiltersExpanded: false,
+      activeFilters: {
+        main: {
+          region: null,
+          category: null,
+          search: null,
+        },
+        actors: {
+          orgTypes: null
+        },
+        events: {
+          startDate: null,
+          endDate: null,
+        },
+        stores: {
+          targetGroups: null,
+          tradeTypes: null,
+          tradeCategories: null,
+        }
+      }
     }
   },
   getters: {
@@ -38,6 +57,16 @@ export const useBaseStore = defineStore('base', {
     },
     showStoreFilters(): any {
       return this.activeEntities.includes('stores')
+    },
+    hasActiveFilters(): any {
+      let hasActiveFilter = false
+      for (const [filterCategory, subCategories] of Object.entries(this.activeFilters)) {
+        console.log(filterCategory, subCategories)
+        for (const [subcategory, filterValue] of Object.entries(subCategories)) {
+          if (!!filterValue) hasActiveFilter = true
+        }
+      }
+      return hasActiveFilter
     }
   },
   actions: {},

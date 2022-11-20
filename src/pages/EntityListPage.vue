@@ -13,7 +13,7 @@
       <q-expansion-item
         class="hide-expansion-header"
         v-model="showFilters"
-        duration="150"
+        :duration="150"
       >
         <Filters/>
       </q-expansion-item>
