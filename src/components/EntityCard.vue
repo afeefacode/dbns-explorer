@@ -61,7 +61,7 @@ const shortenStringTo = (characters, string) => string.length > characters ? str
 let displayed = {}
 displayed.title = props.entity.title ? shortenStringTo(150, props.entity.title) : ''
 displayed.short_description = props.entity.short_description ? shortenStringTo(200, props.entity.short_description) : ''
-displayed.info_url = props.entity.info_url ? shortenStringTo(35, prettifyUrl(props.entity.info_url)) : ''
+displayed.info_url = props.entity.info_url ? shortenStringTo(55, prettifyUrl(props.entity.info_url)) : ''
 
 if (props.entity.offer_type?.key === 'NLS.Event') {
   let startAt = new Date(props.entity.start_at)

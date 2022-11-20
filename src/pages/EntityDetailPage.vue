@@ -9,15 +9,18 @@
           <div v-if="entityDetail.description">
             {{ entityDetail.description }}
           </div>
+          <div v-else-if="entityDetail.short_description">
+            {{ entityDetail.short_description }}
+          </div>
           <div v-else>
             <i>Keine Beschreibung vorhanden</i>
           </div>
         </div>
-        <!--        <DetailMap class="q-mb-xl"/>-->
-        <div v-if="getTypeFromEntity(entityDetail) === 'actor'">
-          <div class="q-mb-xl">
-            <ActorsOfferList/>
-          </div>
+        <div class="q-mb-xl">
+          <DetailMap/>
+        </div>
+        <div class="q-mb-xl">
+          <ActorsOfferList v-if="getTypeFromEntity(entityDetail) === 'actor'"/>
         </div>
       </div>
       <div class="entity-detail__similar-entities">
@@ -37,7 +40,7 @@ import {useRoute, useRouter} from 'vue-router'
 import {storeToRefs} from 'pinia'
 import {useBaseStore} from "stores/base-store";
 import {useEntityStore} from "stores/entity-store";
-import {getTypeFromEntity, getGermanEntityName, getOfferList} from "src/utils";
+import {getTypeFromEntity, getGermanEntityName} from "src/utils";
 import BackButton from 'components/detail/BackButton.vue'
 import DetailCard from 'components/detail/DetailCard.vue'
 import DetailMap from 'components/detail/DetailMap.vue'
@@ -69,6 +72,12 @@ onUpdated(() => {
     margin-top: 8em;
     padding: 1em;
     border-radius: 10px
+  }
+}
+
+@media (max-width: 1170px) {
+  .entity-detail__similar-entities {
+    border-radius: 0;
   }
 }
 </style>

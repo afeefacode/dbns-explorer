@@ -7,10 +7,10 @@
       class="entity-selector__icon"
       ref="entitySelectorIcon"
     >
-      <EntitySvg :type="entityType" />
+      <EntitySvg :type="entityType"/>
     </div>
     <div class="entity-selector__text">
-      {{ getGermanEntityName(entityType, 'category')}}
+      {{ getGermanEntityName(entityType, 'category') }}
     </div>
   </div>
 </template>
@@ -67,16 +67,25 @@ onUpdated(setBackgroundColor)
     align-items: center;
     margin-bottom: .5em;
     background-color: #D9D9D9;
-
-    .q-icon {
-      width: 3em;
-      height: 3em;
-    }
   }
 
   &__text {
     text-transform: uppercase;
     color: $text-gray-50;
+  }
+}
+
+@media (max-width: 839px) {
+  .entity-selector {
+    width: auto;
+    height: 3em;
+    flex-direction: row;
+    margin-bottom: 0;
+
+    &__icon {
+      scale: .5;
+      margin: 0 -.7em 0 0;
+    }
   }
 }
 

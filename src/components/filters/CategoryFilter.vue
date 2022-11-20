@@ -5,20 +5,18 @@
       dense
       :options="categoryNames"
       label="Kategorie filtern"
+      clearable
     >
       <template v-slot:prepend>
-        <q-icon name="filter_alt"/>
+        <q-icon name="category"/>
       </template>
     </q-select>
 </template>
 <script setup>
 import {ref} from 'vue'
-import {categories} from 'assets/categories'
-import {useFilterStore} from 'src/stores/filter-store'
+import {useCategoryStore} from 'src/stores/category-store'
 
-const filterStore = useFilterStore()
-filterStore.fetchCategoryList()
-
+const {mainCategories} = useCategoryStore()
 const categoriesRef = ref(null)
-const categoryNames = categories.map(category => category.name)
+const categoryNames = mainCategories.map(category => category.title)
 </script>
