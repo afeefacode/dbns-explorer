@@ -88,6 +88,56 @@ const updateDetails = () => {
             content: 'Online Event'
           })
           break;
+        case 'event_canceled':
+          details.value.push({
+            icon: 'close',
+            content: `<span style="color: red"><b>Veranstaltung wurde abgesagt</b></span>`
+          })
+          break;
+        case 'accessible':
+          details.value.push({
+            icon: 'accessible',
+            content: 'Barrierefrei'
+          })
+          break;
+        case 'child_friendly':
+          details.value.push({
+            icon: 'child_care',
+            content: 'Kinderfreundlich'
+          })
+          break;
+        case 'climate_protection':
+          details.value.push({
+            icon: 'nature',
+            content: 'Klimaneutral'
+          })
+          break;
+        case 'costs':
+          details.value.push({
+            icon: 'euro',
+            content: value
+          })
+          break;
+        case 'curriculum':
+          details.value.push({
+            title: 'Curriculum:',
+            icon: 'subject',
+            content: value
+          })
+          break;
+        case 'property_list':
+          details.value.push({
+            title: 'Zusätzliche Informationen:',
+            icon: 'info',
+            content: `<div style="white-space: pre-line">${value}</div>`
+          })
+          break;
+        case 'video_url':
+          details.value.push({
+            icon: 'slideshow',
+            content: `<b>Video:</b> <a href="${value}" target="_blank">${prettifyUrl(value)}</a>`
+          })
+          break;
         default:
           break;
       }
@@ -137,6 +187,12 @@ onUpdated(() => {
     &__logo {
       order: 1
     }
+  }
+}
+
+@media (max-width: 1170px) {
+  .detail-card {
+    border-radius: 0;
   }
 }
 </style>

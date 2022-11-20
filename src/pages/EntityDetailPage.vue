@@ -74,4 +74,10 @@ onUpdated(() => {
     border-radius: 10px
   }
 }
+
+@media (max-width: 1170px) {
+  .entity-detail__similar-entities {
+    border-radius: 0;
+  }
+}
 </style>
