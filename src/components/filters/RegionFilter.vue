@@ -5,6 +5,7 @@
     dense
     :options="regionNames"
     label="Region filtern"
+    clearable
   >
     <template v-slot:prepend>
       <q-icon name="location_on"/>

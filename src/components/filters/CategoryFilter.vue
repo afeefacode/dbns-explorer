@@ -5,6 +5,7 @@
       dense
       :options="categoryNames"
       label="Kategorie filtern"
+      clearable
     >
       <template v-slot:prepend>
         <q-icon name="category"/>

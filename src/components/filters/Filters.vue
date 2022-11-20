@@ -6,17 +6,13 @@
   <!--  >-->
   <div class="q-pa-md q-mb-md">
     <div class="row q-gutter-md q-mb-md justify-center">
-      <RegionFilter class="col-12 col-sm-6 col-md-3"/>
+      <RegionFilter class="col-12 col-sm-6 col-md-4"/>
       <CategoryFilter class="col-12 col-sm-6 col-md-4"/>
-      <EntitySearch class="col-12 col-sm-6 col-md-4"/>
+      <EntitySearch class="col-12 col-sm-6 col-md-3"/>
       <OrgTypeFilter v-if="activeEntity === 'actors'"/>
     </div>
-    <div class="" v-if="activeEntity === 'events'">
-      <EventFilters/>
-    </div>
-    <div class="" v-if="activeEntity === 'stores'">
-      <StoreFilters/>
-    </div>
+      <EventFilters v-if="activeEntity === 'events'"/>
+      <StoreFilters v-if="activeEntity === 'stores'"/>
   </div>
   <div class="q-px-lg">
     <q-separator/>
@@ -25,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue'
+// import {ref} from 'vue'
 import {storeToRefs} from 'pinia'
 import {useBaseStore} from 'src/stores/base-store'
 import OrgTypeFilter from 'components/filters/OrgTypeFilter.vue';

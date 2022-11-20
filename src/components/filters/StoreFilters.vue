@@ -7,9 +7,10 @@
         dense
         :options="tradeCategoriesNames"
         label="Handelskategorien"
+        clearable
       >
         <template v-slot:prepend>
-          <q-icon name="category"/>
+          <q-icon name="storefront"/>
         </template>
       </q-select>
     </div>
@@ -20,9 +21,10 @@
         dense
         :options="tradeTypesNames"
         label="Handelstypen"
+        clearable
       >
         <template v-slot:prepend>
-          <q-icon name="category"/>
+          <q-icon name="storefront"/>
         </template>
       </q-select>
     </div>
@@ -33,9 +35,10 @@
         dense
         :options="productTypesNames"
         label="Produkttypen"
+        clearable
       >
         <template v-slot:prepend>
-          <q-icon name="category"/>
+          <q-icon name="storefront"/>
         </template>
       </q-select>
     </div>
