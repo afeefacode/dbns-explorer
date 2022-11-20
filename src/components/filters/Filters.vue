@@ -11,8 +11,8 @@
       <EntitySearch class="col-12 col-sm-6 col-md-4"/>
       <OrgTypeFilter v-if="activeEntity === 'actors'"/>
     </div>
-    <div class="row q-gutter-md justify-center" v-if="activeEntity === 'events'">
-      <EventFilter/>
+    <div class="" v-if="activeEntity === 'events'">
+      <EventFilters/>
     </div>
     <div class="" v-if="activeEntity === 'stores'">
       <StoreFilters/>
@@ -32,7 +32,7 @@ import OrgTypeFilter from 'components/filters/OrgTypeFilter.vue';
 import CategoryFilter from 'components/filters/CategoryFilter.vue';
 import RegionFilter from 'components/filters/RegionFilter.vue';
 import EntitySearch from 'components/filters/EntitySearch.vue';
-import EventFilter from 'components/filters/EventFilter.vue';
+import EventFilters from 'components/filters/EventFilters.vue';
 import StoreFilters from 'components/filters/StoreFilters.vue';
 
 const baseStore = useBaseStore()
