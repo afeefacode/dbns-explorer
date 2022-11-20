@@ -6,6 +6,7 @@
       :options="categoryNames"
       label="Kategorie filtern"
       clearable
+      :class="activeFilters.main.category ? 'filter--active' : ''"
     >
       <template v-slot:prepend>
         <q-icon name="category"/>

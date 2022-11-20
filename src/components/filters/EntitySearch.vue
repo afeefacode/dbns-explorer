@@ -7,6 +7,7 @@
       v-model="activeFilters.main.search"
       label="Stichwortsuche"
       @keyup="onSearchInput"
+      :class="activeFilters.main.search ? 'filter--active' : ''"
     >
       <template v-slot:prepend>
         <q-icon name="search"/>

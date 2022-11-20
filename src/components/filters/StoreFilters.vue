@@ -11,6 +11,7 @@
         :options="tradeCategoriesNames"
         label="Handelskategorien"
         clearable
+        :class="activeFilters.stores.tradeCategories ? 'filter--active' : ''"
       >
         <template v-slot:prepend>
           <q-icon name="storefront"/>
@@ -25,6 +26,7 @@
         :options="tradeTypesNames"
         label="Handelstypen"
         clearable
+        :class="activeFilters.stores.tradeTypes ? 'filter--active' : ''"
       >
         <template v-slot:prepend>
           <q-icon name="storefront"/>
@@ -39,6 +41,7 @@
         :options="productTypesNames"
         label="Produkttypen"
         clearable
+        :class="activeFilters.stores.productTypes ? 'filter--active' : ''"
       >
         <template v-slot:prepend>
           <q-icon name="storefront"/>

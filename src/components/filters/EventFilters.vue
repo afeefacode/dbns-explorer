@@ -4,7 +4,7 @@
   </div>
   <div class="row justify-center q-mb-sm">
     <q-chip v-for="timeSpan in defaultTimeSpans" @click="setTimeSpan(timeSpan)" clickable
-            :class="isActiveTimeSpan(timeSpan) ? 'q-chip--active' : '______________'"
+            :class="isActiveTimeSpan(timeSpan) ? 'q-chip--active' : ''"
     >
       {{ timeSpan.lable }}
     </q-chip>
@@ -15,6 +15,7 @@
       v-model="activeFilters.events[boundary]"
       :label="`Zeitraum ${boundary === 'startDate' ? 'von' : 'bis'}`"
       dense filled clearable mask="##.##.####"
+      :class="activeFilters.events[boundary] ? 'filter--active' : ''"
     >
       <template v-slot:append>
         <q-icon name="event" class="cursor-pointer">

@@ -6,6 +6,7 @@
     :options="regionNames"
     label="Region filtern"
     clearable
+    :class="activeFilters.main.region ? 'filter--active' : ''"
   >
     <template v-slot:prepend>
       <q-icon name="location_on"/>

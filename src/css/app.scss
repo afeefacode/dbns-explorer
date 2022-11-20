@@ -44,8 +44,9 @@ div {
     color: var(--brandColor);
   }
 }
-.q-btn::before  {
-    box-shadow: none;
+
+.q-btn::before {
+  box-shadow: none;
 
 }
 
@@ -55,9 +56,15 @@ div {
 }
 
 .break-word {
-  word-wrap:break-word;
+  word-wrap: break-word;
 }
 
 .hide-expansion-header > .q-expansion-item__container > .q-item {
   display: none;
+}
+
+.filter--active {
+  .q-field__control {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+  }
 }
