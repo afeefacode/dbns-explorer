@@ -4,7 +4,7 @@
       v-model="activeFilters.main.category"
       dense
       :options="categoryNames"
-      label="Kategorie filtern"
+      label="Kategorie"
       clearable
       :class="activeFilters.main.category ? 'filter--active' : ''"
     >

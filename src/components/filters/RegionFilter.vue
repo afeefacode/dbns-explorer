@@ -4,7 +4,7 @@
     v-model="activeFilters.main.region"
     dense
     :options="regionNames"
-    label="Region filtern"
+    label="Region"
     clearable
     :class="activeFilters.main.region ? 'filter--active' : ''"
   >

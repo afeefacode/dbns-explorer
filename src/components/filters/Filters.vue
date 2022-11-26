@@ -46,7 +46,7 @@
       >
         <div class="q-gutter-sm">
           <div class="q-mb-lg">
-            <q-btn label="Filter anwenden"></q-btn>
+            <q-btn label="Filter anwenden" @click="fetchEntities"></q-btn>
           </div>
           <div class="text-center clear-filter-button" @click="baseStore.clearFilters()">
             alle Filter löschen
@@ -64,6 +64,7 @@
 <script setup lang="ts">
 import {storeToRefs} from 'pinia'
 import {useBaseStore} from 'src/stores/base-store'
+import {useEntityStore} from 'src/stores/entity-store'
 import ActorFilters from 'components/filters/ActorFilters.vue';
 import CategoryFilter from 'components/filters/CategoryFilter.vue';
 import RegionFilter from 'components/filters/RegionFilter.vue';
@@ -80,6 +81,15 @@ const {
   showStoreFilters,
   additionalFiltersExpanded,
 } = storeToRefs(baseStore)
+
+const entityStore = useEntityStore()
+
+const fetchEntities = () => {
+  console.log('fetching')
+    baseStore.activeEntities.forEach((entityType: string) => {
+        entityStore.fetchEntityList(entityType)
+    })
+}
 </script>
 <style lang="scss">
 .additional-filters {

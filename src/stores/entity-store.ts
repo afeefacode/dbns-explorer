@@ -1,18 +1,31 @@
 import {defineStore} from 'pinia';
+import {useCategoryStore} from 'src/stores/category-store'
 import {fetchActorOffers, fetchEntityDetails, fetchEntityList} from "src/api/entities";
 
 export const useEntityStore = defineStore('entities', {
   state: () => {
     return {
-      entityList: [],
+      entityLists: {
+        actors: null,
+        counselings: null,
+        educations: null,
+        events: null,
+        projects: null,
+        stores: null,
+      },
       entityListLoading: false,
       entityDetail: {offers: {}},
       entityDetailLoading: false,
     }
   },
   actions: {
-    async fetchEntityList(requestBody: object) {
+    async fetchEntityList(entityType: string) {
+      const categoryStore = useCategoryStore()
+      console.log(categoryStore.mainCategories)
       this.entityListLoading = true
+
+      return
+
       try {
         this.entityList = await fetchEntityList(requestBody)
       } catch (e) {

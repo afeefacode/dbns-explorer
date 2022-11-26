@@ -25,7 +25,7 @@
     <!--    />-->
     <!--    <MapView v-if="baseStore.entityConfig.showMapView && activeView === 'map'"/>-->
     <!--    <ListView v-if="baseStore.entityConfig.showListView && activeView === 'list'"/>-->
-    <ListView/>
+    <ListView v-for="entityType in activeEntities" :entityType="entityType"/>
   </q-page>
 </template>
 <script setup lang="ts">
@@ -67,7 +67,8 @@ const onEntityClick = (entityType: string) => {
     const index = baseStore.activeEntities.findIndex(activeEntity => activeEntity === entityType)
     baseStore.activeEntities.splice(index, 1)
   } else {
-    baseStore.activeEntities.push(entityType)
+    baseStore.activeEntities.unshift(entityType)
+    // fetch entities
   }
 }
 
