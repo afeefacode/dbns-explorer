@@ -1,8 +1,8 @@
 <template>
   <div class="q-pa-md q-mb-md">
     <div class="row q-gutter-md q-mb-md justify-center">
-      <RegionFilter class="col-12 col-sm-6 col-md-4"/>
-      <CategoryFilter class="col-12 col-sm-6 col-md-4"/>
+      <RegionFilter class="col-12 col-sm-6 col-md-4" v-if="categoryStore.regions"/>
+      <CategoryFilter class="col-12 col-sm-6 col-md-4" v-if="categoryStore.mainCategories"/>
       <EntitySearch class="col-12 col-sm-6 col-md-3"/>
     </div>
     <q-expansion-item
@@ -17,7 +17,7 @@
           v-model="showActorFilters"
           :duration="150"
         >
-          <ActorFilters/>
+          <ActorFilters v-if="categoryStore.orgTypes"/>
         </q-expansion-item>
         <q-expansion-item
           class="hide-expansion-header"
@@ -31,7 +31,7 @@
           v-model="showStoreFilters"
           :duration="150"
         >
-          <StoreFilters/>
+          <StoreFilters v-if="categoryStore.tradeCategories && categoryStore.tradeTypes && categoryStore.productTypes"/>
         </q-expansion-item>
         <div v-if="!showAdditionalFilters" class="text-center">
           <i>Keine weiteren Filter vorhanden</i>
@@ -64,6 +64,7 @@
 <script setup lang="ts">
 import {storeToRefs} from 'pinia'
 import {useBaseStore} from 'src/stores/base-store'
+import {useCategoryStore} from 'src/stores/category-store'
 import {useEntityStore} from 'src/stores/entity-store'
 import ActorFilters from 'components/filters/ActorFilters.vue';
 import CategoryFilter from 'components/filters/CategoryFilter.vue';
@@ -81,6 +82,8 @@ const {
   showStoreFilters,
   additionalFiltersExpanded,
 } = storeToRefs(baseStore)
+
+const categoryStore = useCategoryStore()
 
 const entityStore = useEntityStore()
 

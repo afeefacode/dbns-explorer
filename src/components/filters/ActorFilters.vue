@@ -11,8 +11,6 @@
   </div>
 </template>
 <script setup>
-import {storeToRefs} from 'pinia'
-import {useBaseStore} from 'src/stores/base-store'
 import {useCategoryStore} from 'src/stores/category-store'
 
 const {orgTypes} = useCategoryStore()
