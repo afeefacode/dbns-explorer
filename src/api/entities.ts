@@ -2,10 +2,40 @@ import axios from "axios";
 import {entityRequests} from "src/api/entityRequests";
 import {getOfferList} from "src/utils";
 
-export const fetchEntityList = async (requestBody: object) => {
+export const fetchEntityList = async (entityType: string, activeFilters: {}) => {
+  let filters = {}
+  let requestBody = {}
+  requestBody = {
+    //@ts-ignore
+    ...entityRequests[entityType].list,
+    ...filters
+  }
+
+  switch (entityType) {
+    case 'actors':
+      requestBody = {
+        ...entityRequests.actors.list,
+        ...filters
+      }
+      break;
+    case 'projects':
+      break;
+    case 'events':
+      break;
+    case 'educations':
+      break;
+    case 'counselings':
+      break;
+    case 'stores':
+      break;
+    default:
+      break;
+  }
+
   const serverUrl = 'https://daten.nachhaltiges-sachsen.de/api/v2'
   const response = await axios.post(serverUrl, requestBody)
-  return response.data
+  console.log('response', response.data.data[0])
+  return response.data.data
 }
 
 export const fetchEntityDetails = async (entityType: string, id: string | string[]) => {

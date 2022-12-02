@@ -66,7 +66,6 @@ export const getGermanEntityName = (entityName: string, mode: 'singular' | 'plur
       }
       break;
     default:
-      console.log('entityName', entityName)
       return capitalizeFirstLetter(entityName)
   }
 }
@@ -172,4 +171,14 @@ export const prettifyUrl = (url: string) => {
 
 export const isActiveEntity = (activeEntities: string[], entityType: string) => {
   return !!activeEntities.find(activeEntity => activeEntity === entityType)
+}
+
+export const addToArrayOrRemove = (array: string [], element: string) => {
+  if (isActiveEntity(array, element)) {
+    const index = array.findIndex(activeEntity => activeEntity === element)
+    array.splice(index, 1)
+  } else {
+    array.unshift(element)
+  }
+  return array
 }

@@ -1,8 +1,8 @@
 <template>
   <h2 class="text-h4 text-center">{{getGermanEntityName(entityType, 'plural')}}</h2>
   <div class="list-view">
-    <div class="row">
-      <EntityCard v-for="entity in entityList?.data" :entity="entity" :key="entity.id"/>
+    <div class="row" v-if="entityLists[entityType]">
+      <EntityCard v-for="entity in entityLists[entityType]" :entity="entity" :key="entity.id"/>
     </div>
   </div>
   <q-separator class="q-my-xl"></q-separator>
@@ -22,6 +22,11 @@ const props = defineProps({
 })
 
 const entityStore = useEntityStore()
-const {entityList} = storeToRefs(entityStore)
+const {entityLists} = storeToRefs(entityStore)
+
+if(!entityLists[props.entityType]) {
+  console.log('props.entityType', props.entityType)
+  entityStore.fetchEntityList(props.entityType)
+}
 </script>
 

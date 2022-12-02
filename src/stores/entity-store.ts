@@ -21,13 +21,10 @@ export const useEntityStore = defineStore('entities', {
   actions: {
     async fetchEntityList(entityType: string) {
       const categoryStore = useCategoryStore()
-      console.log(categoryStore.mainCategories)
       this.entityListLoading = true
-
-      return
-
       try {
-        this.entityList = await fetchEntityList(requestBody)
+        //@ts-ignore
+        this.entityLists[entityType] = await fetchEntityList(entityType, categoryStore)
       } catch (e) {
         console.error(e)
         return e

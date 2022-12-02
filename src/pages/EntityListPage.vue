@@ -3,10 +3,10 @@
     <div class="row entity-icons">
       <EntitySelector
         v-if="showEntitySelector"
-        v-for="entity in config.entities"
-        :entity-type="entity.type"
-        :active="isActiveEntity(activeEntities, entity.type)"
-        @entity-click="onEntityClick(entity.type)"
+        v-for="configEntity in config.entities"
+        :entity-type="configEntity.type"
+        :active="isActiveEntity(activeEntities, configEntity.type)"
+        @entity-click="onEntityClick(configEntity.type)"
       />
     </div>
     <div class="q-mb-md">
@@ -29,18 +29,22 @@
   </q-page>
 </template>
 <script setup lang="ts">
+// node_modules
 import {ref, onUpdated} from 'vue'
-import {useRouter} from "vue-router";
 import {storeToRefs} from "pinia";
+
+// utilities
 import {entityRequests} from 'src/api/entityRequests'
 import {useBaseStore} from 'stores/base-store'
 import {useEntityStore} from "stores/entity-store"
+import {addToArrayOrRemove, isActiveEntity} from 'src/utils'
+
+// components
 import EntitySelector from 'src/components/filters/EntitySelector.vue'
 import Filters from 'components/filters/Filters.vue'
 import MapView from 'components/map-view/MapView.vue'
 import ListView from 'components/ListView.vue'
 import MapListToggle from 'components/MapListToggle.vue'
-import {isActiveEntity} from 'src/utils'
 
 
 const baseStore = useBaseStore()
@@ -49,8 +53,6 @@ const config = useBaseStore().config
 const {activeEntities, showFilters} = storeToRefs(baseStore)
 
 const entityStore = useEntityStore()
-//@ts-ignore
-entityStore.fetchEntityList(entityRequests[baseStore.activeEntity].list)
 
 const activeView = baseStore.entityConfig?.showMapView
   ? ref('map')
@@ -59,17 +61,10 @@ const activeView = baseStore.entityConfig?.showMapView
 const viewToggled = (newView: string) => {
   activeView.value = newView
 }
-const router = useRouter()
 const showEntitySelector = Object.keys(config.entities).length > 1
 
 const onEntityClick = (entityType: string) => {
-  if (isActiveEntity(baseStore.activeEntities, entityType)) {
-    const index = baseStore.activeEntities.findIndex(activeEntity => activeEntity === entityType)
-    baseStore.activeEntities.splice(index, 1)
-  } else {
-    baseStore.activeEntities.unshift(entityType)
-    // fetch entities
-  }
+  baseStore.activeEntities = addToArrayOrRemove(baseStore.activeEntities, entityType)
 }
 
 onUpdated(() => {
