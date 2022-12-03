@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="q-mb-xl">
-<!--          <DetailMap/>-->
+          <!--          <DetailMap/>-->
         </div>
       </div>
       <div>
@@ -29,7 +29,11 @@
         <h2 class="text-h5 q-mt-xl q-ml-lg">Ähnliche {{
             getGermanEntityName(getTypeFromEntity(entityDetail), 'plural')
           }}</h2>
-        <ListView/>
+<!--        <ListView-->
+<!--          v-for="entityType in activeEntities[0]"-->
+<!--          :entityType="entityType"-->
+<!--          :key="entityType"-->
+<!--        />-->
       </div>
     </div>
     <EntityDetailSkeleton v-else/>
@@ -58,11 +62,12 @@ const router = useRouter()
 const config = baseStore.config
 
 const {entityDetailLoading, entityDetail} = storeToRefs(entityStore)
-entityStore.fetchEntityDetails(baseStore.activeEntity, route.params.id)
+//@ts-ignore
+entityStore.fetchEntityDetails(route.params.entityType, route.params.id)
 
 onUpdated(() => {
   const nextEntity = router.currentRoute.value.fullPath.split('/')[1]
-  baseStore.activeEntity = nextEntity
+  // baseStore.activeEntity = nextEntity
   entityStore.fetchEntityDetails(nextEntity, route.params.id)
 })
 </script>

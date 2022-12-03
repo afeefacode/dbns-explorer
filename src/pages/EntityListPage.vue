@@ -30,6 +30,7 @@
       :entityType="entityType"
       :key="entityType"
     />
+    <NoDataBackground v-if="!activeEntities.length" />
   </q-page>
 </template>
 <script setup lang="ts">
@@ -44,11 +45,12 @@ import {useEntityStore} from "stores/entity-store"
 import {addToArrayOrRemove, isActiveEntity} from 'src/utils'
 
 // components
-import EntitySelector from 'src/components/filters/EntitySelector.vue'
-import Filters from 'components/filters/Filters.vue'
-import MapView from 'components/map-view/MapView.vue'
+import EntitySelector from 'src/components/list/filters/EntitySelector.vue'
+import Filters from 'components/list/filters/Filters.vue'
+import MapView from 'components/list/map-view/MapView.vue'
 import ListView from 'components/ListView.vue'
-import MapListToggle from 'components/MapListToggle.vue'
+import MapListToggle from 'components/list/MapListToggle.vue'
+import NoDataBackground from 'components/list/NoDataBackground.vue'
 
 
 const baseStore = useBaseStore()

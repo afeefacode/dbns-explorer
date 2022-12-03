@@ -34,7 +34,6 @@ export const fetchEntityList = async (entityType: string, activeFilters: {}) => 
 
   const serverUrl = 'https://daten.nachhaltiges-sachsen.de/api/v2'
   const response = await axios.post(serverUrl, requestBody)
-  console.log('response', response.data.data[0])
   return response.data.data
 }
 

@@ -6,7 +6,7 @@ import maplibregl from 'maplibre-gl'
 import {onMounted, defineEmits, ref} from 'vue'
 import pngMarkerActor from 'assets/markers/marker-actors.png'
 // import {useActorStore} from 'stores/actor-store'
-import {useBaseStore} from "stores/base-store";
+import {useBaseStore} from "src/stores/base-store";
 // import markerActorDOM from 'assets/markers/marker-actor'
 // import markerActorSvg from 'assets/markers/marker-actors.svg'
 

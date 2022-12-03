@@ -11,7 +11,7 @@
   </div>
 </template>
 <script setup>
-import {useCategoryStore} from 'src/stores/category-store'
+import {useCategoryStore} from 'stores/category-store'
 
 const {orgTypes} = useCategoryStore()
 </script>

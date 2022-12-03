@@ -38,7 +38,7 @@
 <script setup>
 import {defineProps, computed} from 'vue'
 import {shortenStringTo} from 'src/utils'
-import DetailsButton from 'components/DetailsButton.vue'
+import DetailsButton from 'src/components/DetailsButton.vue'
 import {getGermanEntityName} from 'src/utils'
 
 const props = defineProps({

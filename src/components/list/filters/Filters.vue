@@ -63,15 +63,15 @@
 
 <script setup lang="ts">
 import {storeToRefs} from 'pinia'
-import {useBaseStore} from 'src/stores/base-store'
-import {useCategoryStore} from 'src/stores/category-store'
-import {useEntityStore} from 'src/stores/entity-store'
-import ActorFilters from 'components/filters/ActorFilters.vue';
-import CategoryFilter from 'components/filters/CategoryFilter.vue';
-import RegionFilter from 'components/filters/RegionFilter.vue';
-import EntitySearch from 'components/filters/EntitySearch.vue';
-import EventFilters from 'components/filters/EventFilters.vue';
-import StoreFilters from 'components/filters/StoreFilters.vue';
+import {useBaseStore} from 'stores/base-store'
+import {useCategoryStore} from 'stores/category-store'
+import {useEntityStore} from 'stores/entity-store'
+import ActorFilters from 'components/list/filters/ActorFilters.vue';
+import CategoryFilter from 'components/list/filters/CategoryFilter.vue';
+import RegionFilter from 'components/list/filters/RegionFilter.vue';
+import EntitySearch from 'components/list/filters/EntitySearch.vue';
+import EventFilters from 'components/list/filters/EventFilters.vue';
+import StoreFilters from 'components/list/filters/StoreFilters.vue';
 
 const baseStore = useBaseStore()
 const {
@@ -88,7 +88,6 @@ const categoryStore = useCategoryStore()
 const entityStore = useEntityStore()
 
 const fetchEntities = () => {
-  console.log('fetching')
     baseStore.activeEntities.forEach((entityType: string) => {
         entityStore.fetchEntityList(entityType)
     })

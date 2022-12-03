@@ -16,7 +16,7 @@
 </template>
 <script setup>
 import {storeToRefs} from 'pinia'
-import {useBaseStore} from 'src/stores/base-store'
+import {useBaseStore} from 'stores/base-store'
 
 const baseStore = useBaseStore()
 const {activeFilters} = storeToRefs(baseStore)

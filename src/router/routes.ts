@@ -1,24 +1,15 @@
 import {RouteRecordRaw} from 'vue-router';
-import {getEntityList} from 'src/utils'
 
-const entityRoutes: RouteRecordRaw[] = []
-
-getEntityList().forEach(entityName => {
-  entityRoutes.push({
+const routes: RouteRecordRaw[] = [
+  {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [{path: '/', component: () => import('pages/EntityListPage.vue')}],
-  })
-  entityRoutes.push({
+  }, {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{path: `/${entityName}s/:id`, component: () => import('pages/EntityDetailPage.vue')}],
-  })
-})
-
-const routes: RouteRecordRaw[] = [
-    ...entityRoutes,
-  {
+    children: [{path: `/:entityType/:id`, component: () => import('pages/EntityDetailPage.vue')}],
+  }, {
     path: '/',
     children: [{path: '/configurator', component: () => import('pages/Configurator.vue')}],
   },

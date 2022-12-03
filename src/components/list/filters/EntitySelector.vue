@@ -18,7 +18,7 @@
 import {defineProps, onUpdated, ref, onMounted} from 'vue'
 import {useBaseStore} from 'src/stores/base-store'
 import {getGermanEntityName} from 'src/utils'
-import EntitySvg from 'assets/svg/EntitySvg.vue'
+import EntitySvg from 'components/list/EntitySvg.vue'
 
 const config = useBaseStore().config
 

@@ -15,8 +15,8 @@
 </template>
 <script setup>
 import {storeToRefs} from 'pinia'
-import {useBaseStore} from 'src/stores/base-store'
-import {useCategoryStore} from 'src/stores/category-store'
+import {useBaseStore} from 'stores/base-store'
+import {useCategoryStore} from 'stores/category-store'
 
 const {regions} = useCategoryStore()
 const regionNames = regions.map(region => region.title)
