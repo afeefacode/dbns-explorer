@@ -5,14 +5,14 @@
         v-if="showEntitySelector"
         v-for="configEntity in config.entities"
         :entity-type="configEntity.type"
-        :active="isActiveEntity(activeEntities, configEntity.type)"
+        :active="isActiveEntity(baseStore.activeEntities, configEntity.type)"
         @entity-click="onEntityClick(configEntity.type)"
       />
     </div>
     <div class="q-mb-md">
       <q-expansion-item
         class="hide-expansion-header"
-        v-model="showFilters"
+        v-model="baseStore.showFilters"
         :duration="150"
       >
         <Filters/>
@@ -25,13 +25,17 @@
     <!--    />-->
     <!--    <MapView v-if="baseStore.entityConfig.showMapView && activeView === 'map'"/>-->
     <!--    <ListView v-if="baseStore.entityConfig.showListView && activeView === 'list'"/>-->
-    <ListView v-for="entityType in activeEntities" :entityType="entityType"/>
+    <ListView
+      v-for="entityType in activeEntities"
+      :entityType="entityType"
+      :key="entityType"
+    />
   </q-page>
 </template>
 <script setup lang="ts">
 // node_modules
 import {ref, onUpdated} from 'vue'
-import {storeToRefs} from "pinia";
+import {storeToRefs} from 'pinia'
 
 // utilities
 import {entityRequests} from 'src/api/entityRequests'
@@ -48,9 +52,9 @@ import MapListToggle from 'components/MapListToggle.vue'
 
 
 const baseStore = useBaseStore()
-const config = useBaseStore().config
+const {activeEntities} = storeToRefs(baseStore)
 
-const {activeEntities, showFilters} = storeToRefs(baseStore)
+const config = useBaseStore().config
 
 const entityStore = useEntityStore()
 
