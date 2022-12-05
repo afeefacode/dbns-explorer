@@ -5,13 +5,77 @@ export const useBaseStore = defineStore('base', {
   state: () => {
     return {
       config: full_widget,
-      activeEntity: '',
+      activeEntities: ['actors'],
+      additionalFiltersExpanded: false,
+      activeFilters: {
+        main: {
+          region: null,
+          category: null,
+          search: null,
+        },
+        actors: {
+          orgTypes: null
+        },
+        events: {
+          startDate: null,
+          endDate: null,
+        },
+        stores: {
+          tradeCategories: null,
+          tradeTypes: null,
+          productTypes: null,
+        }
+      }
     }
   },
   getters: {
     entityConfig(): any {
-      return this.config.entities.find((entity: any) => entity.type === this.activeEntity)
+      return this.config.entities.find((entity: any) => entity.type === this.activeEntities[0])
+    },
+    showFilters(): any {
+      return !!this.activeEntities.length
+    },
+    showAdditionalFilters(): any {
+      const entitiesWithFilters = ['actors', 'events', 'stores']
+      let show = false
+      entitiesWithFilters.forEach(entityType => {
+        if (this.activeEntities.includes(entityType)) {
+          show = true
+          return
+        }
+        if (show) return;
+      })
+
+      if (!show) this.additionalFiltersExpanded = false
+      return show
+    },
+    showActorFilters(): any {
+      return this.activeEntities.includes('actors')
+    },
+    showEventFilters(): any {
+      return this.activeEntities.includes('events')
+    },
+    showStoreFilters(): any {
+      return this.activeEntities.includes('stores')
+    },
+    hasActiveFilters(): any {
+      let hasActiveFilter = false
+      for (const [filterCategory, subCategories] of Object.entries(this.activeFilters)) {
+        for (const [subcategory, filterValue] of Object.entries(subCategories)) {
+          if (!!filterValue) hasActiveFilter = true
+        }
+      }
+      return hasActiveFilter
     }
   },
-  actions: {},
+  actions: {
+    clearFilters(): any {
+      for (const [filterCategory, subCategories] of Object.entries(this.activeFilters)) {
+        for (const [subcategory, filterValue] of Object.entries(subCategories)) {
+          // @ts-ignore
+          this.activeFilters[filterCategory][subcategory] = null
+        }
+      }
+    }
+  },
 });

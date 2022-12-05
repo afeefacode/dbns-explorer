@@ -22,9 +22,10 @@ if (configString) {
 categoryStore.fetchCategoryList()
 
 // set activeEntity to first config entity
-baseStore.activeEntity = baseStore.config.entities[0].type
+// baseStore.activeEntities.push(baseStore.config.entities[0].type)
 // navigate to activeEntity
-router.push(`/${baseStore.activeEntity}`)
+router.push('/')
+// router.push(`/${baseStore.activeEntity}`)
 
 onMounted(async () => {
   if (!inIframe()) {

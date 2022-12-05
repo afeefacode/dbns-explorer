@@ -13,8 +13,8 @@
 </template>
 <script setup>
 import {ref} from 'vue'
-import MapLibre from 'components/map-view/MapLibre.vue'
-import DetailsDrawer from 'components/map-view/DetailsDrawer.vue'
+import MapLibre from 'components/list/map-view/MapLibre.vue'
+import DetailsDrawer from 'components/list/map-view/DetailsDrawer.vue'
 
 const activeEntity = ref(null)
 
