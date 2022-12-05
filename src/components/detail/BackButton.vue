@@ -1,9 +1,9 @@
 <template>
   <q-btn
     flat
-    label="Zurück"
+    label="Zurück zur Übersicht"
     icon="chevron_left"
-    @click="$router.go(-1)"
+    @click="$router.push('/')"
   ></q-btn>
 </template>
 <script setup>

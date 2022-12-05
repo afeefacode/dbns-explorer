@@ -6,12 +6,12 @@
           <div class="text-overline">{{ displayed.type }}</div>
           <div v-if="entity.type === 'Event'">{{ displayed.start_at }}</div>
           <div class="q-mt-sm q-mb-md">
-            <div class="text-h5">
+            <div class="text-h5 break-word">
               {{ displayed.title }}
             </div>
             <div v-if="entity.info_url">
               <q-icon name="language" class="q-mr-sm" :style="`color: #${config.brandColor}`"/>
-              <a :href="entity.info_url" target="_blank" :title="displayed.name">{{ displayed.info_url }}</a>
+              <a :href="entity.info_url" target="_blank" :title="displayed.name" class="break-word">{{ displayed.info_url }}</a>
             </div>
           </div>
           <div label="test" class="text-grey list-card__short-description q-pr-xl q-mb-lg">
@@ -83,7 +83,6 @@ const expanded = ref(false)
   &__short-description {
     display: flex;
     align-items: center;
-    //height: 60px;
   }
 
   &__image {

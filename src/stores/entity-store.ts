@@ -1,20 +1,32 @@
 import {defineStore} from 'pinia';
+import {useBaseStore} from 'src/stores/base-store'
+import {useCategoryStore} from 'src/stores/category-store'
 import {fetchActorOffers, fetchEntityDetails, fetchEntityList} from "src/api/entities";
 
 export const useEntityStore = defineStore('entities', {
   state: () => {
     return {
-      entityList: [],
+      entityLists: {
+        actors: null,
+        counselings: null,
+        educations: null,
+        events: null,
+        projects: null,
+        stores: null,
+        similarEntities: null,
+      },
       entityListLoading: false,
       entityDetail: {offers: {}},
       entityDetailLoading: false,
     }
   },
   actions: {
-    async fetchEntityList(requestBody: object) {
+    async fetchEntityList(entityType: string) {
+      const baseStore = useBaseStore()
       this.entityListLoading = true
       try {
-        this.entityList = await fetchEntityList(requestBody)
+        //@ts-ignore
+        this.entityLists[entityType] = await fetchEntityList(entityType, baseStore.activeFilters)
       } catch (e) {
         console.error(e)
         return e
@@ -37,6 +49,17 @@ export const useEntityStore = defineStore('entities', {
         return e
       }
       this.entityDetailLoading = false
+    },
+    async fetchSimilarEntities(entityType: string) {
+      const categoryStore = useCategoryStore()
+      this.entityListLoading = true
+      try {
+        this.entityLists.similarEntities = await fetchEntityList(entityType, categoryStore)
+      } catch (e) {
+        console.error(e)
+        return e
+      }
+      this.entityListLoading = false
     },
   },
 });

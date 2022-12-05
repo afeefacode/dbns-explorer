@@ -4,7 +4,7 @@
     <div class="row">
 
       <div :class="`detail-card__text col-12 ${entityDetail.image ? 'col-sm-7' : ''}`">
-        <h1 class="text-h4">{{ entityDetail.title }}</h1>
+        <h1 class="text-h4 break-word">{{ entityDetail.title }}</h1>
 
         <div class="row" v-for="(detail, index) in details" :key="index">
           <div class="col" style="max-width: 35px">

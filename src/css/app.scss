@@ -27,6 +27,10 @@ div {
   outline: 0px #999 dashed;
 }
 
+.d-flex {
+  display: flex;
+}
+
 .q-btn {
   border-radius: 3px;
   font-weight: normal;
@@ -40,12 +44,27 @@ div {
     color: var(--brandColor);
   }
 }
-.q-btn::before  {
-    box-shadow: none;
+
+.q-btn::before {
+  box-shadow: none;
 
 }
 
 .q-chip {
   background: #f2f2f2;
   cursor: pointer;
+}
+
+.break-word {
+  word-wrap: break-word;
+}
+
+.hide-expansion-header > .q-expansion-item__container > .q-item {
+  display: none;
+}
+
+.filter--active {
+  .q-field__control {
+    border: 1px solid var(--brandColor);
+  }
 }
