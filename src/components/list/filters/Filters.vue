@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md q-mb-md">
+  <div class="q-pa-md q-mb-md"  @keydown.enter="fetchEntityLists">
     <div class="row q-gutter-md q-mb-md justify-center">
       <RegionFilter class="col-12 col-sm-6 col-md-4" v-if="categoryStore.regions"/>
       <CategoryFilter class="col-12 col-sm-6 col-md-4" v-if="categoryStore.mainCategories"/>
@@ -46,9 +46,9 @@
       >
         <div class="q-gutter-sm">
           <div class="q-mb-lg">
-            <q-btn label="Filter anwenden" @click="fetchEntities"></q-btn>
+            <q-btn label="Filter anwenden" @click="fetchEntityLists"></q-btn>
           </div>
-          <div class="text-center clear-filter-button" @click="baseStore.clearFilters()">
+          <div class="text-center clear-filter-button" @click="clearFiltersAndFetch">
             <span>alle Filter löschen</span>
             <q-icon name="cancel" style="text-decoration: none"/>
           </div>
@@ -88,10 +88,15 @@ const categoryStore = useCategoryStore()
 
 const entityStore = useEntityStore()
 
-const fetchEntities = () => {
+const fetchEntityLists = () => {
   baseStore.activeEntities.forEach((entityType: string) => {
     entityStore.fetchEntityList(entityType)
   })
+}
+
+const clearFiltersAndFetch = () => {
+  baseStore.clearFilters()
+  fetchEntityLists()
 }
 </script>
 <style lang="scss">

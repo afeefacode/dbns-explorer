@@ -1,4 +1,5 @@
 import {defineStore} from 'pinia';
+import {useBaseStore} from 'src/stores/base-store'
 import {useCategoryStore} from 'src/stores/category-store'
 import {fetchActorOffers, fetchEntityDetails, fetchEntityList} from "src/api/entities";
 
@@ -21,11 +22,11 @@ export const useEntityStore = defineStore('entities', {
   },
   actions: {
     async fetchEntityList(entityType: string) {
-      const categoryStore = useCategoryStore()
+      const baseStore = useBaseStore()
       this.entityListLoading = true
       try {
         //@ts-ignore
-        this.entityLists[entityType] = await fetchEntityList(entityType, categoryStore)
+        this.entityLists[entityType] = await fetchEntityList(entityType, baseStore.activeFilters)
       } catch (e) {
         console.error(e)
         return e

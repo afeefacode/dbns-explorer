@@ -2,20 +2,30 @@ import axios from "axios";
 import {entityRequests} from "src/api/entityRequests";
 import {getOfferList} from "src/utils";
 
-export const fetchEntityList = async (entityType: string, activeFilters: {}) => {
-  let filters = {}
+export const fetchEntityList = async (entityType: string, activeFilters: any) => {
+  let filters = {
+    q: activeFilters.main?.search
+  }
   let requestBody = {}
   requestBody = {
     //@ts-ignore
     ...entityRequests[entityType].list,
-    ...filters
+    filters: {
+      //@ts-ignore
+      ...entityRequests[entityType].list.filters,
+      ...filters
+    }
   }
 
   switch (entityType) {
     case 'actors':
       requestBody = {
         ...entityRequests.actors.list,
-        ...filters
+        filters: {
+          //@ts-ignore
+          ...entityRequests.actors.list.filters,
+          ...filters
+        }
       }
       break;
     case 'projects':

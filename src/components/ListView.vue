@@ -1,9 +1,10 @@
 <template>
   <h2 class="text-h4 text-center">{{ getGermanEntityName(entityType, 'category') }}</h2>
   <div class="list-view">
-    <div class="row" v-if="entityLists[entityType]">
+    <div class="row" v-if="entityLists[entityType]?.length">
       <EntityCard v-for="entity in entityLists[entityType]" :entity="entity" :key="entity.id"/>
     </div>
+    <div v-else class="text-center"><i>Keine Einträge zu diesen Filtern gefunden.</i></div>
   </div>
   <q-separator class="q-my-xl"></q-separator>
 </template>
