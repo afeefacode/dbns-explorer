@@ -45,8 +45,8 @@ const {activeFilters} = storeToRefs(baseStore)
 
 const defaultTimeSpans = [
   {name: 'today', lable: 'Heute', start: moment(), end: moment()},
-  {name: 'this_week', lable: 'Diese Woche', start: moment(), end: moment().add(7, 'days')},
-  {name: 'this_month', lable: 'Diesen Monat', start: moment(), end: moment().add(30, 'days')},
+  {name: 'this_week', lable: 'Nächste 7 Tage', start: moment(), end: moment().add(7, 'days')},
+  {name: 'this_month', lable: 'Nächste 30 Tage', start: moment(), end: moment().add(30, 'days')},
 ]
 
 const setTimeSpan = (timeSpan) => {

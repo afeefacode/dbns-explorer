@@ -2,9 +2,6 @@
   <div>
     <a href="https://www.nachhaltiges-sachsen.de" target="_blank" class="lvns-logo-link">
       <svg
-        xmlns:dc="http://purl.org/dc/elements/1.1/"
-        xmlns:cc="http://creativecommons.org/ns#"
-        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
         xmlns:svg="http://www.w3.org/2000/svg"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 302.36133 158.34399"
@@ -13,10 +10,6 @@
         xml:space="preserve"
         id="svg2"
         version="1.1">
-    <metadata
-      id="metadata8"><rdf:RDF><cc:Work
-         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-      rdf:resource="http://purl.org/dc/dcmitype/StillImage"/></cc:Work></rdf:RDF></metadata>
         <defs
           id="defs6"><clipPath
        id="clipPath102"
@@ -325,19 +318,21 @@
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  color: #999;
   text-decoration: none;
 
   svg {
     scale: .75;
+
+    path {
+      fill: #999 !important;
+    }
   }
 
   &:hover {
-    transition: color 100ms linear;
-    color: var(--brandColor);
+    text-decoration: underline;
 
     path {
-      transition: fill 100ms linear;
+      transition: fill 300ms linear;
       fill: var(--brandColor) !important;
     }
   }

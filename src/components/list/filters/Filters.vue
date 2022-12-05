@@ -49,7 +49,8 @@
             <q-btn label="Filter anwenden" @click="fetchEntities"></q-btn>
           </div>
           <div class="text-center clear-filter-button" @click="baseStore.clearFilters()">
-            alle Filter löschen
+            <span>alle Filter löschen</span>
+            <q-icon name="cancel" style="text-decoration: none"/>
           </div>
         </div>
       </q-expansion-item>
@@ -88,9 +89,9 @@ const categoryStore = useCategoryStore()
 const entityStore = useEntityStore()
 
 const fetchEntities = () => {
-    baseStore.activeEntities.forEach((entityType: string) => {
-        entityStore.fetchEntityList(entityType)
-    })
+  baseStore.activeEntities.forEach((entityType: string) => {
+    entityStore.fetchEntityList(entityType)
+  })
 }
 </script>
 <style lang="scss">
@@ -108,7 +109,23 @@ const fetchEntities = () => {
 }
 
 .clear-filter-button {
-  text-decoration: underline;
   cursor: pointer;
+
+  span {
+    text-decoration: underline
+  }
+
+  .q-icon {
+    color: #999;
+    margin-left: .3em;
+    scale: 1.3;
+  }
+}
+
+.clear-filter-button:hover {
+  span {
+    text-decoration: none;
+
+  }
 }
 </style>
