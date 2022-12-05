@@ -12,6 +12,7 @@ export const useEntityStore = defineStore('entities', {
         events: null,
         projects: null,
         stores: null,
+        similarEntities: null,
       },
       entityListLoading: false,
       entityDetail: {offers: {}},
@@ -47,6 +48,17 @@ export const useEntityStore = defineStore('entities', {
         return e
       }
       this.entityDetailLoading = false
+    },
+    async fetchSimilarEntities(entityType: string) {
+      const categoryStore = useCategoryStore()
+      this.entityListLoading = true
+      try {
+        this.entityLists.similarEntities = await fetchEntityList(entityType, categoryStore)
+      } catch (e) {
+        console.error(e)
+        return e
+      }
+      this.entityListLoading = false
     },
   },
 });

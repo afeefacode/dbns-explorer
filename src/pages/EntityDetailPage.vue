@@ -29,11 +29,9 @@
         <h2 class="text-h5 q-mt-xl q-ml-lg">Ähnliche {{
             getGermanEntityName(getTypeFromEntity(entityDetail), 'plural')
           }}</h2>
-<!--        <ListView-->
-<!--          v-for="entityType in activeEntities[0]"-->
-<!--          :entityType="entityType"-->
-<!--          :key="entityType"-->
-<!--        />-->
+        <div class="row">
+          <EntityCard v-for="entity in entityLists.similarEntities" :entity="entity" :key="entity.id"/>
+        </div>
       </div>
     </div>
     <EntityDetailSkeleton v-else/>
@@ -53,6 +51,7 @@ import DetailMap from 'components/detail/DetailMap.vue'
 import EntityDetailSkeleton from 'components/detail/EntityDetailSkeleton.vue'
 import ListView from 'components/ListView.vue'
 import ActorsOfferList from 'components/detail/ActorsOfferList.vue'
+import EntityCard from 'components/EntityCard.vue'
 
 const route = useRoute()
 const baseStore = useBaseStore()
@@ -61,14 +60,19 @@ const router = useRouter()
 
 const config = baseStore.config
 
-const {entityDetailLoading, entityDetail} = storeToRefs(entityStore)
+const {entityDetailLoading, entityDetail, entityLists} = storeToRefs(entityStore)
+
+const fetchDetails = () => {
 //@ts-ignore
-entityStore.fetchEntityDetails(route.params.entityType, route.params.id)
+  entityStore.fetchEntityDetails(route.params.entityType, route.params.id)
+//@ts-ignore
+  entityStore.fetchSimilarEntities(route.params.entityType)
+}
+
+fetchDetails()
 
 onUpdated(() => {
-  const nextEntity = router.currentRoute.value.fullPath.split('/')[1]
-  // baseStore.activeEntity = nextEntity
-  entityStore.fetchEntityDetails(nextEntity, route.params.id)
+  fetchDetails()
 })
 </script>
 
