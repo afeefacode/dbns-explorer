@@ -4,7 +4,7 @@ import {getOfferList} from "src/utils";
 
 export const fetchEntityList = async (entityType: string, activeFilters: any) => {
   let filters = {
-    q: activeFilters.main?.search
+    q: activeFilters.main?.search?.trim()
   }
   let requestBody = {}
   requestBody = {
