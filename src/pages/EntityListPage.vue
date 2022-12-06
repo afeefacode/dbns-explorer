@@ -73,6 +73,7 @@ const showEntitySelector = Object.keys(config.entities).length > 1
 
 const onEntityClick = (entityType: string) => {
   baseStore.activeEntities = addToArrayOrRemove(baseStore.activeEntities, entityType)
+  entityStore.fetchEntityList(entityType)
 }
 
 onUpdated(() => {

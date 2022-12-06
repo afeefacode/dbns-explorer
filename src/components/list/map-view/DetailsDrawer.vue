@@ -11,9 +11,9 @@
     </q-card-section>
 
     <q-card-section class="bg-white">
-      <div class="text-overline">{{ getGermanEntityName(entity.type, 'singular') }}</div>
+      <div class="text-overline">{{ getGermanEntityName(getTypeFromEntity(entity), 'singular') }}</div>
       <div v-if="entity.type === 'Event'">{{ displayed.start_at }}</div>
-      <div class="text-h5 q-mb-md">{{ displayed.name }}</div>
+      <div class="text-h5 q-mb-md">{{ displayed.title }}</div>
       <div class="text-caption text-grey list-card__short-description q-pr-md q-mb-md">
         {{ displayed.description }}
       </div>
@@ -25,7 +25,7 @@
         <div v-if="entity.info_url">
           <q-icon name="language" class="q-mr-sm"/>
           <span>
-                <a :href="entity.info_url" target="_blank" :title="displayed.name">{{ displayed.info_url }}</a>
+                <a :href="entity.info_url" target="_blank" :title="displayed.title">{{ displayed.info_url }}</a>
               </span>
         </div>
       </div>
@@ -39,7 +39,7 @@
 import {defineProps, computed} from 'vue'
 import {shortenStringTo} from 'src/utils'
 import DetailsButton from 'src/components/DetailsButton.vue'
-import {getGermanEntityName} from 'src/utils'
+import {getGermanEntityName, getTypeFromEntity} from 'src/utils'
 
 const props = defineProps({
   entity: {
@@ -49,7 +49,7 @@ const props = defineProps({
 
 const displayed = computed(() => {
   return {
-    name: shortenStringTo(50, props.entity.name),
+    title: shortenStringTo(100, props.entity.title),
     description: shortenStringTo(600, props.entity.description),
     info_url: shortenStringTo(60, props.entity.info_url)
   }

@@ -1,5 +1,5 @@
-export const shortenStringTo = (characters: number, string: string) => {
-  return string.length > characters ? string.slice(0, characters - 4) + ' ...' : string
+export const shortenStringTo = (characters: number, string = '') => {
+  return string?.length > characters ? string.slice(0, characters - 4) + ' ...' : string
 }
 
 export const getSearchParameters = (paramString: string) => {
