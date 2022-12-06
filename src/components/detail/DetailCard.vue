@@ -20,8 +20,8 @@
             <q-icon name="group"></q-icon>
           </div>
           <div class="col">
-            Dies ist ein Angebot von: <b>{{ entityDetail.actor.title }}</b>&nbsp;
-            <router-link :to="`/actors/${entityDetail.actor.id}`">(Akteur anzeigen)</router-link>
+            Dies ist ein Angebot von: <b>{{ entityDetail.actor?.title }}</b>&nbsp;
+            <router-link :to="`/actors/${entityDetail.actor?.id}`">(Akteur anzeigen)</router-link>
           </div>
         </div>
       </div>

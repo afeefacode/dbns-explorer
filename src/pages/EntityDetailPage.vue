@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="q-mb-xl">
-          <!--          <DetailMap/>-->
+          <DetailMap v-if="hasLatLong(entityDetail)"/>
         </div>
       </div>
       <div>
@@ -44,12 +44,11 @@ import {useRoute, useRouter} from 'vue-router'
 import {storeToRefs} from 'pinia'
 import {useBaseStore} from "stores/base-store";
 import {useEntityStore} from "stores/entity-store";
-import {getTypeFromEntity, getGermanEntityName} from "src/utils";
+import {getTypeFromEntity, getGermanEntityName, hasLatLong} from "src/utils";
 import BackButton from 'components/detail/BackButton.vue'
 import DetailCard from 'components/detail/DetailCard.vue'
 import DetailMap from 'components/detail/DetailMap.vue'
 import EntityDetailSkeleton from 'components/detail/EntityDetailSkeleton.vue'
-import ListView from 'components/ListView.vue'
 import ActorsOfferList from 'components/detail/ActorsOfferList.vue'
 import EntityCard from 'components/EntityCard.vue'
 

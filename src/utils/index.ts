@@ -182,3 +182,7 @@ export const addToArrayOrRemove = (array: string [], element: string) => {
   }
   return array
 }
+
+export const hasLatLong = (entity: any) => {
+  return entity.locations[0]?.lat && entity.locations[0]?.long
+}

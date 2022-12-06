@@ -5,7 +5,7 @@ export const useBaseStore = defineStore('base', {
   state: () => {
     return {
       config: full_widget,
-      activeEntities: ['actors'],
+      activeEntities: [],
       additionalFiltersExpanded: false,
       activeFilters: {
         main: {
@@ -39,6 +39,7 @@ export const useBaseStore = defineStore('base', {
       const entitiesWithFilters = ['actors', 'events', 'stores']
       let show = false
       entitiesWithFilters.forEach(entityType => {
+        //@ts-ignore
         if (this.activeEntities.includes(entityType)) {
           show = true
           return
@@ -50,12 +51,15 @@ export const useBaseStore = defineStore('base', {
       return show
     },
     showActorFilters(): any {
+      //@ts-ignore
       return this.activeEntities.includes('actors')
     },
     showEventFilters(): any {
+      //@ts-ignore
       return this.activeEntities.includes('events')
     },
     showStoreFilters(): any {
+      //@ts-ignore
       return this.activeEntities.includes('stores')
     },
     hasActiveFilters(): any {

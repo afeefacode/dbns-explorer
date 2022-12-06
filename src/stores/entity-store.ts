@@ -16,7 +16,10 @@ export const useEntityStore = defineStore('entities', {
         similarEntities: null,
       },
       entityListLoading: false,
-      entityDetail: {offers: {}},
+      entityDetail: {
+        offers: {},
+        locations: []
+      },
       entityDetailLoading: false,
     }
   },
@@ -40,8 +43,7 @@ export const useEntityStore = defineStore('entities', {
         this.entityDetail = details.data
 
         if (entityType === 'actors') {
-          const offers = await fetchActorOffers(id)
-          this.entityDetail.offers = offers
+          this.entityDetail.offers = await fetchActorOffers(id)
         }
 
       } catch (e) {
