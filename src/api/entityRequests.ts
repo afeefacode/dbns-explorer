@@ -23,6 +23,14 @@ const offerFields = {
   },
   "actor": {
     "title": true
+  },
+  "locations": {
+    "title": true,
+    "street": true,
+    "city": true,
+    "zip": true,
+    "lat": true,
+    "long": true
   }
 }
 
