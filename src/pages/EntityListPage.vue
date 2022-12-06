@@ -18,19 +18,21 @@
         <Filters/>
       </q-expansion-item>
     </div>
-    <!--    <MapListToggle-->
-    <!--      @view-toggled="viewToggled"-->
-    <!--      :active-view="activeView"-->
-    <!--      v-if="baseStore.entityConfig.showListView && baseStore.entityConfig.showMapView"-->
-    <!--    />-->
-    <!--    <MapView v-if="baseStore.entityConfig.showMapView && activeView === 'map'"/>-->
-    <!--    <ListView v-if="baseStore.entityConfig.showListView && activeView === 'list'"/>-->
+    <MapListToggle
+      @view-toggled="viewToggled"
+      :active-view="activeView"
+      v-if="baseStore.entityConfig.showListView && baseStore.entityConfig.showMapView"
+    />
+    <MapView
+      v-if="baseStore.entityConfig.showMapView && activeView === 'map'"
+    />
     <ListView
+      v-if="baseStore.entityConfig.showListView && activeView === 'list'"
       v-for="entityType in activeEntities"
       :entityType="entityType"
       :key="entityType"
     />
-    <NoDataBackground v-if="!activeEntities.length" />
+    <NoDataBackground v-if="!activeEntities.length"/>
   </q-page>
 </template>
 <script setup lang="ts">

@@ -2,17 +2,20 @@
   <div id='map' class="map"></div>
 </template>
 <script setup>
+import {onMounted, defineEmits, ref, onUpdated} from 'vue'
+import {storeToRefs} from 'pinia'
 import maplibregl from 'maplibre-gl'
-import {onMounted, defineEmits, ref} from 'vue'
 import pngMarkerActor from 'assets/markers/marker-actors.png'
 // import {useActorStore} from 'stores/actor-store'
 import {useBaseStore} from "src/stores/base-store";
+import {useEntityStore} from "src/stores/entity-store";
+import {hasLatLong} from 'src/utils'
 // import markerActorDOM from 'assets/markers/marker-actor'
 // import markerActorSvg from 'assets/markers/marker-actors.svg'
 
-const entityType = 'actors'
+const entityStore = useEntityStore()
+const {entityLists} = storeToRefs(entityStore)
 
-const entities = useActorStore()[entityType]
 const emit = defineEmits(['openDetails', 'closeDetails'])
 const config = useBaseStore().config
 
@@ -66,8 +69,8 @@ onMounted(async () => {
 
       map.easeTo({
         center: [
-          entity.latlng[1],
-          entity.latlng[0]
+          entity.locations[0].long,
+          entity.locations[0].lat
         ],
         offset: [offsetX, 0]
       })
@@ -76,7 +79,7 @@ onMounted(async () => {
     })
 
     new maplibregl.Marker(marker)
-      .setLngLat([entity.latlng[1], entity.latlng[0]])
+      .setLngLat([entity.locations[0].long, entity.locations[0].lat])
       .addTo(map)
 
     // ATTEMPTS TO ADD MULTIPLE MARKERS AS SVG:
@@ -99,7 +102,26 @@ onMounted(async () => {
 
   }
 
-  entities.forEach(createMarkerAndAdd)
+  const updateMap = () => {
+    Object.keys(entityLists.value).forEach((entityType) => {
+      // console.log('entityType', entityType)
+      console.log('entityLists', entityLists.value[entityType])
+      // console.log('entityLists[entityType]', entityLists[entityType])
+      if (entityLists.value[entityType]) {
+        entityLists.value[entityType].forEach(entity => {
+          if (hasLatLong(entity)) createMarkerAndAdd(entity)
+        })
+      }
+    })
+  }
+
+  updateMap()
+
+  // entities.forEach(createMarkerAndAdd)
+})
+
+onUpdated(() => {
+  updateMap()
 })
 </script>
 

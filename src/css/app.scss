@@ -7,7 +7,8 @@ $project: #DB9D37;
 $event: #9b3041;
 
 html {
-  overflow: hidden;
+  overflow-y: hidden;
+  overflow-x: hidden;
   color: #333;
 }
 
@@ -24,7 +25,7 @@ a:hover {
 }
 
 div {
-  outline: 0px #999 dashed;
+  outline: 0 #999 dashed;
 }
 
 .d-flex {
@@ -57,6 +58,8 @@ div {
 
 .break-word {
   word-wrap: break-word;
+  overflow-wrap: break-word;
+  display: inline-block;
 }
 
 .hide-expansion-header > .q-expansion-item__container > .q-item {
