@@ -8,7 +8,7 @@
     <q-expansion-item
       class="additional-filters"
       v-model="additionalFiltersExpanded"
-      :label="`Weitere Filter ${additionalFiltersExpanded ? 'ausblenden' : 'einblenden'}`"
+      :label="`weitere Filter ${additionalFiltersExpanded ? 'ausblenden' : 'einblenden'}`"
       :duration="150"
     >
       <div class="q-mb-lg">
@@ -49,7 +49,7 @@
             <q-btn label="Filter anwenden" @click="fetchEntityLists"></q-btn>
           </div>
           <div class="text-center clear-filter-button" @click="clearFiltersAndFetch">
-            <span>alle Filter löschen</span>
+            <span class="text-button">alle Filter löschen</span>
             <q-icon name="cancel" style="text-decoration: none"/>
           </div>
         </div>
@@ -116,10 +116,6 @@ const clearFiltersAndFetch = () => {
 .clear-filter-button {
   cursor: pointer;
 
-  span {
-    text-decoration: underline
-  }
-
   .q-icon {
     color: #999;
     margin-left: .3em;
@@ -128,9 +124,8 @@ const clearFiltersAndFetch = () => {
 }
 
 .clear-filter-button:hover {
-  span {
+  .text-button {
     text-decoration: none;
-
   }
 }
 </style>

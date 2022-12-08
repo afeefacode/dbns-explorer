@@ -1,8 +1,8 @@
 <template>
   <div :class="`entity-card q-pa-md items-start q-gutter-xs col-12 ${entity.type === 'Event' ? '' : 'col-md-6'}`">
     <q-card v-if="!entityStore.entityListLoading" class="list-card q-pl-md q-pb-md" bordered>
-      <q-card-section horizontal>
-        <q-card-section>
+      <q-card-section horizontal class="justify-between">
+        <q-card-section class="q-card-section__inner">
           <div class="text-overline">{{ displayed.type }}</div>
           <div v-if="entity.type === 'Event'">{{ displayed.start_at }}</div>
           <div class="q-mt-sm q-mb-md">
@@ -11,7 +11,8 @@
             </div>
             <div v-if="entity.info_url">
               <q-icon name="language" class="q-mr-sm" :style="`color: #${config.brandColor}`"/>
-              <a :href="entity.info_url" target="_blank" :title="displayed.name" class="break-word">{{ displayed.info_url }}</a>
+              <a :href="entity.info_url" target="_blank" :title="displayed.name"
+                 class="break-word">{{ displayed.info_url }}</a>
             </div>
           </div>
           <div label="test" class="text-grey list-card__short-description q-pr-xl q-mb-lg">
@@ -20,24 +21,26 @@
           <q-space/>
           <DetailsButton :entity="entity"/>
         </q-card-section>
-        <q-img
-          v-if="entity.image_url"
-          :src="entity.image_url"
+        <div
           class="list-card__image"
+          v-if="entity.image_url"
+          :style="`background-image: url('https://daten.nachhaltiges-sachsen.de${entity.image_url}')`"
         />
       </q-card-section>
     </q-card>
-    <q-card v-else class="list-card q-pa-xl">
-      <div class="row">
-        <q-skeleton type="text" class="col-1"/>
+    <q-card v-else class="list-card">
+      <div class="q-pa-xl">
+        <div class="row">
+          <q-skeleton type="text" class="col-1"/>
+        </div>
+        <div class="row">
+          <q-skeleton type="text" class="col-6"/>
+        </div>
+        <div class="row" style="height: 90px">
+          <q-skeleton type="text" class="col-8"/>
+        </div>
+        <q-skeleton type="QBtn"/>
       </div>
-      <div class="row">
-        <q-skeleton type="text" class="col-6"/>
-      </div>
-      <div class="row" style="height: 90px">
-        <q-skeleton type="text" class="col-8"/>
-      </div>
-      <q-skeleton type="QBtn"/>
     </q-card>
   </div>
 </template>
@@ -59,8 +62,8 @@ const props = defineProps({
 const shortenStringTo = (characters, string) => string.length > characters ? string.slice(0, characters - 4) + ' ...' : string
 
 let displayed = {}
-displayed.title = props.entity.title ? shortenStringTo(150, props.entity.title) : ''
-displayed.short_description = props.entity.short_description ? shortenStringTo(200, props.entity.short_description) : ''
+displayed.title = props.entity.title ? shortenStringTo(60, props.entity.title) : ''
+displayed.short_description = props.entity.short_description ? shortenStringTo(150, props.entity.short_description) : ''
 displayed.info_url = props.entity.info_url ? shortenStringTo(55, prettifyUrl(props.entity.info_url)) : ''
 
 if (props.entity.offer_type?.key === 'NLS.Event') {
@@ -70,10 +73,18 @@ if (props.entity.offer_type?.key === 'NLS.Event') {
 }
 
 displayed.type = getGermanEntityName(getTypeFromEntity(props.entity), 'singular')
-
-const expanded = ref(false)
 </script>
 <style lang="scss" scoped>
+.entity-card {
+  .q-card {
+    padding: 0;
+
+    &-section__inner {
+      padding: 24px;
+    }
+  }
+}
+
 .list-card {
   width: 100%;
   border: 0;
@@ -87,6 +98,10 @@ const expanded = ref(false)
 
   &__image {
     width: 50%;
+    min-width: 200px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   &__short-info {

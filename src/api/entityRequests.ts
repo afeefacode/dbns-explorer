@@ -1,5 +1,22 @@
 import {getOfferList} from 'src/utils'
 
+const actorFields = {
+  "title": true,
+  "description": true,
+  "slug": true,
+  "info_url": true,
+  "logo_url": true,
+  "image_url": true,
+  "locations": {
+    "title": true,
+    "street": true,
+    "city": true,
+    "zip": true,
+    "lat": true,
+    "long": true
+  }
+}
+
 const offerFields = {
   "title": true,
   "short_description": true,
@@ -17,6 +34,8 @@ const offerFields = {
   "target_group": true,
   "info_url": true,
   "video_url": true,
+  "logo_url": true,
+  "image_url": true,
   "updated_at": true,
   "offer_type": {
     "key": true
@@ -64,38 +83,12 @@ export const entityRequests = {
     list: {
       "resource": "NLS.ActorResource",
       "action": "list",
-      "fields": {
-        "title": true,
-        "description": true,
-        "slug": true,
-        "info_url": true,
-        "locations": {
-          "title": true,
-          "street": true,
-          "city": true,
-          "zip": true,
-          "lat": true,
-          "long": true
-        }
-      }
+      "fields": {...actorFields}
     },
     details: {
       "resource": "NLS.ActorResource",
       "action": "get",
-      "fields": {
-        "title": true,
-        "description": true,
-        "slug": true,
-        "info_url": true,
-        "locations": {
-          "title": true,
-          "street": true,
-          "city": true,
-          "zip": true,
-          "lat": true,
-          "long": true
-        },
-      }
+      "fields": {...actorFields}
     }
   },
   ...offerRequests

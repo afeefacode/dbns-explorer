@@ -21,13 +21,13 @@
     <MapListToggle
       @view-toggled="viewToggled"
       :active-view="activeView"
-      v-if="baseStore.entityConfig.showListView && baseStore.entityConfig.showMapView"
+      v-if="baseStore.entityConfig?.showListView && baseStore.entityConfig?.showMapView"
     />
     <MapView
-      v-if="baseStore.entityConfig.showMapView && activeView === 'map'"
+      v-if="baseStore.entityConfig?.showMapView && activeView === 'map'"
     />
     <ListView
-      v-if="baseStore.entityConfig.showListView && activeView === 'list'"
+      v-if="baseStore.entityConfig?.showListView && activeView === 'list'"
       v-for="entityType in activeEntities"
       :entityType="entityType"
       :key="entityType"
@@ -63,7 +63,7 @@ const config = useBaseStore().config
 const entityStore = useEntityStore()
 
 const activeView = baseStore.entityConfig?.showMapView
-  ? ref('map')
+  ? ref('list')
   : ref('list')
 
 const viewToggled = (newView: string) => {
@@ -80,7 +80,7 @@ onUpdated(() => {
   //@ts-ignore
   entityStore.fetchEntityList(entityRequests[baseStore.activeEntity].list)
 
-  // the 2 statements below handle the edge case when navigation from an
+  // the 2 statements below handle the edge case when navigating from an
   // entity on listView to an entity with ONLY mapView (and vice versa)
   if (!baseStore.entityConfig.showMapView && activeView.value === 'map') {
     activeView.value = 'list'

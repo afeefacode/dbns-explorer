@@ -5,7 +5,7 @@ export const useBaseStore = defineStore('base', {
   state: () => {
     return {
       config: full_widget,
-      activeEntities: [],
+      activeEntities: ['actors'],
       additionalFiltersExpanded: false,
       activeFilters: {
         main: {
