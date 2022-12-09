@@ -6,16 +6,16 @@
           <div class="text-overline">{{ displayed.type }}</div>
           <div v-if="entity.type === 'Event'">{{ displayed.start_at }}</div>
           <div class="q-mt-sm q-mb-md">
-            <div class="text-h5 break-word">
+            <div class="text-h5 break-word list-card__title">
               {{ displayed.title }}
             </div>
             <div v-if="entity.info_url">
               <q-icon name="language" class="q-mr-sm" :style="`color: #${config.brandColor}`"/>
               <a :href="entity.info_url" target="_blank" :title="displayed.name"
-                 class="break-word">{{ displayed.info_url }}</a>
+                 class="break-word list-card__info-url">{{ displayed.info_url }}</a>
             </div>
           </div>
-          <div label="test" class="text-grey list-card__short-description q-pr-xl q-mb-lg">
+          <div label="test" class="text-grey list-card__short-description q-pr-md q-mb-lg">
             {{ displayed.short_description }}
           </div>
           <q-space/>
@@ -73,6 +73,9 @@ if (props.entity.offer_type?.key === 'NLS.Event') {
 }
 
 displayed.type = getGermanEntityName(getTypeFromEntity(props.entity), 'singular')
+
+const infoUrlWidth = props.entity.image_url ? '200px' : '400px'
+
 </script>
 <style lang="scss" scoped>
 .entity-card {
@@ -91,6 +94,10 @@ displayed.type = getGermanEntityName(getTypeFromEntity(props.entity), 'singular'
   border-radius: 0;
   box-shadow: 0 5px 30px -10px rgb(18 63 82 / 30%) !important;
 
+  &__info-url, &__title {
+    width: v-bind(infoUrlWidth)
+  }
+
   &__short-description {
     display: flex;
     align-items: center;
@@ -108,4 +115,12 @@ displayed.type = getGermanEntityName(getTypeFromEntity(props.entity), 'singular'
     color: gray;
   }
 }
+
+//@media (max-width: 1023px) {
+//  .list-card {
+//    &__info-url, &__title {
+//      width: v-bind(infoUrlWidthOneCol)
+//    }
+//  }
+//}
 </style>
