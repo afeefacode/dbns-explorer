@@ -1,27 +1,25 @@
 <template>
   <q-card class="detail-card row justify-between">
-    <div  :class="`col-12 ${entityDetail.image_url ? 'col-sm-7' : ''}`">
+    <div :class="`col-12 ${entityDetail.image_url ? 'col-sm-7' : ''} detail-card__text`">
       <div class="text-overline">{{ getGermanEntityName(getTypeFromEntity(entityDetail), 'singular') }}</div>
-      <div class="detail-card__text">
-        <h1 class="text-h4 break-word">{{ entityDetail.title }}</h1>
+      <h1 class="text-h4 break-word">{{ entityDetail.title }}</h1>
 
-        <div class="row" v-for="(detail, index) in details" :key="index">
-          <div class="col" style="max-width: 35px">
-            <q-icon :name="detail.icon"></q-icon>
-          </div>
-          <div class="col">
-            <div v-if="detail.title"><b>{{ detail.title }}</b></div>
-            <div class="col" v-html="detail.content"></div>
-          </div>
+      <div class="row" v-for="(detail, index) in details" :key="index">
+        <div class="col" style="max-width: 35px">
+          <q-icon :name="detail.icon"></q-icon>
         </div>
-        <div v-if="entityDetail.type === 'NLS.Offer'" class="row">
-          <div class="col" style="max-width: 35px">
-            <q-icon name="group"></q-icon>
-          </div>
-          <div class="col">
-            Dies ist ein Angebot von: <b>{{ entityDetail.actor?.title }}</b>&nbsp;
-            <router-link :to="`/actors/${entityDetail.actor?.id}`">(Akteur anzeigen)</router-link>
-          </div>
+        <div class="col">
+          <div v-if="detail.title"><b>{{ detail.title }}</b></div>
+          <div class="col" v-html="detail.content"></div>
+        </div>
+      </div>
+      <div v-if="entityDetail.type === 'NLS.Offer'" class="row">
+        <div class="col" style="max-width: 35px">
+          <q-icon name="group"></q-icon>
+        </div>
+        <div class="col">
+          Dies ist ein Angebot von: <b>{{ entityDetail.actor?.title }}</b>&nbsp;
+          <router-link :to="`/actors/${entityDetail.actor?.id}`">(Akteur anzeigen)</router-link>
         </div>
       </div>
     </div>
@@ -41,15 +39,11 @@
   >
     <q-card>
       <q-card-section class="row items-center q-pb-none">
-        <q-space />
-        <q-btn icon="close" flat round dense v-close-popup />
+        <q-space/>
+        <q-btn icon="close" flat round dense v-close-popup/>
       </q-card-section>
 
       <q-card-section>
-<!--        <div-->
-<!--          class="image-dialog__image"-->
-<!--          :style="`background-image: url('https://daten.nachhaltiges-sachsen.de${entityDetail.image_url}?width=3000&height=3000')`"-->
-<!--        />-->
         <q-img :src="`https://daten.nachhaltiges-sachsen.de${entityDetail.image_url}`" fit="contain"></q-img>
       </q-card-section>
     </q-card>
@@ -195,7 +189,6 @@ onUpdated(() => {
   }
 
   &__image {
-    height: 200px;
     background-repeat: no-repeat;
     background-position: right;
     background-size: contain;
@@ -207,6 +200,7 @@ onUpdated(() => {
 .image-dialog {
   width: 50%;
   height: 50%;
+
   &__image {
     //width: 100%;
     //height: 100%;
@@ -214,14 +208,16 @@ onUpdated(() => {
   }
 }
 
-@media (max-width: 598px) {
+@media (max-width: 599px) {
   .detail-card {
     &__text {
       order: 2;
     }
 
     &__image {
-      order: 1
+      height: 300px !important;
+      order: 1;
+      background-position: top center;
     }
   }
 }
