@@ -1,9 +1,8 @@
 <template>
-  <q-card class="detail-card">
-    <div class="text-overline">{{ getGermanEntityName(getTypeFromEntity(entityDetail), 'singular') }}</div>
-    <div class="row">
-
-      <div :class="`detail-card__text col-12 ${entityDetail.image ? 'col-sm-7' : ''}`">
+  <q-card class="detail-card row justify-between">
+    <div  :class="`col-12 ${entityDetail.image_url ? 'col-sm-7' : ''}`">
+      <div class="text-overline">{{ getGermanEntityName(getTypeFromEntity(entityDetail), 'singular') }}</div>
+      <div class="detail-card__text">
         <h1 class="text-h4 break-word">{{ entityDetail.title }}</h1>
 
         <div class="row" v-for="(detail, index) in details" :key="index">
@@ -25,13 +24,38 @@
           </div>
         </div>
       </div>
-      <div
-        v-if="false"
-        class="detail-card__logo col-12 col-sm-5"
-        :style="`background-image: url('${entityDetail.image}')`"
-      />
     </div>
+    <div
+      v-if="entityDetail.image_url"
+      @click="showImageDialog = true"
+      class="detail-card__image col-12 col-sm-5"
+      :style="`background-image: url('https://daten.nachhaltiges-sachsen.de${entityDetail.image_url}?width=600&height=600')`"
+    />
   </q-card>
+
+  <q-dialog
+    v-model="showImageDialog"
+    class="image-dialog"
+    full-height
+    full-width
+  >
+    <q-card>
+      <q-card-section class="row items-center q-pb-none">
+        <q-space />
+        <q-btn icon="close" flat round dense v-close-popup />
+      </q-card-section>
+
+      <q-card-section>
+<!--        <div-->
+<!--          class="image-dialog__image"-->
+<!--          :style="`background-image: url('https://daten.nachhaltiges-sachsen.de${entityDetail.image_url}?width=3000&height=3000')`"-->
+<!--        />-->
+        <q-img :src="`https://daten.nachhaltiges-sachsen.de${entityDetail.image_url}`" fit="contain"></q-img>
+      </q-card-section>
+    </q-card>
+  </q-dialog>
+
+
 </template>
 <script setup>
 import {ref, onUpdated} from 'vue'
@@ -43,6 +67,7 @@ const entityStore = useEntityStore()
 const {entityDetail} = storeToRefs(entityStore)
 
 const details = ref([])
+const showImageDialog = ref(false)
 
 const updateDetails = () => {
   details.value = []
@@ -145,7 +170,6 @@ const updateDetails = () => {
   }
 }
 
-
 updateDetails()
 onUpdated(() => {
   updateDetails()
@@ -170,11 +194,23 @@ onUpdated(() => {
     }
   }
 
-  &__logo {
+  &__image {
     height: 200px;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: right;
     background-size: contain;
+    border-radius: 0 !important;
+    cursor: pointer;
+  }
+}
+
+.image-dialog {
+  width: 50%;
+  height: 50%;
+  &__image {
+    //width: 100%;
+    //height: 100%;
+    background-repeat: no-repeat;
   }
 }
 
@@ -184,7 +220,7 @@ onUpdated(() => {
       order: 2;
     }
 
-    &__logo {
+    &__image {
       order: 1
     }
   }

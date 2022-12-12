@@ -1,46 +1,44 @@
 <template>
-  <div class="row justify-center text-h5 q-mt-lg q-mb-xs">
-    Veranstaltungen
-  </div>
-  <div class="row justify-center q-mb-sm">
-    <q-chip v-for="timeSpan in defaultTimeSpans" @click="setTimeSpan(timeSpan)" clickable
-            :class="isActiveTimeSpan(timeSpan) ? 'q-chip--active' : ''"
-    >
-      {{ timeSpan.lable }}
-    </q-chip>
-  </div>
-  <div class="row q-gutter-md justify-center">
-    <q-input
-      v-for="boundary in ['startDate', 'endDate']"
-      v-model="activeFilters.events[boundary]"
-      :label="`Zeitraum ${boundary === 'startDate' ? 'von' : 'bis'}`"
-      dense filled clearable mask="##.##.####"
-      :class="activeFilters.events[boundary] ? 'filter--active' : ''"
-    >
-      <template v-slot:append>
-        <q-icon name="event" class="cursor-pointer">
-          <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+  <div>
+    <div class="row justify-center q-mb-sm">
+      <q-chip v-for="timeSpan in defaultTimeSpans" @click="setTimeSpan(timeSpan)" clickable
+              :class="isActiveTimeSpan(timeSpan) ? 'q-chip--active' : ''"
+      >
+        {{ timeSpan.lable }}
+      </q-chip>
+    </div>
+    <div class="row q-gutter-md justify-center">
+      <q-input
+        v-for="boundary in ['startDate', 'endDate']"
+        v-model="activeFilters.events[boundary]"
+        :label="`Zeitraum ${boundary === 'startDate' ? 'von' : 'bis'}`"
+        dense filled clearable mask="##.##.####"
+        :class="activeFilters.events[boundary] ? 'filter--active' : ''"
+      >
+        <template v-slot:append>
+          <q-icon name="event" class="cursor-pointer">
+            <q-popup-proxy cover transition-show="scale" transition-hide="scale">
 
-            <q-date v-model="activeFilters.events[boundary]" :locale="qDateLocale"
-                    first-day-of-week="1" minimal no-unset mask="DD.MM.YYYY"
-            >
-              <div class="row items-center justify-end">
-                <q-btn v-close-popup label="Datum auswählen" color="primary" flat/>
-              </div>
-            </q-date>
-          </q-popup-proxy>
-        </q-icon>
-      </template>
-    </q-input>
+              <q-date v-model="activeFilters.events[boundary]" :locale="qDateLocale"
+                      first-day-of-week="1" minimal no-unset mask="DD.MM.YYYY"
+              >
+                <div class="row items-center justify-end">
+                  <q-btn v-close-popup label="Datum auswählen" color="primary" flat/>
+                </div>
+              </q-date>
+            </q-popup-proxy>
+          </q-icon>
+        </template>
+      </q-input>
+    </div>
   </div>
 </template>
 <script setup>
-import moment from 'moment'
 import {storeToRefs} from 'pinia'
+import moment from 'moment'
 import {useBaseStore} from "stores/base-store";
 
 const baseStore = useBaseStore()
-
 const {activeFilters} = storeToRefs(baseStore)
 
 const defaultTimeSpans = [

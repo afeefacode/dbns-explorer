@@ -1,45 +1,52 @@
 <template>
-  <q-card flat bordered class="my-card  details-drawer">
-    <q-card-section class=details-drawer__header>
+  <q-card flat bordered class="details-drawer">
+    <q-card-section
+      class=details-drawer__header
+      :style="`background-image: url('${headerBackground}')`"
+
+    >
       <div class="row items-center no-wrap">
-        <div class="col details-drawer__image" :style="`background-image: url(${entity.image_url})`">
-        </div>
-        <q-btn color="grey-7" round flat icon="clear" @click="$emit('closeDetails')"
-               class="details-drawer__btn-close">
+        <q-btn
+          color="grey-7"
+          round
+          icon="clear"
+          @click="$emit('closeDetails')"
+          class="details-drawer__btn-close"
+        >
         </q-btn>
       </div>
     </q-card-section>
 
-    <q-card-section class="bg-white">
-      <div class="text-overline">{{ getGermanEntityName(entity.type, 'singular') }}</div>
-      <div v-if="entity.type === 'Event'">{{ displayed.start_at }}</div>
-      <div class="text-h5 q-mb-md">{{ displayed.name }}</div>
-      <div class="text-caption text-grey list-card__short-description q-pr-md q-mb-md">
-        {{ displayed.description }}
-      </div>
-      <div class="q-mb-md">
-        <div v-if="entity.full_address">
-          <q-icon name="home" class="q-mr-sm"/>
-          <span>{{ entity.full_address }}</span>
-        </div>
+    <q-card-section class="bg-white details-drawer__content">
+      <div>
+        <div class="text-overline">{{ getGermanEntityName(getTypeFromEntity(entity), 'singular') }}</div>
+        <div v-if="entity.type === 'Event'">{{ displayed.start_at }}</div>
+        <div class="text-h5 q-mb-md">{{ displayed.title }}</div>
         <div v-if="entity.info_url">
-          <q-icon name="language" class="q-mr-sm"/>
-          <span>
-                <a :href="entity.info_url" target="_blank" :title="displayed.name">{{ displayed.info_url }}</a>
-              </span>
+          <q-icon name="language" class="q-mr-sm" :style="`color: #${config.brandColor}`"/>
+          <a :href="entity.info_url" target="_blank" :title="displayed.name"
+             class="break-word list-card__info-url">{{ displayed.info_url }}</a>
         </div>
+        <div class="text-caption text-grey list-card__short-description q-pr-md q-mb-md">
+          {{ displayed.description }}
+        </div>
+        <div class="q-mb-md">
+          <div v-if="entity.full_address">
+            <q-icon name="home" class="q-mr-sm"/>
+            <span>{{ entity.full_address }}</span>
+          </div>
+        </div>
+        <DetailsButton :entity="entity"/>
       </div>
-      <DetailsButton :entity="entity"/>
-
     </q-card-section>
   </q-card>
 </template>
 
 <script setup>
-import {defineProps, computed} from 'vue'
-import {shortenStringTo} from 'src/utils'
+import {defineProps, computed, ref, onUpdated} from 'vue'
+import {useBaseStore} from "stores/base-store";
+import {shortenStringTo, getGermanEntityName, getTypeFromEntity} from 'src/utils'
 import DetailsButton from 'src/components/DetailsButton.vue'
-import {getGermanEntityName} from 'src/utils'
 
 const props = defineProps({
   entity: {
@@ -47,16 +54,28 @@ const props = defineProps({
   }
 })
 
+const config = useBaseStore().config
+
 const displayed = computed(() => {
   return {
-    name: shortenStringTo(50, props.entity.name),
-    description: shortenStringTo(600, props.entity.description),
+    title: shortenStringTo(100, props.entity.title),
+    description: shortenStringTo(300, props.entity.description),
     info_url: shortenStringTo(60, props.entity.info_url)
   }
 })
+
+const headerBackground = ref(props.entity.image_url
+  ? 'https://daten.nachhaltiges-sachsen.de' + props.entity.image_url
+  : './src/img/no-image-background.png')
+
+onUpdated(() => {
+    headerBackground.value = props.entity.image_url
+      ? 'https://daten.nachhaltiges-sachsen.de' + props.entity.image_url + '?width=600&height=600'
+      : './src/img/no-image-background.png'
+})
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .details-drawer {
   position: absolute;
   top: 0;
@@ -70,14 +89,14 @@ const displayed = computed(() => {
   overflow-x: hidden;
 
   &__header {
-    background: #EEEDED;
-  }
-
-  &__image {
-    background-size: contain;
+    display: flex;
+    justify-content: flex-end;
+    height: 200px;
+    background-color: #EEEDED;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    height: 200px;
+    background-image: v-bind('headerBackground');
   }
 
   &__btn-close {
@@ -85,11 +104,20 @@ const displayed = computed(() => {
     position: relative;
     top: -1em;
     right: -1em;
+    border-radius: 20px;
+    font-size: 12px;
+    background-color: white !important;
+
+    .q-icon {
+      color: #aaa;
+      top: 1px;
+    }
   }
 
-  .q-icon {
-    scale: 1.5;
-    color: #333
+  &__content {
+    display: flex;
+    align-items: center;
+
   }
 }
 

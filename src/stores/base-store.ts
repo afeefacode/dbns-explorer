@@ -73,7 +73,7 @@ export const useBaseStore = defineStore('base', {
     }
   },
   actions: {
-    clearFilters(): any {
+    clearFilters(filters: string): any {
       for (const [filterCategory, subCategories] of Object.entries(this.activeFilters)) {
         for (const [subcategory, filterValue] of Object.entries(subCategories)) {
           // @ts-ignore

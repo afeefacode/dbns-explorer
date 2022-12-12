@@ -1,0 +1,79 @@
+<template>
+  <div class="row q-mt-xs justify-center">
+    <q-expansion-item
+      class="hide-expansion-header"
+      v-model="hasActiveFilters"
+      :duration="150"
+    >
+      <div class="q-gutter-sm">
+        <div class="q-mb-lg">
+          <q-btn label="Filter anwenden" @click="fetchEntityLists(buttonForFilters)"></q-btn>
+        </div>
+        <div class="text-center clear-filter-button" @click="clearFiltersAndFetch(buttonForFilters)">
+          <span class="text-button">Filter löschen</span>
+          <q-icon name="cancel" style="text-decoration: none"/>
+        </div>
+      </div>
+    </q-expansion-item>
+  </div>
+</template>
+<script setup lang="ts">
+import {defineProps} from 'vue'
+import {storeToRefs} from "pinia/dist/pinia";
+import {useBaseStore} from "src/stores/base-store";
+import {useEntityStore} from "src/stores/entity-store";
+
+const props = defineProps({
+  buttonForFilters: {
+    type: String,
+    default: 'main'
+  }
+})
+
+const baseStore = useBaseStore()
+const {
+  hasActiveFilters,
+} = storeToRefs(baseStore)
+
+
+const entityStore = useEntityStore()
+
+const fetchEntityLists = (propsEntityType: string) => {
+  if (propsEntityType === 'main') {
+    baseStore.activeEntities.forEach((entityType: string) => {
+      entityStore.fetchEntityList(entityType)
+    })
+  } else {
+    entityStore.fetchEntityList(propsEntityType)
+  }
+}
+
+const clearFiltersAndFetch = (entityType: string) => {
+  baseStore.clearFilters(entityType)
+
+  if (entityType === 'main') {
+    baseStore.activeEntities.forEach((entityType: string) => {
+      entityStore.fetchEntityList(entityType)
+    })
+  } else {
+    entityStore.fetchEntityList(entityType)
+  }
+}
+</script>
+<style lang="scss" scoped>
+.clear-filter-button {
+  cursor: pointer;
+
+  .q-icon {
+    color: #999;
+    margin-left: .3em;
+    scale: 1.3;
+  }
+}
+
+.clear-filter-button:hover {
+  .text-button {
+    text-decoration: none;
+  }
+}
+</style>

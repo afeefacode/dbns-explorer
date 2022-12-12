@@ -7,10 +7,12 @@ import {onMounted} from 'vue'
 import {useRouter} from 'vue-router'
 import {useBaseStore} from "src/stores/base-store"
 import {useCategoryStore} from "src/stores/category-store"
+import {useEntityStore} from "src/stores/entity-store"
 import {inIframe, triggerIframeResize} from 'src/utils'
 
 const baseStore = useBaseStore()
 const categoryStore = useCategoryStore()
+const entityStore = useEntityStore()
 const router = useRouter()
 
 // get config from url
@@ -23,10 +25,11 @@ categoryStore.fetchCategoryList()
 
 //@ts-ignore
 baseStore.activeEntities.push(baseStore.config.entities[0].type)
+entityStore.fetchEntityList(baseStore.config.entities[0].type)
 
 onMounted(async () => {
   if (!inIframe()) {
-    document.getElementsByTagName('html')[0].style.overflow = 'scroll'
+    document.getElementsByTagName('html')[0].style.overflowY = 'scroll'
   }
 
   window.addEventListener("message", event => {

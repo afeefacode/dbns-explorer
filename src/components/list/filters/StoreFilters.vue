@@ -1,7 +1,5 @@
 <template>
-  <div class="row justify-center text-h5 q-mt-lg q-mb-xs">
-    Handel
-  </div>
+<div>
   <div class="row q-gutter-md justify-center">
     <div class="col-12 col-sm-6 col-md-3">
       <q-select
@@ -49,6 +47,7 @@
       </q-select>
     </div>
   </div>
+</div>
 </template>
 <script setup>
 import {storeToRefs} from 'pinia'

@@ -9,28 +9,32 @@
         @entity-click="onEntityClick(configEntity.type)"
       />
     </div>
-    <div class="q-mb-md">
+    <div class="">
       <q-expansion-item
         class="hide-expansion-header"
         v-model="baseStore.showFilters"
         :duration="150"
       >
-        <Filters/>
+        <Filters :mapViewActive="baseStore.entityConfig?.showMapView && mapViewToggled"/>
       </q-expansion-item>
     </div>
-    <!--    <MapListToggle-->
-    <!--      @view-toggled="viewToggled"-->
-    <!--      :active-view="activeView"-->
-    <!--      v-if="baseStore.entityConfig.showListView && baseStore.entityConfig.showMapView"-->
-    <!--    />-->
-    <!--    <MapView v-if="baseStore.entityConfig.showMapView && activeView === 'map'"/>-->
-    <!--    <ListView v-if="baseStore.entityConfig.showListView && activeView === 'list'"/>-->
+    <div class="row flex-center">
+      <q-toggle
+        v-model="mapViewToggled"
+        label="Karte anzeigen"
+      />
+    </div>
+    <MapView
+      v-if="baseStore.entityConfig?.showMapView && mapViewToggled"
+      class="q-mb-xl"
+    />
     <ListView
+      v-if="baseStore.entityConfig?.showListView"
       v-for="entityType in activeEntities"
       :entityType="entityType"
       :key="entityType"
     />
-    <NoDataBackground v-if="!activeEntities.length" />
+    <NoDataBackground v-if="!activeEntities.length"/>
   </q-page>
 </template>
 <script setup lang="ts">
@@ -42,6 +46,7 @@ import {storeToRefs} from 'pinia'
 import {entityRequests} from 'src/api/entityRequests'
 import {useBaseStore} from 'stores/base-store'
 import {useEntityStore} from "stores/entity-store"
+import {useCategoryStore} from "stores/category-store"
 import {addToArrayOrRemove, isActiveEntity} from 'src/utils'
 
 // components
@@ -54,37 +59,34 @@ import NoDataBackground from 'components/list/NoDataBackground.vue'
 
 
 const baseStore = useBaseStore()
-const {activeEntities} = storeToRefs(baseStore)
-
-const config = useBaseStore().config
-
 const entityStore = useEntityStore()
+const categoryStore = useCategoryStore()
 
-const activeView = baseStore.entityConfig?.showMapView
-  ? ref('map')
-  : ref('list')
+const {activeEntities} = storeToRefs(baseStore)
+const config = baseStore.config
 
-const viewToggled = (newView: string) => {
-  activeView.value = newView
-}
+
+const mapViewToggled = ref(true)
+
 const showEntitySelector = Object.keys(config.entities).length > 1
 
 const onEntityClick = (entityType: string) => {
   baseStore.activeEntities = addToArrayOrRemove(baseStore.activeEntities, entityType)
+  entityStore.fetchEntityList(entityType)
 }
 
 onUpdated(() => {
   //@ts-ignore
   entityStore.fetchEntityList(entityRequests[baseStore.activeEntity].list)
 
-  // the 2 statements below handle the edge case when navigation from an
+  // the 2 statements below handle the edge case when navigating from an
   // entity on listView to an entity with ONLY mapView (and vice versa)
-  if (!baseStore.entityConfig.showMapView && activeView.value === 'map') {
-    activeView.value = 'list'
-  }
-  if (!baseStore.entityConfig.showListView && activeView.value === 'list') {
-    activeView.value = 'map'
-  }
+  // if (!baseStore.entityConfig.showMapView && activeView.value === 'map') {
+  //   activeView.value = 'list'
+  // }
+  // if (!baseStore.entityConfig.showListView && activeView.value === 'list') {
+  //   activeView.value = 'map'
+  // }
 })
 
 </script>
