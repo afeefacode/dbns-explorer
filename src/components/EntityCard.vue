@@ -45,7 +45,7 @@
   </div>
 </template>
 <script setup>
-import {ref, defineProps} from 'vue'
+import {defineProps} from 'vue'
 import DetailsButton from './DetailsButton.vue'
 import {useBaseStore} from 'src/stores/base-store'
 import {useEntityStore} from 'src/stores/entity-store'

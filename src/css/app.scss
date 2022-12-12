@@ -82,3 +82,24 @@ div {
   }
 }
 
+
+/* width */
+::-webkit-scrollbar {
+  width: 12px;
+  transition: all 200ms linear;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ddd;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #eee;
+}

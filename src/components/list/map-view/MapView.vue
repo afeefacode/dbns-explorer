@@ -30,7 +30,6 @@ const closeDetails = () => {
 <style lang="scss" scoped>
 .map-view {
   position: relative;
-  margin-bottom: 2em;
 }
 
 .map-placeholder {

@@ -128,6 +128,6 @@ onUpdated(() => {
 <style lang="scss" scoped>
 .map {
   width: 100%;
-  height: 700px;
+  height: 550px;
 }
 </style>
