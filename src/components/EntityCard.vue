@@ -1,8 +1,8 @@
 <template>
   <div :class="`entity-card q-pa-md items-start q-gutter-xs col-12 ${entity.type === 'Event' ? '' : 'col-md-6'}`">
-    <q-card v-if="!entityStore.entityListLoading" class="list-card q-pl-md q-pb-md" bordered>
-      <q-card-section horizontal class="justify-between">
-        <q-card-section class="q-card-section__inner">
+    <q-card v-if="!entityStore.entityListLoading" class="list-card" bordered>
+      <div class="justify-between row">
+        <div class="list-card__text col-12 col-sm-8 q-pa-lg">
           <div class="text-overline">{{ displayed.type }}</div>
           <div v-if="entity.type === 'Event'">{{ displayed.start_at }}</div>
           <div class="q-mt-sm q-mb-md">
@@ -20,13 +20,13 @@
           </div>
           <q-space/>
           <DetailsButton :entity="entity"/>
-        </q-card-section>
+        </div>
         <div
-          class="list-card__image"
+          class="list-card__image col-12 col-sm-4"
           v-if="entity.image_url"
           :style="`background-image: url('https://daten.nachhaltiges-sachsen.de${entity.image_url}?width=600&height=600')`"
         />
-      </q-card-section>
+      </div>
     </q-card>
     <q-card v-else class="list-card">
       <div class="q-pa-xl">
@@ -78,16 +78,6 @@ const infoUrlWidth = props.entity.image_url ? '200px' : '400px'
 
 </script>
 <style lang="scss" scoped>
-.entity-card {
-  .q-card {
-    padding: 0;
-
-    &-section__inner {
-      padding: 24px;
-    }
-  }
-}
-
 .list-card {
   width: 100%;
   border: 0;
@@ -104,8 +94,6 @@ const infoUrlWidth = props.entity.image_url ? '200px' : '400px'
   }
 
   &__image {
-    width: 50%;
-    min-width: 200px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -116,11 +104,15 @@ const infoUrlWidth = props.entity.image_url ? '200px' : '400px'
   }
 }
 
-//@media (max-width: 1023px) {
-//  .list-card {
-//    &__info-url, &__title {
-//      width: v-bind(infoUrlWidthOneCol)
-//    }
-//  }
-//}
+@media (max-width: 599px) {
+  .list-card{
+    &__text {
+      order: 2;
+    }
+    &__image {
+      order: 1;
+    height: 150px;
+  }
+  }
+}
 </style>

@@ -1,7 +1,7 @@
 <template>
   <h2 class="text-h4 text-center">{{ getGermanEntityName(entityType, 'category') }}</h2>
   <div v-if="entityType === 'actors'">
-    <ActorFilters class="q-mb-md" :inListView="true"/>
+    <ActorFilters class="q-mb-md q-px-md" :inListView="true"/>
     <ApplyFiltersButton :filterCategory="'actors'" class="q-mb-lg"/>
   </div>
   <div v-if="entityType === 'events'">
@@ -9,7 +9,7 @@
     <ApplyFiltersButton :filterCategory="'events'"/>
   </div>
   <div v-if="entityType === 'stores'" class="q-mb-lg">
-    <StoreFilters class="q-mb-md" :inListView="true"/>
+    <StoreFilters class="q-mb-md q-px-md" :inListView="true"/>
     <ApplyFiltersButton :filterCategory="'stores'"/>
   </div>
   <div class="list-view">
