@@ -1,15 +1,20 @@
 <template>
   <div id='map' class="map"></div>
 </template>
-<script setup>
+<script setup lang="ts">
 import {onMounted, defineEmits, ref, onUpdated} from 'vue'
 import {storeToRefs} from 'pinia'
 import maplibregl from 'maplibre-gl'
+
 import pngMarker from 'assets/markers/marker.png'
 import pngMarkerActive from 'assets/markers/marker-active.png'
+
+import pngMarkerActors from 'assets/markers/marker-actors.png'
+import pngMarkerActorsActive from 'assets/markers/marker-actors-active.png'
+
 import {useBaseStore} from "src/stores/base-store";
 import {useEntityStore} from "src/stores/entity-store";
-import {hasLatLong} from 'src/utils'
+import {getTypeFromEntity, hasLatLong} from 'src/utils'
 // import markerActorDOM from 'assets/markers/marker-actor'
 // import markerActorSvg from 'assets/markers/marker-actors.svg'
 
@@ -20,19 +25,53 @@ const emit = defineEmits(['openDetails', 'closeDetails'])
 const config = useBaseStore().config
 
 const activeMarker = ref(null)
-let map
+let map: any
 
-const resetMarkerStyle = () => {
-  // activeMarker.value.style.width = '40px'
-  // activeMarker.value.style.height = '50px'
-  activeMarker.value.style.backgroundImage = `url(${pngMarker})`
+const getMarkerPng = (entityType: string) => {
+  console.log('entityTypes', entityType)
+  let marker = {
+    inactive: '',
+    active: ''
+  }
+  switch (entityType) {
+    case 'actor':
+      marker.inactive = pngMarkerActors
+      marker.active = pngMarkerActorsActive
+      break;
+    case 'project':
+      marker.inactive = pngMarker
+      marker.active = pngMarkerActive
+      break;
+    case 'event':
+      break;
+    case 'education':
+      break;
+    case 'counseling':
+      break;
+    case 'store':
+      break;
+    default:
+      marker.inactive = pngMarker
+      marker.active = pngMarkerActive
+      break;
+  }
+
+  return marker
+}
+
+const resetMarkerStyle = (pngMarker) => {
+  activeMarker.value.style.backgroundImage = `url(${pngMarkerActors})`
   activeMarker.value.style.zIndex = '0'
 }
 
-const createMarkerAndAdd = (entity) => {
+
+const createMarkerAndAdd = (entity: any) => {
   const marker = document.createElement('div')
-  marker.className = 'map__marker'
-  marker.style.backgroundImage = `url(${pngMarker})`
+  const entityType = getTypeFromEntity(entity)
+  const markerPng = getMarkerPng(entityType)
+
+  marker.className = `map__marker map__marker--${entityType}`
+  marker.style.backgroundImage = `url(${markerPng.inactive})`
   marker.style.backgroundSize = 'contain'
   marker.style.backgroundRepeat = 'no-repeat'
   marker.style.width = '36px'
@@ -48,9 +87,7 @@ const createMarkerAndAdd = (entity) => {
 
     activeMarker.value = marker
 
-    // marker.style.width = '50px'
-    // marker.style.height = '60px'
-    marker.style.backgroundImage = `url(${pngMarkerActive})`
+    marker.style.backgroundImage = `url(${markerPng.active})`
     marker.style.zIndex = '2'
 
     const offsetX = parseInt(map.getCanvas().style.width) / -4
@@ -70,8 +107,8 @@ const createMarkerAndAdd = (entity) => {
     .setLngLat([entity.locations[0].long, entity.locations[0].lat])
     .addTo(map)
 
-  // ATTEMPTS TO ADD MULTIPLE MARKERS AS SVG:
 
+  // ATTEMPTS TO ADD MULTIPLE MARKERS AS SVG:
 
   // https://github.com/maplibre/maplibre-gl-js/issues/144
   // https://github.com/mapbox/mapbox-gl-js/issues/5529
