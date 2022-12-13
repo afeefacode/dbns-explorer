@@ -110,8 +110,6 @@ const createMarkerAndAdd = (entity: any) => {
     emit('openDetails', entity)
   })
 
-  console.log('entity.locations', entity.locations[0].long)
-
   new maplibregl.Marker(marker)
     .setLngLat([entity.locations[0].long, entity.locations[0].lat])
     .addTo(map)

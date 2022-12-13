@@ -6,13 +6,13 @@
       :duration="150"
     >
       <div class="q-gutter-sm">
-        <div class="q-mb-lg">
-          <q-btn label="Filter anwenden" @click="fetchEntityLists(buttonForFilters)"></q-btn>
+        <div class="q-mb-sm">
+          <q-btn label="Und los" @click="fetchEntityLists(buttonForFilters)"></q-btn>
         </div>
-        <div class="text-center clear-filter-button" @click="clearFiltersAndFetch(buttonForFilters)">
-          <span class="text-button">Filter löschen</span>
-          <q-icon name="cancel" style="text-decoration: none"/>
-        </div>
+        <!--        <div class="text-center clear-filter-button" @click="clearFiltersAndFetch(buttonForFilters)">-->
+        <!--          <span class="text-button">Filter löschen</span>-->
+        <!--          <q-icon name="cancel" style="text-decoration: none"/>-->
+        <!--        </div>-->
       </div>
     </q-expansion-item>
   </div>
@@ -39,6 +39,8 @@ const {
 const entityStore = useEntityStore()
 
 const fetchEntityLists = (propsEntityType: string) => {
+  baseStore.lastFilters = JSON.parse(JSON.stringify(baseStore.activeFilters))
+
   if (propsEntityType === 'main') {
     baseStore.activeEntities.forEach((entityType: string) => {
       entityStore.fetchEntityList(entityType)

@@ -1,5 +1,6 @@
 import {defineStore} from 'pinia';
 import {config as full_widget} from "assets/configs/lvns/full_widget";
+import {emptyFilters, emptyFilters2} from 'src/utils'
 
 export const useBaseStore = defineStore('base', {
   state: () => {
@@ -7,25 +8,8 @@ export const useBaseStore = defineStore('base', {
       config: full_widget,
       activeEntities: [],
       additionalFiltersExpanded: false,
-      activeFilters: {
-        main: {
-          region: null,
-          category: null,
-          search: null,
-        },
-        actors: {
-          orgTypes: null
-        },
-        events: {
-          startDate: null,
-          endDate: null,
-        },
-        stores: {
-          tradeCategories: null,
-          tradeTypes: null,
-          productTypes: null,
-        }
-      }
+      activeFilters: emptyFilters,
+      lastFilters: emptyFilters2
     }
   },
   getters: {
@@ -35,7 +19,7 @@ export const useBaseStore = defineStore('base', {
     showFilters(): any {
       return !!this.activeEntities.length
     },
-    showAdditionalFilters(): any {
+    hasAdditionalFilters(): any {
       const entitiesWithFilters = ['actors', 'events', 'stores']
       let show = false
       entitiesWithFilters.forEach(entityType => {
@@ -63,13 +47,7 @@ export const useBaseStore = defineStore('base', {
       return this.activeEntities.includes('stores')
     },
     hasActiveFilters(): any {
-      let hasActiveFilter = false
-      for (const [filterCategory, subCategories] of Object.entries(this.activeFilters)) {
-        for (const [subcategory, filterValue] of Object.entries(subCategories)) {
-          if (!!filterValue) hasActiveFilter = true
-        }
-      }
-      return hasActiveFilter
+      return !(JSON.stringify(this.activeFilters) === JSON.stringify(this.lastFilters))
     }
   },
   actions: {

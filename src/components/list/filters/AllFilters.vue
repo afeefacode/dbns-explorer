@@ -1,38 +1,45 @@
 <template>
-  <div class="q-pa-md"  @keydown.enter="fetchEntityLists">
+  <div class="q-pt-md q-px-md" @keydown.enter="fetchEntityLists">
     <div class="row q-gutter-md q-mb-md justify-center">
       <RegionFilter class="col-12 col-sm-6 col-md-4" v-if="categoryStore.regions"/>
       <CategoryFilter class="col-12 col-sm-6 col-md-4" v-if="categoryStore.mainCategories"/>
       <EntitySearch class="col-12 col-sm-6 col-md-3"/>
     </div>
+    <div
+      v-if="mapViewActive && hasAdditionalFilters"
+      class="text-center clear-filter-button q-mb-md"
+      @click="additionalFiltersExpanded = !additionalFiltersExpanded"
+    >
+      <span class="text-button">weitere Filter {{ additionalFiltersExpanded ? 'ausblenden' : 'anzeigen' }}</span>
+    </div>
     <q-expansion-item
       v-if="mapViewActive"
-      class="additional-filters"
+      class="additional-filters hide-expansion-header"
       v-model="additionalFiltersExpanded"
-      :label="`weitere Filter ${additionalFiltersExpanded ? 'ausblenden' : 'einblenden'}`"
       :duration="150"
     >
       <div class="q-mb-lg">
         <q-expansion-item
           class="hide-expansion-header"
-          v-model="showActorFilters"
-          :duration="150"
-        >
-          <div class="row justify-center text-h5 q-mb-xs">
-            Akteure
-          </div>
-          <ActorFilters v-if="categoryStore.orgTypes"/>
-        </q-expansion-item>
-        <q-expansion-item
-          class="hide-expansion-header"
           v-model="showEventFilters"
           :duration="150"
         >
-          <div class="row justify-center text-h5 q-mt-lg q-mb-xs">
+          <div class="row justify-center text-h5 q-mb-xs">
             Veranstaltungen
           </div>
           <EventFilters/>
         </q-expansion-item>
+        <q-expansion-item
+          class="hide-expansion-header"
+          v-model="showActorFilters"
+          :duration="150"
+        >
+          <div class="row justify-center text-h5 q-mt-lg q-mb-xs">
+            Akteure
+          </div>
+          <ActorFilters v-if="categoryStore.orgTypes"/>
+        </q-expansion-item>
+
         <q-expansion-item
           class="hide-expansion-header"
           v-model="showStoreFilters"
@@ -43,9 +50,6 @@
           </div>
           <StoreFilters v-if="categoryStore.tradeCategories && categoryStore.tradeTypes && categoryStore.productTypes"/>
         </q-expansion-item>
-        <div v-if="!showAdditionalFilters" class="text-center">
-          <i>Keine weiteren Filter vorhanden</i>
-        </div>
       </div>
     </q-expansion-item>
     <ApplyFiltersButton :filterCategory="'main'"/>
@@ -75,8 +79,7 @@ const props = defineProps({
 
 const baseStore = useBaseStore()
 const {
-  hasActiveFilters,
-  showAdditionalFilters,
+  hasAdditionalFilters,
   showActorFilters,
   showEventFilters,
   showStoreFilters,

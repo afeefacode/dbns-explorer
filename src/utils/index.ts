@@ -186,3 +186,44 @@ export const addToArrayOrRemove = (array: string [], element: string) => {
 export const hasLatLong = (entity: any) => {
   return entity.locations[0]?.lat && entity.locations[0]?.long
 }
+
+export const emptyFilters = {
+  main: {
+    region: null,
+    category: null,
+    search: null,
+  },
+  actors: {
+    orgTypes: null
+  },
+  events: {
+    startDate: null,
+    endDate: null,
+  },
+  stores: {
+    tradeCategories: null,
+    tradeTypes: null,
+    productTypes: null,
+  }
+}
+
+export const emptyFilters2 = {
+  main: {
+    region: null,
+    category: null,
+    search: null,
+  },
+  actors: {
+    orgTypes: null
+  },
+  events: {
+    startDate: null,
+    endDate: null,
+  },
+  stores: {
+    tradeCategories: null,
+    tradeTypes: null,
+    productTypes: null,
+  }
+}
+

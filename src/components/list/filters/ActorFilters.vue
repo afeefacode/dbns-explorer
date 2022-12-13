@@ -9,7 +9,7 @@
           :options="orgTypeNames"
           label="Organisationstyp"
           clearable
-          :class="activeFilters.stores.tradeCategories ? 'filter--active' : ''"
+          :class="activeFilters.actors.orgTypes ? 'filter--active' : ''"
         >
           <template v-slot:prepend>
             <q-icon name="home_work"/>
