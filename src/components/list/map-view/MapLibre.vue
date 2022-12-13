@@ -1,5 +1,7 @@
 <template>
   <div id='map' class="map"></div>
+  <input style="display:none" v-model="entityLists"/>
+<div style="display:none">  entityListLoading: {{entityListLoading}}</div>
 </template>
 <script setup lang="ts">
 import {onMounted, defineEmits, ref, onUpdated} from 'vue'
@@ -59,7 +61,7 @@ const getMarkerPng = (entityType: string) => {
   return marker
 }
 
-const resetMarkerStyle = (pngMarker) => {
+const resetMarkerStyle = (pngMarker: string) => {
   activeMarker.value.style.backgroundImage = `url(${pngMarkerActors})`
   activeMarker.value.style.zIndex = '0'
 }
@@ -138,6 +140,8 @@ const updateMap = () => {
 }
 
 onMounted(async () => {
+  console.log('mounted MapLibre')
+
   map = new maplibregl.Map({
     container: 'map',
     style: 'https://api.maptiler.com/maps/bright/style.json?key=r6JROvArZPt0irVDImJa',
@@ -157,7 +161,7 @@ onMounted(async () => {
 })
 
 onUpdated(() => {
-  console.log('updated')
+  console.log('updated MapLibre')
   updateMap()
 })
 </script>
