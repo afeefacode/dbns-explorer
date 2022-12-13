@@ -65,13 +65,13 @@ const displayed = computed(() => {
 })
 
 const headerBackground = ref(props.entity.image_url
-  ? 'https://daten.nachhaltiges-sachsen.de' + props.entity.image_url
+  ? props.entity.image_url + '?width=600&height=600'
   : './src/img/no-image-background.png')
 
 onUpdated(() => {
-    headerBackground.value = props.entity.image_url
-      ? 'https://daten.nachhaltiges-sachsen.de' + props.entity.image_url + '?width=600&height=600'
-      : './src/img/no-image-background.png'
+  headerBackground.value = props.entity.image_url
+    ? +props.entity.image_url + '?width=600&height=600'
+    : './src/img/no-image-background.png'
 })
 </script>
 
