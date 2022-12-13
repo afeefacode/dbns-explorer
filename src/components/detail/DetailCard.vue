@@ -27,7 +27,7 @@
       v-if="entityDetail.image_url"
       @click="showImageDialog = true"
       class="detail-card__image col-12 col-sm-5"
-      :style="`background-image: url('https://daten.nachhaltiges-sachsen.de${entityDetail.image_url}?width=600&height=600')`"
+      :style="`background-image: url('${entityDetail.image_url}?width=600&height=600')`"
     />
   </q-card>
 
@@ -44,7 +44,7 @@
       </q-card-section>
 
       <q-card-section>
-        <q-img :src="`https://daten.nachhaltiges-sachsen.de${entityDetail.image_url}`" fit="contain"></q-img>
+        <q-img :src="`${entityDetail.image_url}`" fit="contain"></q-img>
       </q-card-section>
     </q-card>
   </q-dialog>

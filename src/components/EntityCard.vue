@@ -24,7 +24,7 @@
         <div
           class="list-card__image col-12 col-sm-4"
           v-if="entity.image_url"
-          :style="`background-image: url('https://daten.nachhaltiges-sachsen.de${entity.image_url}?width=600&height=600')`"
+          :style="`background-image: url('${entity.image_url}?width=600&height=600')`"
         />
       </div>
     </q-card>
