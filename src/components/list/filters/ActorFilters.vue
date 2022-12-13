@@ -25,7 +25,7 @@ import {useBaseStore} from 'stores/base-store'
 import {useCategoryStore} from 'stores/category-store'
 
 const {orgTypes} = useCategoryStore()
-const orgTypeNames = orgTypes.map(category => category.title)
+const orgTypeNames = orgTypes?.map(category => category.title)
 
 const baseStore = useBaseStore()
 const {activeFilters} = storeToRefs(baseStore)

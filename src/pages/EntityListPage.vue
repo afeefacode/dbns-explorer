@@ -18,16 +18,19 @@
         <AllFilters :mapViewActive="baseStore.entityConfig?.showMapView && mapViewToggled"/>
       </q-expansion-item>
     </div>
-    <div class="row flex-center">
-      <q-toggle
-        v-model="mapViewToggled"
-        label="Karte anzeigen"
+    <div class="row justify-end" v-if="activeEntities.length">
+      <q-btn
+        icon="map"
+        flat
+        :label="mapViewToggled ? 'Karte ausblenden' : 'Karte anzeigen'"
+        @click="mapViewToggled = !mapViewToggled"
       />
     </div>
     <MapView
-      v-if="baseStore.entityConfig?.showMapView && mapViewToggled"
-      class="q-mb-xl"
+      v-if="baseStore.entityConfig?.showMapView "
+      v-show="mapViewToggled"
     />
+
     <ListView
       v-if="baseStore.entityConfig?.showListView"
       v-for="entityType in activeEntities"
@@ -63,7 +66,6 @@ const categoryStore = useCategoryStore()
 
 const {activeEntities} = storeToRefs(baseStore)
 const config = baseStore.config
-
 
 const mapViewToggled = ref(true)
 

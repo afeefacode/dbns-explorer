@@ -4,19 +4,13 @@ export const config = {
   contrastTextColor: 'FFFFFF',
   entities: [
     {
-      type: 'actors',
-      showFilters: true,
-      showListView: true,
-      showMapView: true
-    },
-    {
-      type: 'projects',
+      type: 'events',
       showFilters: true,
       showMapView: true,
       showListView: true
     },
     {
-      type: 'events',
+      type: 'counselings',
       showFilters: true,
       showMapView: true,
       showListView: true
@@ -28,7 +22,13 @@ export const config = {
       showListView: true
     },
     {
-      type: 'counselings',
+      type: 'actors',
+      showFilters: true,
+      showListView: true,
+      showMapView: true
+    },
+    {
+      type: 'projects',
       showFilters: true,
       showMapView: true,
       showListView: true

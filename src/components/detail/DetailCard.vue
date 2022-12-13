@@ -1,55 +1,53 @@
 <template>
-  <q-card class="detail-card row justify-between">
-    <div :class="`col-12 ${entityDetail.image_url ? 'col-sm-7' : ''} detail-card__text`">
-      <div class="text-overline">{{ getGermanEntityName(getTypeFromEntity(entityDetail), 'singular') }}</div>
-      <h1 class="text-h4 break-word">{{ entityDetail.title }}</h1>
+  <div>
+    <q-card class="detail-card row justify-between">
+      <div :class="`col-12 ${entityDetail.image_url ? 'col-sm-7' : ''} detail-card__text`">
+        <div class="text-overline">{{ getGermanEntityName(getTypeFromEntity(entityDetail), 'singular') }}</div>
+        <h1 class="text-h4 break-word">{{ entityDetail.title }}</h1>
 
-      <div class="row" v-for="(detail, index) in details" :key="index">
-        <div class="col" style="max-width: 35px">
-          <q-icon :name="detail.icon"></q-icon>
+        <div class="row" v-for="(detail, index) in details" :key="index">
+          <div class="col" style="max-width: 35px">
+            <q-icon :name="detail.icon"></q-icon>
+          </div>
+          <div class="col">
+            <div v-if="detail.title"><b>{{ detail.title }}</b></div>
+            <div class="col" v-html="detail.content"></div>
+          </div>
         </div>
-        <div class="col">
-          <div v-if="detail.title"><b>{{ detail.title }}</b></div>
-          <div class="col" v-html="detail.content"></div>
+        <div v-if="entityDetail.type === 'NLS.Offer'" class="row">
+          <div class="col" style="max-width: 35px">
+            <q-icon name="group"></q-icon>
+          </div>
+          <div class="col">
+            Dies ist ein Angebot von: <b>{{ entityDetail.actor?.title }}</b>&nbsp;
+            <router-link :to="`/actors/${entityDetail.actor?.id}`">(Akteur anzeigen)</router-link>
+          </div>
         </div>
       </div>
-      <div v-if="entityDetail.type === 'NLS.Offer'" class="row">
-        <div class="col" style="max-width: 35px">
-          <q-icon name="group"></q-icon>
-        </div>
-        <div class="col">
-          Dies ist ein Angebot von: <b>{{ entityDetail.actor?.title }}</b>&nbsp;
-          <router-link :to="`/actors/${entityDetail.actor?.id}`">(Akteur anzeigen)</router-link>
-        </div>
-      </div>
-    </div>
-    <div
-      v-if="entityDetail.image_url"
-      @click="showImageDialog = true"
-      class="detail-card__image col-12 col-sm-5"
-      :style="`background-image: url('${entityDetail.image_url}?width=600&height=600')`"
-    />
-  </q-card>
-
-  <q-dialog
-    v-model="showImageDialog"
-    class="image-dialog"
-    full-height
-    full-width
-  >
-    <q-card>
-      <q-card-section class="row items-center q-pb-none">
-        <q-space/>
-        <q-btn icon="close" flat round dense v-close-popup/>
-      </q-card-section>
-
-      <q-card-section>
-        <q-img :src="`${entityDetail.image_url}`" fit="contain"></q-img>
-      </q-card-section>
+      <div
+        v-if="entityDetail.image_url"
+        @click="showImageDialog = true"
+        class="detail-card__image col-12 col-sm-5"
+        :style="`background-image: url('${entityDetail.image_url}?width=600&height=600')`"
+      />
     </q-card>
-  </q-dialog>
-
-
+    <q-dialog
+      v-model="showImageDialog"
+      class="image-dialog"
+      full-height
+      full-width
+    >
+      <q-card>
+        <q-card-section class="row items-center q-pb-none">
+          <q-space/>
+          <q-btn icon="close" flat round dense v-close-popup/>
+        </q-card-section>
+        <q-card-section>
+          <q-img :src="`${entityDetail.image_url}`" fit="contain"></q-img>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+  </div>
 </template>
 <script setup>
 import {ref, onUpdated} from 'vue'
