@@ -155,6 +155,36 @@ const updateDetails = () => {
             content: `<b>Video:</b> <a href="${value}" target="_blank">${prettifyUrl(value)}</a>`
           })
           break;
+        case 'contacts':
+          const contacts = []
+          value.forEach(contact => {
+            contact.contact_persons.forEach(person => {
+              contacts.push({
+                name: person.name,
+                role: person.role,
+                email: person.email,
+                phone: person.phone,
+              })
+            })
+          })
+
+          let contentHtml = []
+
+          contacts.forEach(person => {
+            if (person.name) contentHtml.push(`<b>${person.name}</b>`)
+            if (person.role) contentHtml.push(' ' + person.role)
+            if (person.role) contentHtml.push(` <a href="mailto:${person.email}" target="_blank">${person.email}</a>`)
+            if (person.role) contentHtml.push(` Tel.: <a href="tel:${person.phone}" target="_blank">${person.phone}</a>`)
+          })
+
+          if (!contentHtml.length) break;
+
+          details.value.push({
+            title: 'Kontakt:',
+            icon: 'person',
+            content: contentHtml
+          })
+          break;
         default:
           break;
       }

@@ -14,6 +14,16 @@ const actorFields = {
     "zip": true,
     "lat": true,
     "long": true
+  },
+  "contacts": {
+    "title": true,
+    "contact_urls": true,
+    "contact_persons": {
+      "name": true,
+      "role": true,
+      "email": true,
+      "phone": true,
+    }
   }
 }
 
@@ -50,6 +60,16 @@ const offerFields = {
     "zip": true,
     "lat": true,
     "long": true
+  },
+  "contacts": {
+    "title": true,
+    "contact_urls": true,
+    "contact_persons": {
+      "name": true,
+      "role": true,
+      "email": true,
+      "phone": true,
+    }
   }
 }
 
