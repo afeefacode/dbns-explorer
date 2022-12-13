@@ -5,6 +5,7 @@
 <script setup lang="ts">
 import {onMounted} from 'vue'
 import {useRouter} from 'vue-router'
+import {setCssVar} from 'quasar'
 import {useBaseStore} from "src/stores/base-store"
 import {useCategoryStore} from "src/stores/category-store"
 import {useEntityStore} from "src/stores/entity-store"
@@ -51,6 +52,8 @@ onMounted(async () => {
     payload: null
   }
   window.parent.postMessage(mountedMessage, '*')
+
+  setCssVar('primary', "#" + baseStore.config.brandColor)
 
   document.documentElement.style
     .setProperty('--brandColor', '#' + baseStore.config.brandColor);
