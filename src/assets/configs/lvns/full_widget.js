@@ -2,6 +2,7 @@ export const config = {
   name: 'full_widget',
   brandColor: '5FA93D',
   contrastTextColor: 'FFFFFF',
+  showMainFilters: true,
   entities: [
     {
       type: 'events',
@@ -11,13 +12,11 @@ export const config = {
     },
     {
       type: 'counselings',
-      showFilters: true,
       showMapView: true,
       showListView: true
     },
     {
       type: 'educations',
-      showFilters: true,
       showMapView: true,
       showListView: true
     },
@@ -29,7 +28,6 @@ export const config = {
     },
     {
       type: 'projects',
-      showFilters: true,
       showMapView: true,
       showListView: true
     },

@@ -1,11 +1,12 @@
 import {defineStore} from 'pinia';
-import {config as full_widget} from "assets/configs/lvns/full_widget";
+import {config} from "assets/configs/lvns/all_lvns_events";
+// import {config} from "assets/configs/lvns/full_widget";
 import {emptyFilters, emptyFilters2} from 'src/utils'
 
 export const useBaseStore = defineStore('base', {
   state: () => {
     return {
-      config: full_widget,
+      config: config,
       activeEntities: [],
       additionalFiltersExpanded: false,
       activeFilters: emptyFilters,

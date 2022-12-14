@@ -9,28 +9,30 @@
         @entity-click="onEntityClick(configEntity.type)"
       />
     </div>
-    <div class="">
+    <div v-if="config.showMainFilters">
       <q-expansion-item
         class="hide-expansion-header"
         v-model="baseStore.showFilters"
         :duration="150"
       >
-        <AllFilters :mapViewActive="baseStore.entityConfig?.showMapView && mapViewToggled"/>
+        <AllFilters
+          :mapViewActive="baseStore.entityConfig?.showMapView && mapViewToggled"
+        />
       </q-expansion-item>
     </div>
-    <div class="row justify-end" v-if="activeEntities.length">
-      <q-btn
-        icon="map"
-        flat
-        :label="mapViewToggled ? 'Karte ausblenden' : 'Karte anzeigen'"
-        @click="mapViewToggled = !mapViewToggled"
+    <div v-if="baseStore.entityConfig?.showMapView">
+      <div class="row justify-end" v-if="activeEntities.length">
+        <q-btn
+          icon="map"
+          flat
+          :label="mapViewToggled ? 'Karte ausblenden' : 'Karte anzeigen'"
+          @click="mapViewToggled = !mapViewToggled"
+        />
+      </div>
+      <MapView
+        v-show="mapViewToggled"
       />
     </div>
-    <MapView
-      v-if="baseStore.entityConfig?.showMapView "
-      v-show="mapViewToggled"
-    />
-
     <ListView
       v-if="baseStore.entityConfig?.showListView"
       v-for="entityType in activeEntities"

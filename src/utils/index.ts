@@ -227,3 +227,10 @@ export const emptyFilters2 = {
   }
 }
 
+export const showFilters = (entityType: string, config: any) => {
+  let showFilters = false
+  config.entities.forEach((configEntity: any) => {
+    if (configEntity.type === entityType) showFilters = configEntity.showFilters
+  })
+  return showFilters
+}
