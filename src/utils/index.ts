@@ -157,7 +157,7 @@ export const prettifyUrl = (url: string) => {
   const https = 'https://'
   const slash = '/'
 
-  let prettyUrl = ''
+  let prettyUrl = url
 
   if (url.startsWith(https))
     prettyUrl = url.slice(https.length);
