@@ -25,6 +25,7 @@ const props = defineProps({
     type: Boolean,
   }
 })
+
 const emit = defineEmits(['openDetails', 'closeDetails'])
 
 watch(() => props.mapExpanded, () => {
@@ -38,9 +39,12 @@ const {entityLists, entityListLoading} = storeToRefs(entityStore)
 
 const baseStore = useBaseStore()
 const config = baseStore.config
+const {activeEntities} = storeToRefs(baseStore)
 
-const activeMarker = ref(null)
 let map: any
+const markers = []
+const activeMarker = ref(null)
+
 
 const resetMarkerStyle = (pngMarker: string) => {
   activeMarker.value.style.backgroundImage = `url(${pngMarkerActors})`
@@ -49,11 +53,11 @@ const resetMarkerStyle = (pngMarker: string) => {
 
 const createMarkerAndAdd = (entity: any) => {
   //console.log('adding marker')
-  const marker = document.createElement('div')
   const entityType = getTypeFromEntity(entity)
   const markerPng = getMarkerPng(entityType)
 
-  marker.className = `map__marker map__marker--${entityType}`
+  const marker = document.createElement('div')
+  // marker.className = `map__marker map__marker--${entityType}`
   marker.style.backgroundImage = `url(${markerPng.inactive})`
   marker.style.backgroundSize = 'contain'
   marker.style.backgroundRepeat = 'no-repeat'
@@ -93,13 +97,62 @@ const createMarkerAndAdd = (entity: any) => {
 
 const updateMap = () => {
   Object.keys(entityLists.value).forEach((entityType) => {
-    if (entityLists.value[entityType]) {
-      entityLists.value[entityType].forEach(entity => {
-        if (hasLatLong(entity)) createMarkerAndAdd(entity)
-      })
+    if (isActiveEntity(activeEntities.value, entityType)) {
+      if (entityLists.value[entityType]) {
+        entityLists.value[entityType].forEach(entity => {
+          if (hasLatLong(entity)) createMarkerAndAdd(entity)
+        })
+      }
     }
   })
 }
+
+const addMarkerToArray = (entity: any) => {
+  const entityType = getTypeFromEntity(entity)
+  const markerPng = getMarkerPng(entityType)
+
+  const domElement = document.createElement('div')
+  domElement.style.backgroundImage = `url(${markerPng.inactive})`
+  domElement.style.backgroundSize = 'contain'
+  domElement.style.backgroundRepeat = 'no-repeat'
+  domElement.style.width = '36px'
+  domElement.style.height = '50px'
+  domElement.style.top = '-25px'
+  domElement.style.cursor = 'pointer'
+
+  domElement.addEventListener('click', () => {
+    if (activeMarker.value) {
+      resetMarkerStyle(markerPng.inactive)
+    }
+
+    activeMarker.value = domElement
+
+    domElement.style.backgroundImage = `url(${markerPng.active})`
+    domElement.style.zIndex = '2'
+
+    const offsetX = parseInt(map.getCanvas().style.width) / -4
+
+    map.flyTo({
+      center: [
+        entity.locations[0].long,
+        entity.locations[0].lat
+      ],
+      offset: [offsetX, 0]
+    })
+
+    emit('openDetails', entity)
+  })
+
+  const mapMarker = {
+    entity,
+    domElement,
+    visible: true
+  }
+
+  markers.push(mapMarker)
+}
+
+
 
 
 const updateBoundsAndFetch = () => {
