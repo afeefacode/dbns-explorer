@@ -1,9 +1,12 @@
 <template>
-  <q-card flat bordered class="details-drawer">
+  <q-card
+    flat
+    bordered
+    class="details-drawer"
+  >
     <q-card-section
       class=details-drawer__header
       :style="`background-image: url('${headerBackground}')`"
-
     >
       <div class="row items-center no-wrap">
         <q-btn
@@ -50,8 +53,9 @@ import DetailsButton from 'src/components/DetailsButton.vue'
 
 const props = defineProps({
   entity: {
-    type: Object
-  }
+    type: Object,
+    default: {},
+  },
 })
 
 const config = useBaseStore().config
@@ -77,11 +81,11 @@ onUpdated(() => {
 
 <style lang="scss">
 .details-drawer {
+  height: 100%;
   position: absolute;
   top: 0;
   right: 0;
   float: right;
-  height: 100%;
   background: #ffffff;
   z-index: 3;
   width: 50%;

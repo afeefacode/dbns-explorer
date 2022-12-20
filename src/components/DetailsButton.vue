@@ -1,6 +1,6 @@
 <template>
   <q-btn
-    :label="`${getGermanEntityName(entityType, 'singular')} anzeigen`"
+    label="Details"
     @click="openDetailPage"
   />
 </template>
@@ -8,7 +8,7 @@
 import {defineProps} from 'vue'
 import {useRouter} from 'vue-router'
 import {useBaseStore} from 'src/stores/base-store'
-import {getGermanEntityName, getTypeFromEntity} from 'src/utils'
+import {getTypeFromEntity} from 'src/utils'
 
 const props = defineProps({
   entity: {
@@ -16,6 +16,7 @@ const props = defineProps({
     default: null
   }
 })
+
 const config = useBaseStore().config
 const router = useRouter()
 const entityType = getTypeFromEntity(props.entity)

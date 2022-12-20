@@ -1,11 +1,5 @@
 // app global css in SCSS form
 
-$brand: #5FA93D;
-
-$actor: #457039;
-$project: #DB9D37;
-$event: #9b3041;
-
 html {
   overflow-y: hidden;
   overflow-x: hidden;
@@ -17,7 +11,7 @@ html {
 }
 
 a {
-  color: $brand;
+  color: var(--brandColor);
 }
 
 a:hover {

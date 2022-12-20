@@ -14,6 +14,16 @@ const actorFields = {
     "zip": true,
     "lat": true,
     "long": true
+  },
+  "contacts": {
+    "title": true,
+    "contact_urls": true,
+    "contact_persons": {
+      "name": true,
+      "role": true,
+      "email": true,
+      "phone": true,
+    }
   }
 }
 
@@ -50,6 +60,16 @@ const offerFields = {
     "zip": true,
     "lat": true,
     "long": true
+  },
+  "contacts": {
+    "title": true,
+    "contact_urls": true,
+    "contact_persons": {
+      "name": true,
+      "role": true,
+      "email": true,
+      "phone": true,
+    }
   }
 }
 
@@ -64,7 +84,8 @@ getOfferList().forEach(({key, id}) => {
       "action": "list",
       "fields": {...offerFields},
       "filters": {
-        "offer_type_id": id
+        "offer_type_id": id,
+        "page_size": 50
       },
     },
     details: {
@@ -83,7 +104,10 @@ export const entityRequests = {
     list: {
       "resource": "NLS.ActorResource",
       "action": "list",
-      "fields": {...actorFields}
+      "fields": {...actorFields},
+      "filters": {
+        "page_size": 50
+      }
     },
     details: {
       "resource": "NLS.ActorResource",

@@ -2,7 +2,24 @@ export const config = {
   name: 'full_widget',
   brandColor: '5FA93D',
   contrastTextColor: 'FFFFFF',
+  showMainFilters: true,
   entities: [
+    {
+      type: 'events',
+      showFilters: true,
+      showMapView: true,
+      showListView: true
+    },
+    {
+      type: 'counselings',
+      showMapView: true,
+      showListView: true
+    },
+    {
+      type: 'educations',
+      showMapView: true,
+      showListView: true
+    },
     {
       type: 'actors',
       showFilters: true,
@@ -11,25 +28,6 @@ export const config = {
     },
     {
       type: 'projects',
-      showFilters: true,
-      showMapView: true,
-      showListView: true
-    },
-    {
-      type: 'events',
-      showFilters: true,
-      showMapView: true,
-      showListView: true
-    },
-    {
-      type: 'educations',
-      showFilters: true,
-      showMapView: true,
-      showListView: true
-    },
-    {
-      type: 'counselings',
-      showFilters: true,
       showMapView: true,
       showListView: true
     },

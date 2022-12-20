@@ -1,10 +1,9 @@
 <template>
-  <div id='map' class="map"></div>
-  <input style="display:none" v-model="entityLists"/>
-<div style="display:none">  entityListLoading: {{entityListLoading}}</div>
+  <div id='map' class="map"/>
+  <div style="display:none"> entityListLoading: {{ entityListLoading }}</div>
 </template>
 <script setup lang="ts">
-import {onMounted, defineEmits, ref, onUpdated} from 'vue'
+import {onMounted, defineEmits, ref, onUpdated, defineProps, watch} from 'vue'
 import {storeToRefs} from 'pinia'
 import maplibregl from 'maplibre-gl'
 
@@ -20,6 +19,18 @@ import {getTypeFromEntity, hasLatLong} from 'src/utils'
 // import markerActorDOM from 'assets/markers/marker-actor'
 // import markerActorSvg from 'assets/markers/marker-actors.svg'
 
+const props = defineProps({
+  mapExpanded: {
+    type: Boolean,
+  }
+})
+
+watch(() => props.mapExpanded, () => {
+  setTimeout(() => {
+    map.resize()
+  }, 150)
+})
+
 const entityStore = useEntityStore()
 const {entityLists, entityListLoading} = storeToRefs(entityStore)
 
@@ -30,7 +41,7 @@ const activeMarker = ref(null)
 let map: any
 
 const getMarkerPng = (entityType: string) => {
-  console.log('entityTypes', entityType)
+  // console.log('entityType', entityType)
   let marker = {
     inactive: '',
     active: ''
@@ -41,17 +52,10 @@ const getMarkerPng = (entityType: string) => {
       marker.active = pngMarkerActorsActive
       break;
     case 'project':
-      marker.inactive = pngMarker
-      marker.active = pngMarkerActive
-      break;
     case 'event':
-      break;
     case 'education':
-      break;
     case 'counseling':
-      break;
     case 'store':
-      break;
     default:
       marker.inactive = pngMarker
       marker.active = pngMarkerActive
@@ -68,6 +72,7 @@ const resetMarkerStyle = (pngMarker: string) => {
 
 
 const createMarkerAndAdd = (entity: any) => {
+  console.log('adding marker')
   const marker = document.createElement('div')
   const entityType = getTypeFromEntity(entity)
   const markerPng = getMarkerPng(entityType)
@@ -168,7 +173,7 @@ onUpdated(() => {
 
 <style lang="scss" scoped>
 .map {
+  height: 100%;
   width: 100%;
-  height: 550px;
 }
 </style>

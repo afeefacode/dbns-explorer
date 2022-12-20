@@ -9,7 +9,7 @@
           :options="orgTypeNames"
           label="Organisationstyp"
           clearable
-          :class="activeFilters.stores.tradeCategories ? 'filter--active' : ''"
+          :class="activeFilters.actors.orgTypes ? 'filter--active' : ''"
         >
           <template v-slot:prepend>
             <q-icon name="home_work"/>
@@ -25,7 +25,7 @@ import {useBaseStore} from 'stores/base-store'
 import {useCategoryStore} from 'stores/category-store'
 
 const {orgTypes} = useCategoryStore()
-const orgTypeNames = orgTypes.map(category => category.title)
+const orgTypeNames = orgTypes?.map(category => category.title)
 
 const baseStore = useBaseStore()
 const {activeFilters} = storeToRefs(baseStore)
