@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia';
-import {config} from "assets/configs/lvns/all_lvns_events";
-// import {config} from "assets/configs/lvns/full_widget";
+// import {config} from "assets/configs/lvns/all_lvns_events";
+import {config} from "assets/configs/lvns/full_widget";
 import {emptyFilters, emptyFilters2} from 'src/utils'
 
 export const useBaseStore = defineStore('base', {
