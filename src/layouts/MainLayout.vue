@@ -21,7 +21,7 @@ const config = useBaseStore().config
 // baseStore.activeEntity = router.currentRoute.value.fullPath.split('/')[1]
 // const {activeEntity} = storeToRefs(baseStore)
 
-// todo: single source of truth - this should not be a ref but only handled in the base store
+// TODO: single source of truth - this should not be a ref but only handled in the base store
 // const activeEntity = ref(router.currentRoute.value.fullPath.split('/')[1])
 
 const showEntitySelector = Object.keys(config.entities).length > 1

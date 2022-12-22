@@ -30,9 +30,7 @@ import pngMarkerStoresActive from 'assets/markers/marker-stores-active.png'
 
 import {useBaseStore} from "src/stores/base-store";
 import {useEntityStore} from "src/stores/entity-store";
-import {getTypeFromEntity, hasLatLong} from 'src/utils'
-// import markerActorDOM from 'assets/markers/marker-actor'
-// import markerActorSvg from 'assets/markers/marker-actors.svg'
+import {getTypeFromEntity, hasLatLong, isActiveEntity} from 'src/utils'
 
 const props = defineProps({
   mapExpanded: {
@@ -167,11 +165,12 @@ const createMarkerAndAdd = (entity: any) => {
 
 const updateMap = () => {
   Object.keys(entityLists.value).forEach((entityType) => {
-    if (entityLists.value[entityType]) {
-      entityLists.value[entityType].forEach(entity => {
-        if (hasLatLong(entity)) createMarkerAndAdd(entity)
-      })
+      if (entityLists.value[entityType]) {
+        entityLists.value[entityType].forEach(entity => {
+          if (hasLatLong(entity)) createMarkerAndAdd(entity)
+        })
     }
+
   })
 }
 
@@ -184,7 +183,6 @@ onMounted(async () => {
     center: [13, 51.15],
     zoom: 7
   });
-
 
   map.on('click', (event) => {
     const isClickOnMarker = event.originalEvent.target.classList[0].includes('marker')

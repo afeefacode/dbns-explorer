@@ -114,7 +114,7 @@ export const getTypeFromEntity = (entity: any) => {
       entityType = entity.offer_type.key
       break;
     default:
-      entityType = 'offer'
+      entityType = entity.type
   }
   return entityType
 }
@@ -127,16 +127,6 @@ export const inIframe = () => {
   }
 }
 
-export const debounce = (callback: () => {}, timeout = 300) => {
-  let timer: any;
-  return (...args: []) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      callback.apply(this, args);
-    }, timeout);
-  };
-}
-
 export const appendFiltersToRequest = (request: { filters: {} }, filters: {}) => {
   return {
     ...request,
@@ -146,7 +136,6 @@ export const appendFiltersToRequest = (request: { filters: {} }, filters: {}) =>
     }
   }
 }
-
 
 export const capitalizeFirstLetter = (string: string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -233,4 +222,21 @@ export const showFilters = (entityType: string, config: any) => {
     if (configEntity.type === entityType) showFilters = configEntity.showFilters
   })
   return showFilters
+}
+
+export const getEventDatesForDisplay = (time: { start: Date, end: Date }) => {
+  const startDate = new Date(time.start)
+  const endDate = new Date(time.end)
+
+  const optionsStart = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric'};
+  const optionsEnd = startDate.getDate() === endDate.getDate()
+    ? {hour: 'numeric'}
+    : optionsStart
+
+  return {
+    //@ts-ignore
+    start: startDate.toLocaleString('de-DE', optionsStart),
+    //@ts-ignore
+    end: endDate.toLocaleString('de-DE', optionsEnd)
+  }
 }

@@ -70,6 +70,10 @@ const offerFields = {
       "email": true,
       "phone": true,
     }
+  },
+  "times": {
+    "start": true,
+    "end": true
   }
 }
 
