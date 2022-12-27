@@ -6,6 +6,7 @@ import {emptyFilters, emptyFilters2} from 'src/utils'
 export const useBaseStore = defineStore('base', {
   state: () => {
     return {
+      windowLocation: null,
       config: config,
       activeEntities: [],
       additionalFiltersExpanded: false,

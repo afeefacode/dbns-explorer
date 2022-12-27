@@ -1,7 +1,10 @@
 <template>
   <q-page class="q-my-xl">
     <div v-if="!entityDetailLoading">
-      <BackButton class="q-mb-md"/>
+      <div class="row justify-between">
+        <BackButton class="q-mb-md"/>
+        <ShareButton :entity="entityDetail" class="q-mb-md"/>
+      </div>
       <DetailCard :entity="entityDetail" class="q-mb-xl"/>
       <div class="q-px-lg">
         <h1 class="text-h5 break-word">{{ entityDetail.title }}</h1>
@@ -25,14 +28,14 @@
           <ActorsOfferList v-if="getTypeFromEntity(entityDetail) === 'actor'"/>
         </div>
       </div>
-      <div class="entity-detail__similar-entities">
-        <h2 class="text-h5 q-mt-xl q-ml-lg">Ähnliche {{
-            getGermanEntityName(getTypeFromEntity(entityDetail), 'plural')
-          }}</h2>
-        <div class="row">
-          <EntityCard v-for="entity in entityLists.similarEntities" :entity="entity" :key="entity.id"/>
-        </div>
-      </div>
+      <!--      <div class="entity-detail__similar-entities">-->
+      <!--        <h2 class="text-h5 q-mt-xl q-ml-lg">Ähnliche {{-->
+      <!--            getGermanEntityName(getTypeFromEntity(entityDetail), 'plural')-->
+      <!--          }}</h2>-->
+      <!--        <div class="row">-->
+      <!--          <EntityCard v-for="entity in entityLists.similarEntities" :entity="entity" :key="entity.id"/>-->
+      <!--        </div>-->
+      <!--      </div>-->
     </div>
     <EntityDetailSkeleton v-else/>
   </q-page>
@@ -46,11 +49,13 @@ import {useBaseStore} from "stores/base-store";
 import {useEntityStore} from "stores/entity-store";
 import {getTypeFromEntity, getGermanEntityName, hasLatLong} from "src/utils";
 import BackButton from 'components/detail/BackButton.vue'
+import ShareButton from 'components/detail/ShareButton.vue'
 import DetailCard from 'components/detail/DetailCard.vue'
 import DetailMap from 'components/detail/DetailMap.vue'
 import EntityDetailSkeleton from 'components/detail/EntityDetailSkeleton.vue'
 import ActorsOfferList from 'components/detail/ActorsOfferList.vue'
 import EntityCard from 'components/EntityCard.vue'
+
 
 const route = useRoute()
 const baseStore = useBaseStore()

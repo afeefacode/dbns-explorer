@@ -63,7 +63,11 @@ const getSnippet = (config, host) => {
       case "app_mounted":
         var acknowledgedMessage = {
           "type": "app_mounted_acknowledged",
-          "payload": window.location.search
+          "windowLocation": {
+              search: window.location.search,
+              origin: window.location.origin,
+              pathname: window.location.pathname,
+          }
         };
         iFrame.contentWindow.postMessage(acknowledgedMessage, "*");
         break;
