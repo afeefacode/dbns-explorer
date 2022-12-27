@@ -29,7 +29,8 @@ const configs = [
 const host = ref('http://localhost:9000')
 
 const copyToClipboard = (text) => {
-  navigator.clipboard.writeText(text.replace(/\s/g,''))
+  navigator.clipboard.writeText(text)
+  // navigator.clipboard.writeText(text.replace(/\s/g,''))
 }
 
 const getSnippet = (config, host) => {
@@ -49,7 +50,7 @@ const getSnippet = (config, host) => {
 <script>
   var iFrame = document.getElementById('iframe-dbns-explorer');
 
-  function resizeIframeDbnsExplorer(newHeight) {
+  function resizeIframe(newHeight) {
     iFrame.height = newHeight;
   };
 
@@ -68,7 +69,7 @@ const getSnippet = (config, host) => {
         break;
 
       case "app_resized":
-        resizeIframeDbnsExplorer(event.data.payload);
+        resizeIframe(event.data.payload);
         break;
 
       default:
