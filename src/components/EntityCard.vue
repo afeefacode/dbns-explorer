@@ -4,7 +4,7 @@
       <div class="justify-between row">
         <div class="list-card__text col-12 col-sm-8 q-pa-lg">
           <div class="text-overline">{{ getGermanEntityName(entityType, 'singular') }}</div>
-          <div v-if="entityType === 'event'" class="list-card__times">{{ displayed.time.start }} - {{
+          <div v-if="entityType === 'event' && displayed.time" class="list-card__times">{{ displayed.time.start }} - {{
               displayed.time.end
             }}
           </div>
@@ -53,7 +53,7 @@
 import {defineProps} from 'vue'
 import {useBaseStore} from 'src/stores/base-store'
 import {useEntityStore} from 'src/stores/entity-store'
-import {getGermanEntityName, getTypeFromEntity, prettifyUrl, getEventDatesForDisplay} from "src/utils";
+import {getGermanEntityName, getTypeFromEntity, prettifyUrl, getEventDatesForDisplay, shortenStringTo} from "src/utils";
 import DetailsButton from './DetailsButton.vue'
 
 const config = useBaseStore().config
@@ -67,14 +67,13 @@ const props = defineProps({
 
 const entityType = getTypeFromEntity(props.entity)
 
-const shortenStringTo = (characters, string) => string.length > characters ? string.slice(0, characters - 4) + '...' : string
 
 let displayed = {}
 displayed.title = props.entity.title ? shortenStringTo(60, props.entity.title) : ''
 displayed.short_description = props.entity.short_description ? shortenStringTo(150, props.entity.short_description) : ''
 displayed.info_url = props.entity.info_url ? shortenStringTo(55, prettifyUrl(props.entity.info_url)) : ''
 
-if (entityType === 'event') {
+if (entityType === 'event' && props.entity.times[0]) {
   displayed.time = getEventDatesForDisplay(props.entity.times[0])
 }
 
@@ -100,7 +99,7 @@ const infoUrlWidth = entityType === 'event' ? '400px'
   }
 
   &__info-url, &__title {
-    width: v-bind(infoUrlWidth)
+    //width: v-bind(infoUrlWidth)
   }
 
   &__short-description {
