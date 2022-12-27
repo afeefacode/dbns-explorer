@@ -11,6 +11,10 @@ const routes: RouteRecordRaw[] = [
     children: [{path: `/:entityType/:id`, component: () => import('pages/EntityDetailPage.vue')}],
   }, {
     path: '/',
+    component: () => import('layouts/NoFooterLayout.vue'),
+    children: [{path: '/impressum', component: () => import('pages/Imprint.vue')}],
+  }, {
+    path: '/',
     children: [{path: '/configurator', component: () => import('pages/Configurator.vue')}],
   },
   // Always leave this as last one,
