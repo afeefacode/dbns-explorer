@@ -6,6 +6,11 @@ import {emptyFilters, emptyFilters2} from 'src/utils'
 export const useBaseStore = defineStore('base', {
   state: () => {
     return {
+      parentLocation: {
+        origin: null,
+        pathname: null,
+        search: null,
+      },
       config: config,
       activeEntities: [],
       additionalFiltersExpanded: false,

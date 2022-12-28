@@ -13,11 +13,14 @@
 </template>
 <script setup>
 import {ref} from 'vue'
+import {useQuasar} from "quasar";
 import {config as full_widget} from 'src/assets/configs/lvns/full_widget'
 import {config as upcoming_lvns_events} from 'src/assets/configs/lvns/upcoming_lvns_events'
 import {config as all_lvns_events} from 'src/assets/configs/lvns/all_lvns_events'
 import {config as all_events} from 'src/assets/configs/all_events'
 import {configJsonToUrlParam} from 'src/utils'
+
+const $q = useQuasar()
 
 const configs = [
   full_widget,
@@ -29,7 +32,13 @@ const configs = [
 const host = ref('http://localhost:9000')
 
 const copyToClipboard = (text) => {
-  navigator.clipboard.writeText(text.replace(/\s/g,''))
+  navigator.clipboard.writeText(text)
+  // navigator.clipboard.writeText(text.replace(/\s/g,''))
+
+  $q.notify({
+    message: 'In Zwischenablage kopiert',
+    color: 'primary'
+  })
 }
 
 const getSnippet = (config, host) => {
@@ -38,7 +47,7 @@ const getSnippet = (config, host) => {
     width: 100%;
     max-width: 100%;
     min-height: 500px;
-    border: 0px dashed #ddd;
+    border: 0;
   }
 
   .wp-block-spacer, .wp-block-separator {
@@ -46,39 +55,14 @@ const getSnippet = (config, host) => {
   }
 </style>
 <iframe id="iframe-dbns-explorer" title="Aktiv in Sachsen" src="${host}/?${configJsonToUrlParam(config)}"></iframe>
-<script>
-  var iFrame = document.getElementById('iframe-dbns-explorer');
-
-  function resizeIframeDbnsExplorer(newHeight) {
-    iFrame.height = newHeight;
-  };
-
-  window.addEventListener("message", function (event) {
-    if (event.origin !== "${host}") {
-      return;
-    };
-
-    switch (event.data.type) {
-      case "app_mounted":
-        var acknowledgedMessage = {
-          "type": "app_mounted_acknowledged",
-          "payload": window.location.search
-        };
-        iFrame.contentWindow.postMessage(acknowledgedMessage, "*");
-        break;
-
-      case "app_resized":
-        resizeIframeDbnsExplorer(event.data.payload);
-        break;
-
-      default:
-        break;
-    }
-  });<\/script>`
+<script src="${host}/iframeScript.js"><\/script>`
 }
 </script>
 <style lang="scss" scoped>
 .snippet {
   cursor: pointer;
+}
+.snippet:active {
+  color: #999;
 }
 </style>

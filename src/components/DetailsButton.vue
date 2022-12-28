@@ -23,5 +23,16 @@ const entityType = getTypeFromEntity(props.entity)
 
 const openDetailPage = () => {
   router.push(`/${entityType}s/${props.entity.id}`)
+  window.parent.postMessage({
+    type: "scroll_to_top_of_iframe",
+  }, '*')
+
+  // window.parent.postMessage({
+  //   type: "update_url",
+  //   payload: {
+  //     entityType,
+  //     entityId: props.entity.id
+  //   }
+  // }, '*')
 }
 </script>

@@ -1,10 +1,13 @@
 <template>
-  <div :class="`entity-card q-pa-md items-start q-gutter-xs col-12 ${entity.type === 'Event' ? '' : 'col-md-6'}`">
+  <div :class="`entity-card q-pa-md items-start q-gutter-xs col-12 ${entityType === 'event' ? '' : 'col-md-6'}`">
     <q-card v-if="!entityStore.entityListLoading" class="list-card" bordered>
       <div class="justify-between row">
         <div class="list-card__text col-12 col-sm-8 q-pa-lg">
-          <div class="text-overline">{{ displayed.type }}</div>
-          <div v-if="entity.type === 'Event'">{{ displayed.start_at }}</div>
+          <div class="text-overline">{{ getGermanEntityName(entityType, 'singular') }}</div>
+          <div v-if="entityType === 'event' && displayed.time" class="list-card__times">{{ displayed.time.start }} - {{
+              displayed.time.end
+            }}
+          </div>
           <div class="q-mt-sm q-mb-md">
             <div class="text-h5 break-word list-card__title">
               {{ displayed.title }}
@@ -12,7 +15,9 @@
             <div v-if="entity.info_url">
               <q-icon name="language" class="q-mr-sm" :style="`color: #${config.brandColor}`"/>
               <a :href="entity.info_url" target="_blank" :title="displayed.name"
-                 class="break-word list-card__info-url">{{ displayed.info_url }}</a>
+                 class="break-word list-card__info-url">
+                {{ displayed.info_url }}
+              </a>
             </div>
           </div>
           <div label="test" class="text-grey list-card__short-description q-pr-md q-mb-lg">
@@ -46,10 +51,10 @@
 </template>
 <script setup>
 import {defineProps} from 'vue'
-import DetailsButton from './DetailsButton.vue'
 import {useBaseStore} from 'src/stores/base-store'
 import {useEntityStore} from 'src/stores/entity-store'
-import {getGermanEntityName, getTypeFromEntity, prettifyUrl} from "src/utils";
+import {getGermanEntityName, getTypeFromEntity, prettifyUrl, getEventDatesForDisplay, shortenStringTo} from "src/utils";
+import DetailsButton from './DetailsButton.vue'
 
 const config = useBaseStore().config
 const entityStore = useEntityStore()
@@ -59,22 +64,21 @@ const props = defineProps({
     type: Object
   }
 })
-const shortenStringTo = (characters, string) => string.length > characters ? string.slice(0, characters - 4) + ' ...' : string
+
+const entityType = getTypeFromEntity(props.entity)
+
 
 let displayed = {}
 displayed.title = props.entity.title ? shortenStringTo(60, props.entity.title) : ''
 displayed.short_description = props.entity.short_description ? shortenStringTo(150, props.entity.short_description) : ''
 displayed.info_url = props.entity.info_url ? shortenStringTo(55, prettifyUrl(props.entity.info_url)) : ''
 
-if (props.entity.offer_type?.key === 'NLS.Event') {
-  let startAt = new Date(props.entity.start_at)
-  const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
-  displayed.start_at = startAt.toLocaleDateString('de-DE', options)
+if (entityType === 'event' && props.entity.times[0]) {
+  displayed.time = getEventDatesForDisplay(props.entity.times[0])
 }
 
-displayed.type = getGermanEntityName(getTypeFromEntity(props.entity), 'singular')
-
-const infoUrlWidth = props.entity.image_url ? '200px' : '400px'
+const infoUrlWidth = entityType === 'event' ? '400px'
+  : props.entity.image_url ? '200px' : '400px'
 
 </script>
 <style lang="scss" scoped>
@@ -84,8 +88,18 @@ const infoUrlWidth = props.entity.image_url ? '200px' : '400px'
   border-radius: 0;
   box-shadow: 0 5px 30px -10px rgb(18 63 82 / 30%) !important;
 
+  &__times {
+    color: var(--brandColor);
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+
+  &__title {
+    letter-spacing: 1px;
+  }
+
   &__info-url, &__title {
-    width: v-bind(infoUrlWidth)
+    //width: v-bind(infoUrlWidth)
   }
 
   &__short-description {
@@ -105,14 +119,15 @@ const infoUrlWidth = props.entity.image_url ? '200px' : '400px'
 }
 
 @media (max-width: 599px) {
-  .list-card{
+  .list-card {
     &__text {
       order: 2;
     }
+
     &__image {
       order: 1;
-    height: 150px;
-  }
+      height: 150px;
+    }
   }
 }
 </style>

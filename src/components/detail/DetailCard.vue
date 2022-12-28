@@ -3,6 +3,10 @@
     <q-card class="detail-card row justify-between">
       <div :class="`col-12 ${entityDetail.image_url ? 'col-sm-7' : ''} detail-card__text`">
         <div class="text-overline">{{ getGermanEntityName(getTypeFromEntity(entityDetail), 'singular') }}</div>
+<!--        <div v-if="entityType === 'event'" class="detail-card__times">{{ time.start }} - {{-->
+<!--            time.end-->
+<!--          }}-->
+<!--        </div>-->
         <h1 class="text-h4 break-word">{{ entityDetail.title }}</h1>
 
         <div class="row" v-for="(detail, index) in details" :key="index">
@@ -53,13 +57,19 @@
 import {ref, onUpdated} from 'vue'
 import {storeToRefs} from "pinia/dist/pinia";
 import {useEntityStore} from "stores/entity-store";
-import {getTypeFromEntity, getGermanEntityName, shortenStringTo, prettifyUrl} from "src/utils";
+import {getTypeFromEntity, getGermanEntityName, shortenStringTo, prettifyUrl, getEventDatesForDisplay} from "src/utils";
 
 const entityStore = useEntityStore()
 const {entityDetail} = storeToRefs(entityStore)
 
 const details = ref([])
 const showImageDialog = ref(false)
+// const entityType = getTypeFromEntity(entityDetail.value)
+// let time
+//
+// if (entityType === 'event') {
+//   time = getEventDatesForDisplay(entityDetail.value.times[0])
+// }
 
 const updateDetails = () => {
   details.value = []
@@ -204,6 +214,12 @@ onUpdated(() => {
   box-shadow: none;
   padding: 2em;
   border-radius: 10px;
+
+  &__times {
+    color: var(--brandColor);
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
 
   &__text {
     .row {

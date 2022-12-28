@@ -9,7 +9,7 @@ import {setCssVar} from 'quasar'
 import {useBaseStore} from "src/stores/base-store"
 import {useCategoryStore} from "src/stores/category-store"
 import {useEntityStore} from "src/stores/entity-store"
-import {inIframe, triggerIframeResize} from 'src/utils'
+import {isInIframe, triggerIframeResize, getSearchParameters} from 'src/utils'
 
 const baseStore = useBaseStore()
 const categoryStore = useCategoryStore()
@@ -29,7 +29,8 @@ baseStore.activeEntities.push(baseStore.config.entities[0].type)
 entityStore.fetchEntityList(baseStore.config.entities[0].type)
 
 onMounted(async () => {
-  if (!inIframe()) {
+
+  if (!isInIframe()) {
     document.getElementsByTagName('html')[0].style.overflowY = 'scroll'
   }
 
@@ -37,9 +38,12 @@ onMounted(async () => {
     switch (event.data.type) {
 
       case "app_mounted_acknowledged":
-        console.log('app_mounted_acknowledged')
-        // const paramString = event.data.payload.substring(1)
-        // const params = getSearchParameters(paramString);
+        baseStore.parentLocation = event.data.windowLocation
+        const paramString = event.data.windowLocation.search.substring(1)
+        const params = getSearchParameters(paramString);
+        if (params.entity && params.id) {
+          router.push(`/${params.entity}/${params.id}`)
+        }
         break;
 
       default:
@@ -63,5 +67,6 @@ onMounted(async () => {
 
   let qApp = document.getElementById('q-app')
   new ResizeObserver(triggerIframeResize).observe(qApp)
+  console.log('finished mounting')
 })
 </script>

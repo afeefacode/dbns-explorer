@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// @todo: all api requests can probably be abstracted to one request with changing bodies
+// TODO: all api requests can probably be abstracted to one request with changing bodies
 
 export const fetchCategoryList = async () => {
 
