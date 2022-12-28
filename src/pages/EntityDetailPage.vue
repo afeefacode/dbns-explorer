@@ -5,6 +5,7 @@
         <BackButton class="q-mb-md"/>
         <!--   TODO: the ShareButton does not work in the standalone app yet     -->
         <ShareButton :entity="entityDetail" class="q-mb-md" v-if="isInIframe()"/>
+
       </div>
       <DetailCard :entity="entityDetail" class="q-mb-xl"/>
       <div class="q-px-lg">

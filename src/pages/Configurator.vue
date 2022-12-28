@@ -79,6 +79,7 @@ const getSnippet = (config, host) => {
           }
         };
         iFrame.contentWindow.postMessage(acknowledgedMessage, "*");
+        if(window.location.search) window.history.pushState({},null,window.location.origin + window.location.pathname)
         break;
 
       case "app_resized":
@@ -89,9 +90,15 @@ const getSnippet = (config, host) => {
           navigator.clipboard.writeText(event.data.payload)
         break;
 
+          //TODO: this is not working properly!
       case "scroll_to_top_of_iframe":
             window.scrollTo(0, iFrame.getBoundingClientRect().top);
         break;
+
+      // case "update_url":
+      //     const payload = event.data.payload
+      //     window.location.href = "?entity=" + payload.entityType + "s&id=" + payload.entityId
+      //   break;
 
       default:
         break;

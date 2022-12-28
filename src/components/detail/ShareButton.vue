@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <q-btn
-      flat
-      icon="share"
-      @click="shareDialog = true"
-    ></q-btn>
-    <q-dialog v-model="shareDialog" class="share-dialog">
+  <q-btn
+    flat
+    icon="share"
+  >
+    <q-popup-proxy class="share-popup" breakpoint="0">
       <q-card class="q-pl-md">
         <q-card-section class="row justify-between items-center">
           <div class="text-h5">{{ getGermanEntityName(entityType, 'singular') }} teilen</div>
@@ -24,8 +22,8 @@
           <q-btn flat label="Link kopieren" color="primary" @click="copyLink()" v-close-popup/>
         </div>
       </q-card>
-    </q-dialog>
-  </div>
+    </q-popup-proxy>
+  </q-btn>
 </template>
 <script setup>
 import {ref, defineProps} from 'vue'
@@ -62,21 +60,19 @@ const copyLink = () => {
   $q.notify({
     message: 'Link kopiert',
     color: 'primary',
-    position: "center",
-    timeout: 1,
+    position: "top",
+    timeout: 1000,
   })
 }
 
 const shareDialog = ref(false)
 </script>
 <style lang="scss">
-.share-dialog {
-  .q-dialog__backdrop {
-    opacity: 0;
-  }
-
+.share-popup {
+  overflow: hidden;
   .link-input {
     width: 400px;
   }
 }
+
 </style>
