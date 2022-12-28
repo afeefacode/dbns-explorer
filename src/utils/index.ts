@@ -119,7 +119,7 @@ export const getTypeFromEntity = (entity: any) => {
   return entityType
 }
 
-export const inIframe = () => {
+export const isInIframe = () => {
   try {
     return window.self !== window.top;
   } catch (e) {

@@ -7,7 +7,7 @@
     >
       <div class="q-gutter-sm">
         <div class="q-mb-sm">
-          <q-btn label="Und los" @click="fetchEntityLists(buttonForFilters)"></q-btn>
+          <q-btn label="Suchen" @click="fetchEntityLists(buttonForFilters)"></q-btn>
         </div>
         <!--        <div class="text-center clear-filter-button" @click="clearFiltersAndFetch(buttonForFilters)">-->
         <!--          <span class="text-button">Filter löschen</span>-->

@@ -3,7 +3,7 @@
     <q-page-container class="page-container">
       <router-view/>
     </q-page-container>
-    <div v-if="!inIframe()"  class="footer">
+    <div v-if="!isInIframe()" class="footer">
         <router-link to="/impressum" class="text-white">Impressum</router-link>
     </div>
   </q-layout>
@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import {useRouter} from 'vue-router'
 import {useBaseStore} from "src/stores/base-store";
-import {inIframe} from 'src/utils'
+import {isInIframe} from 'src/utils'
 
 const router = useRouter()
 const baseStore = useBaseStore()

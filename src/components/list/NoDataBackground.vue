@@ -12,16 +12,16 @@
       <a href="https://daten.nachhaltiges-sachsen.de/registrieren" target="_blank">Account registrieren</a> <br>
       <a href="https://daten.nachhaltiges-sachsen.de/admin/" target="_blank">Direkt zum Login</a>
     </div>
-    <div class="q-mb-xl">
-      <div class="q-mb-md">Spread the word</div>
-      <div class="share-icons">
-        <q-icon name="facebook"/>
-        <q-icon name="whatsapp"/>
-        <q-icon name="telegram"/>
-        <q-icon name="email"/>
-      </div>
-    </div>
-    <div class="credits">
+<!--    <div class="q-mb-xl">-->
+<!--      <div class="q-mb-md">Spread the word</div>-->
+<!--      <div class="share-icons">-->
+<!--        <q-icon name="facebook"/>-->
+<!--        <q-icon name="whatsapp"/>-->
+<!--        <q-icon name="telegram"/>-->
+<!--        <q-icon name="email"/>-->
+<!--      </div>-->
+<!--    </div>-->
+    <div class="credits" v-if="!isInIframe()">
       Dies ist ein Projekt des
       <LvnsLogoLink/>
     </div>
@@ -29,6 +29,7 @@
 
 </template>
 <script setup>
+import {isInIframe} from 'src/utils'
 import LvnsLogoLink from 'components/list/LvnsLogoLink.vue'
 </script>
 <style lang="scss" scoped>

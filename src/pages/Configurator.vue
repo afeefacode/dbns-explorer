@@ -13,11 +13,15 @@
 </template>
 <script setup>
 import {ref} from 'vue'
+import {useQuasar} from "quasar";
 import {config as full_widget} from 'src/assets/configs/lvns/full_widget'
 import {config as upcoming_lvns_events} from 'src/assets/configs/lvns/upcoming_lvns_events'
 import {config as all_lvns_events} from 'src/assets/configs/lvns/all_lvns_events'
 import {config as all_events} from 'src/assets/configs/all_events'
 import {configJsonToUrlParam} from 'src/utils'
+
+const $q = useQuasar()
+
 
 const configs = [
   full_widget,
@@ -31,6 +35,11 @@ const host = ref('http://localhost:9000')
 const copyToClipboard = (text) => {
   navigator.clipboard.writeText(text)
   // navigator.clipboard.writeText(text.replace(/\s/g,''))
+
+  $q.notify({
+    message: 'In Zwischenablage kopiert',
+    color: 'primary'
+  })
 }
 
 const getSnippet = (config, host) => {
@@ -73,7 +82,15 @@ const getSnippet = (config, host) => {
         break;
 
       case "app_resized":
-        resizeIframe(event.data.payload);
+        resizeIframe(event.data.payload + 150);
+        break;
+
+      case "copy_to_clipboard":
+          navigator.clipboard.writeText(event.data.payload)
+        break;
+
+      case "scroll_to_top_of_iframe":
+            window.scrollTo(0, iFrame.getBoundingClientRect().top);
         break;
 
       default:
@@ -85,5 +102,8 @@ const getSnippet = (config, host) => {
 <style lang="scss" scoped>
 .snippet {
   cursor: pointer;
+}
+.snippet:active {
+  color: #999;
 }
 </style>

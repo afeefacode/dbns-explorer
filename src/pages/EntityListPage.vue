@@ -21,17 +21,17 @@
       </q-expansion-item>
     </div>
     <div v-if="baseStore.entityConfig?.showMapView">
-<!--      <div class="row justify-end" v-if="activeEntities.length">-->
-<!--        <q-btn-->
-<!--          icon="map"-->
-<!--          flat-->
-<!--          :label="mapViewToggled ? 'Karte ausblenden' : 'Karte anzeigen'"-->
-<!--          @click="mapViewToggled = !mapViewToggled"-->
-<!--        />-->
-<!--      </div>-->
-<!--      <MapView-->
-<!--        v-show="mapViewToggled"-->
-<!--      />-->
+      <div class="row justify-end" v-if="activeEntities.length">
+        <q-btn
+          icon="map"
+          flat
+          :label="mapViewToggled ? 'Karte ausblenden' : 'Karte anzeigen'"
+          @click="mapViewToggled = !mapViewToggled"
+        />
+      </div>
+      <MapView
+        v-show="mapViewToggled"
+      />
     </div>
     <ListView
       v-if="baseStore.entityConfig?.showListView"

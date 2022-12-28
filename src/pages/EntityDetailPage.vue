@@ -3,7 +3,8 @@
     <div v-if="!entityDetailLoading">
       <div class="row justify-between">
         <BackButton class="q-mb-md"/>
-        <ShareButton :entity="entityDetail" class="q-mb-md"/>
+        <!--   TODO: the ShareButton does not work in the standalone app yet     -->
+        <ShareButton :entity="entityDetail" class="q-mb-md" v-if="isInIframe()"/>
       </div>
       <DetailCard :entity="entityDetail" class="q-mb-xl"/>
       <div class="q-px-lg">
@@ -47,7 +48,7 @@ import {useRoute, useRouter} from 'vue-router'
 import {storeToRefs} from 'pinia'
 import {useBaseStore} from "stores/base-store";
 import {useEntityStore} from "stores/entity-store";
-import {getTypeFromEntity, getGermanEntityName, hasLatLong} from "src/utils";
+import {getTypeFromEntity, getGermanEntityName, hasLatLong, isInIframe} from "src/utils";
 import BackButton from 'components/detail/BackButton.vue'
 import ShareButton from 'components/detail/ShareButton.vue'
 import DetailCard from 'components/detail/DetailCard.vue'
@@ -55,7 +56,6 @@ import DetailMap from 'components/detail/DetailMap.vue'
 import EntityDetailSkeleton from 'components/detail/EntityDetailSkeleton.vue'
 import ActorsOfferList from 'components/detail/ActorsOfferList.vue'
 import EntityCard from 'components/EntityCard.vue'
-
 
 const route = useRoute()
 const baseStore = useBaseStore()
