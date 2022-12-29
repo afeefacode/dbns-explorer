@@ -9,7 +9,7 @@ import {setCssVar} from 'quasar'
 import {useBaseStore} from "src/stores/base-store"
 import {useCategoryStore} from "src/stores/category-store"
 import {useEntityStore} from "src/stores/entity-store"
-import {isInIframe, triggerIframeResize, getSearchParameters} from 'src/utils'
+import {isInIframe, triggerIframeResize, getSearchParameters, hex2rgb} from 'src/utils'
 
 const baseStore = useBaseStore()
 const categoryStore = useCategoryStore()
@@ -62,11 +62,14 @@ onMounted(async () => {
   document.documentElement.style
     .setProperty('--brandColor', '#' + baseStore.config.brandColor);
 
+  const brandRgb = hex2rgb('#' + baseStore.config.brandColor)
+  document.documentElement.style
+    .setProperty('--brandColor-lighter', `rgba(${brandRgb.r + 15}, ${brandRgb.g + 15}, ${brandRgb.b + 15}, 1)`);
+
   document.documentElement.style
     .setProperty('--contrastTextColor', '#' + baseStore.config.contrastTextColor);
 
   let qApp = document.getElementById('q-app')
   new ResizeObserver(triggerIframeResize).observe(qApp)
-  console.log('finished mounting')
 })
 </script>

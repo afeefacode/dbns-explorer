@@ -37,9 +37,14 @@ const entitySelectorIcon = ref(null)
 
 const setBackgroundColor = () => {
   if (props.active) {
-    entitySelectorIcon.value.style.backgroundColor = '#' + config.brandColor
+    // entitySelectorIcon.value.style.backgroundColor = '#' + config.brandColor
+    entitySelectorIcon.value.classList.add('entity-selector__icon--active')
+    // console.log('    entitySelectorIcon.value.classList',     entitySelectorIcon.value.classList)
+
   } else {
-    entitySelectorIcon.value.style.backgroundColor = '#D9D9D9'
+    entitySelectorIcon.value.classList.remove('entity-selector__icon--active')
+
+    // entitySelectorIcon.value.style.backgroundColor = '#D9D9D9'
   }
 }
 
@@ -67,6 +72,19 @@ onUpdated(setBackgroundColor)
     margin-bottom: .5em;
     background-color: #D9D9D9;
     cursor: pointer;
+    transition: background-color 100ms ease-in-out;
+
+    &--active {
+      background-color: var(--brandColor);
+
+      &:hover {
+        background-color: var(--brandColor-lighter) !important;
+      }
+    }
+
+    &:hover {
+      background-color: #bbb;
+    }
   }
 
   &__text {
