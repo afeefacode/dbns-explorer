@@ -31,9 +31,10 @@ window.addEventListener('message', function (event) {
       navigator.clipboard.writeText(event.data.payload)
       break;
 
-    //TODO: this is not working properly!
     case 'scroll_to_top_of_iframe':
-      window.scrollTo(0, iFrame.getBoundingClientRect().top);
+      // TODO: this is not a precise scrolling!
+      //  should be iframe.getClientBoundingRect() but this produces negative values
+      window.scrollTo(0, 500);
       break;
 
     // case "update_url":
