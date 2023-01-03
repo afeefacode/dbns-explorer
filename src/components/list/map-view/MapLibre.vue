@@ -101,7 +101,7 @@ const resetMarkerStyle = (pngMarker: string) => {
 
 
 const createMarkerAndAdd = (entity: any) => {
-  console.log('adding marker')
+  //console.log('adding marker')
   const marker = document.createElement('div')
   const entityType = getTypeFromEntity(entity)
   const markerPng = getMarkerPng(entityType)
@@ -175,7 +175,7 @@ const updateMap = () => {
 }
 
 onMounted(async () => {
-  console.log('mounted MapLibre')
+  // console.log('mounted MapLibre')
 
   map = new maplibregl.Map({
     container: 'map',
@@ -195,7 +195,7 @@ onMounted(async () => {
 })
 
 onUpdated(() => {
-  console.log('updated MapLibre')
+  // console.log('updated MapLibre')
   updateMap()
 })
 </script>

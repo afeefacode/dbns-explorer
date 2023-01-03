@@ -9,10 +9,6 @@
         <div class="q-mb-sm">
           <q-btn label="Suchen" @click="fetchEntityLists(buttonForFilters)"></q-btn>
         </div>
-        <!--        <div class="text-center clear-filter-button" @click="clearFiltersAndFetch(buttonForFilters)">-->
-        <!--          <span class="text-button">Filter löschen</span>-->
-        <!--          <q-icon name="cancel" style="text-decoration: none"/>-->
-        <!--        </div>-->
       </div>
     </q-expansion-item>
   </div>
@@ -47,18 +43,6 @@ const fetchEntityLists = (propsEntityType: string) => {
     })
   } else {
     entityStore.fetchEntityList(propsEntityType)
-  }
-}
-
-const clearFiltersAndFetch = (entityType: string) => {
-  baseStore.clearFilters(entityType)
-
-  if (entityType === 'main') {
-    baseStore.activeEntities.forEach((entityType: string) => {
-      entityStore.fetchEntityList(entityType)
-    })
-  } else {
-    entityStore.fetchEntityList(entityType)
   }
 }
 </script>
