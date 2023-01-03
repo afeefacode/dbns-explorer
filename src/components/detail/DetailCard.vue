@@ -180,14 +180,12 @@ const updateDetails = () => {
 
           let contentHtml = ``
 
-
-          // TODO: does not work with actors/48 (NABU-Regionalverband Leipzig)
           contacts.forEach((person, index) => {
-            if(index>0) contentHtml += `<br>`
-            if (person.name) contentHtml += `<b>${person.name}</b>`
-            if (person.role) contentHtml += ', ' + person.role
-            if (person.email) contentHtml += `, <a href="mailto:${person.email}" target="_blank">${person.email}</a>`
-            if (person.phone) contentHtml += `, Tel.: <a href="tel:${person.phone}" target="_blank">${person.phone}</a>`
+            if (index > 0) contentHtml += `<br>`
+            if (person.name) contentHtml += `<b>${person.name}</b>, `
+            if (person.role) contentHtml += `${person.role}, `
+            if (person.email) contentHtml += `<a href="mailto:${person.email}" target="_blank">${person.email}</a>, `
+            if (person.phone) contentHtml += `Tel.: <a href="tel:${person.phone}" target="_blank">${person.phone}</a>`
           })
           if (!contentHtml.length) break;
 

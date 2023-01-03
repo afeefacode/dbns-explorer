@@ -36,7 +36,6 @@ onMounted(async () => {
 
   window.addEventListener("message", event => {
     switch (event.data.type) {
-
       case "app_mounted_acknowledged":
         baseStore.parentLocation = event.data.windowLocation
         const paramString = event.data.windowLocation.search.substring(1)
@@ -55,6 +54,7 @@ onMounted(async () => {
     type: "app_mounted",
     payload: null
   }
+
   window.parent.postMessage(mountedMessage, '*')
 
   setCssVar('primary', "#" + baseStore.config.brandColor)
@@ -64,7 +64,7 @@ onMounted(async () => {
 
   const brandRgb = hex2rgb('#' + baseStore.config.brandColor)
   document.documentElement.style
-    .setProperty('--brandColor-lighter', `rgba(${brandRgb.r + 15}, ${brandRgb.g + 15}, ${brandRgb.b + 15}, 1)`);
+    .setProperty('--brandColor-lighter', `rgba(${brandRgb.r + 20}, ${brandRgb.g + 20}, ${brandRgb.b + 20}, 1)`);
 
   document.documentElement.style
     .setProperty('--contrastTextColor', '#' + baseStore.config.contrastTextColor);
