@@ -16,25 +16,23 @@
         :duration="150"
       >
         <AllFilters
-          :mapViewActive="baseStore.entityConfig?.showMapView && mapViewToggled"
+          :mapViewActive="baseStore.entityConfig?.showMapView  && activeView === 'map'"
         />
       </q-expansion-item>
     </div>
+    <q-separator class="q-mt-md q-mb-lg"/>
     <div v-if="baseStore.entityConfig?.showMapView">
-      <div class="row justify-end" v-if="activeEntities.length">
-        <q-btn
-          icon="map"
-          flat
-          :label="mapViewToggled ? 'Karte ausblenden' : 'Karte anzeigen'"
-          @click="mapViewToggled = !mapViewToggled"
-        />
-      </div>
+      <MapListToggle
+        @view-toggled="viewToggled"
+        :active-view="activeView"
+        v-if="baseStore.entityConfig?.showListView && baseStore.entityConfig?.showMapView"
+      />
       <MapView
-        v-show="mapViewToggled"
+        v-if="baseStore.entityConfig?.showMapView && activeView === 'map'"
       />
     </div>
     <ListView
-      v-if="baseStore.entityConfig?.showListView"
+      v-if="baseStore.entityConfig?.showListView && activeView === 'list'"
       v-for="entityType in activeEntities"
       :entityType="entityType"
       :key="entityType"
@@ -60,6 +58,7 @@ import AllFilters from 'components/list/filters/AllFilters.vue'
 import MapView from 'components/list/map-view/MapView.vue'
 import ListView from 'components/ListView.vue'
 import NoDataBackground from 'components/list/NoDataBackground.vue'
+import MapListToggle from 'components/list/MapListToggle.vue'
 
 
 const baseStore = useBaseStore()
@@ -69,13 +68,21 @@ const categoryStore = useCategoryStore()
 const {activeEntities} = storeToRefs(baseStore)
 const config = baseStore.config
 
-const mapViewToggled = ref(true)
+const mapViewToggled = ref(false)
 
 const showEntitySelector = Object.keys(config.entities).length > 1
 
 const onEntityClick = (entityType: string) => {
   baseStore.activeEntities = addToArrayOrRemove(baseStore.activeEntities, entityType)
   entityStore.fetchEntityList(entityType)
+}
+
+const activeView = baseStore.entityConfig?.showMapView
+  ? ref('map')
+  : ref('list')
+
+const viewToggled = (newView: string) => {
+  activeView.value = newView
 }
 
 onUpdated(() => {
