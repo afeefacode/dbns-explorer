@@ -1,17 +1,18 @@
 <template>
-    <q-select
-      filled
-      v-model="activeFilters.main.category"
-      dense
-      :options="categoryNames"
-      label="Kategorie"
-      clearable
-      :class="activeFilters.main.category ? 'filter--active' : ''"
-    >
-      <template v-slot:prepend>
-        <q-icon name="category"/>
-      </template>
-    </q-select>
+  <q-select
+    filled
+    v-model="activeFilters.main.category"
+    dense
+    :options="mainCategories"
+    option-label="title"
+    label="Kategorie"
+    clearable
+    :class="activeFilters.main.category ? 'filter--active' : ''"
+  >
+    <template v-slot:prepend>
+      <q-icon name="category"/>
+    </template>
+  </q-select>
 </template>
 <script setup>
 import {storeToRefs} from 'pinia'
@@ -19,7 +20,6 @@ import {useBaseStore} from 'stores/base-store'
 import {useCategoryStore} from 'stores/category-store'
 
 const {mainCategories} = useCategoryStore()
-const categoryNames = mainCategories.map(category => category.title)
 
 const baseStore = useBaseStore()
 const {activeFilters} = storeToRefs(baseStore)

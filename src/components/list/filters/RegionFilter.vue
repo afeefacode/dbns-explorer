@@ -3,7 +3,8 @@
     filled
     v-model="activeFilters.main.region"
     dense
-    :options="regionNames"
+    :options="regions"
+    option-label="title"
     label="Region"
     clearable
     :class="activeFilters.main.region ? 'filter--active' : ''"
@@ -19,7 +20,6 @@ import {useBaseStore} from 'stores/base-store'
 import {useCategoryStore} from 'stores/category-store'
 
 const {regions} = useCategoryStore()
-const regionNames = regions.map(region => region.title)
 
 const baseStore = useBaseStore()
 const {activeFilters} = storeToRefs(baseStore)
