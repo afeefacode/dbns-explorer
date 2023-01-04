@@ -2,10 +2,18 @@ import axios from "axios";
 import {entityRequests} from "src/api/entityRequests";
 import {getOfferList} from "src/utils";
 
-export const fetchEntityList = async (entityType: string, activeFilters: any) => {
-  let filters = {
-    q: activeFilters.main?.search?.trim()
+export const fetchEntityList = async (entityType: string, activeFilters: any, withBounds: boolean = false) => {
+
+  const boundingBox = withBounds ? {
+      boundingBox: activeFilters.boundingBox
+    }
+    : {}
+
+  const filters = {
+    q: activeFilters.main?.search?.trim(),
+    ...boundingBox
   }
+
   let requestBody = {}
   requestBody = {
     //@ts-ignore
@@ -41,6 +49,8 @@ export const fetchEntityList = async (entityType: string, activeFilters: any) =>
     default:
       break;
   }
+  
+  console.log('requestBody', requestBody)
 
   const serverUrl = 'https://daten.nachhaltiges-sachsen.de/api/v2'
   const response = await axios.post(serverUrl, requestBody)

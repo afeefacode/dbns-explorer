@@ -79,6 +79,8 @@ const offerFields = {
 
 const offerRequests: object = {}
 
+const pageSize = 50
+
 // @ts-ignore
 getOfferList().forEach(({key, id}) => {
   //@ts-ignore
@@ -89,7 +91,7 @@ getOfferList().forEach(({key, id}) => {
       "fields": {...offerFields},
       "filters": {
         "offer_type_id": id,
-        "page_size": 50
+        "page_size": pageSize
       },
     },
     details: {
@@ -110,7 +112,7 @@ export const entityRequests = {
       "action": "list",
       "fields": {...actorFields},
       "filters": {
-        "page_size": 50
+        "page_size": pageSize
       }
     },
     details: {

@@ -193,6 +193,16 @@ export const emptyFilters = {
     tradeCategories: null,
     tradeTypes: null,
     productTypes: null,
+  },
+  boundingBox: {
+    ne: {
+      long: null,
+      lat: null,
+    },
+    sw: {
+      long: null,
+      lat: null,
+    },
   }
 }
 
@@ -213,6 +223,16 @@ export const emptyFilters2 = {
     tradeCategories: null,
     tradeTypes: null,
     productTypes: null,
+  },
+  boundingBox: {
+    ne: {
+      long: null,
+      lat: null,
+    },
+    sw: {
+      long: null,
+      lat: null,
+    },
   }
 }
 
@@ -239,4 +259,14 @@ export const getEventDatesForDisplay = (time: { start: Date, end: Date }) => {
     //@ts-ignore
     end: endDate.toLocaleString('de-DE', optionsEnd)
   }
+}
+
+
+export const hex2rgb = (hex: string) => {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
 }

@@ -1,5 +1,6 @@
 <template>
-  <div class="q-pt-md q-px-md" @keydown.enter="fetchEntityLists">
+  <div class="q-pt-md q-px-md">
+<!--  <div class="q-pt-md q-px-md" @keydown.enter="fetchEntityLists">-->
     <div class="row q-gutter-md q-mb-md justify-center">
       <RegionFilter class="col-12 col-sm-6 col-md-4" v-if="categoryStore.regions"/>
       <CategoryFilter class="col-12 col-sm-6 col-md-4" v-if="categoryStore.mainCategories"/>
@@ -52,7 +53,7 @@
         </q-expansion-item>
       </div>
     </q-expansion-item>
-    <ApplyFiltersButton :filterCategory="'main'"/>
+    <ApplyFiltersButton :filterGroup="'main'"/>
   </div>
 </template>
 
@@ -96,10 +97,6 @@ const fetchEntityLists = () => {
   })
 }
 
-const clearFiltersAndFetch = () => {
-  baseStore.clearFilters()
-  fetchEntityLists()
-}
 </script>
 <style lang="scss">
 .additional-filters {

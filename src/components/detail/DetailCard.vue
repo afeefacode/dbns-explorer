@@ -178,15 +178,15 @@ const updateDetails = () => {
             })
           })
 
-          let contentHtml = []
+          let contentHtml = ``
 
-          contacts.forEach(person => {
-            if (person.name) contentHtml.push(`<b>${person.name}</b>`)
-            if (person.role) contentHtml.push(' ' + person.role)
-            if (person.role) contentHtml.push(` <a href="mailto:${person.email}" target="_blank">${person.email}</a>`)
-            if (person.role) contentHtml.push(` Tel.: <a href="tel:${person.phone}" target="_blank">${person.phone}</a>`)
+          contacts.forEach((person, index) => {
+            if (index > 0) contentHtml += `<br>`
+            if (person.name) contentHtml += `<b>${person.name}</b>, `
+            if (person.role) contentHtml += `${person.role}, `
+            if (person.email) contentHtml += `<a href="mailto:${person.email}" target="_blank">${person.email}</a>, `
+            if (person.phone) contentHtml += `Tel.: <a href="tel:${person.phone}" target="_blank">${person.phone}</a>`
           })
-
           if (!contentHtml.length) break;
 
           details.value.push({

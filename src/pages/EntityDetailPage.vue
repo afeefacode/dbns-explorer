@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-my-xl">
+  <q-page class="">
     <div v-if="!entityDetailLoading">
       <div class="row justify-between">
         <BackButton class="q-mb-md"/>

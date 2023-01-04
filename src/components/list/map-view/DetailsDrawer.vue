@@ -23,6 +23,7 @@
     <q-card-section class="bg-white details-drawer__content">
       <div>
         <div class="text-overline">{{ getGermanEntityName(getTypeFromEntity(entity), 'singular') }}</div>
+        <!--  TODO: needs correct date info -->
         <div v-if="entity.type === 'Event'">{{ displayed.start_at }}</div>
         <div class="text-h5 q-mb-md">{{ displayed.title }}</div>
         <div v-if="entity.info_url">
