@@ -24,6 +24,14 @@ const actorFields = {
       "email": true,
       "phone": true,
     }
+  },
+  "categories": {
+    "category_type": {
+      "title": true,
+      "target_type": true
+    },
+    "title": true,
+    "description": true
   }
 }
 
@@ -74,6 +82,14 @@ const offerFields = {
   "times": {
     "start": true,
     "end": true
+  },
+  "categories": {
+    "category_type": {
+      "title": true,
+      "target_type": true
+    },
+    "title": true,
+    "description": true
   }
 }
 
