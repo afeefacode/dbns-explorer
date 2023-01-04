@@ -24,12 +24,12 @@ export const useEntityStore = defineStore('entities', {
     }
   },
   actions: {
-    async fetchEntityList(entityType: string) {
+    async fetchEntityList(entityType: string, withBounds: boolean = false) {
       const baseStore = useBaseStore()
       this.entityListLoading = true
       try {
         //@ts-ignore
-        this.entityLists[entityType] = await fetchEntityList(entityType, baseStore.activeFilters)
+        this.entityLists[entityType] = await fetchEntityList(entityType, baseStore.activeFilters, withBounds)
       } catch (e) {
         console.error(e)
         return e

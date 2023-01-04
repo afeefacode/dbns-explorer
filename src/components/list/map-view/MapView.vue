@@ -6,7 +6,6 @@
       <MapLibre
         @openDetails="openDetails"
         @closeDetails="closeDetails"
-        :mapExpanded="mapExpanded"
       />
       <DetailsDrawer
         v-if="activeEntity"
@@ -30,7 +29,6 @@ const openDetails = (entity) => {
 const closeDetails = () => {
   activeEntity.value = null
 }
-
 </script>
 <style lang="scss" scoped>
 .map-view {

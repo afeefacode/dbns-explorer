@@ -193,6 +193,16 @@ export const emptyFilters = {
     tradeCategories: null,
     tradeTypes: null,
     productTypes: null,
+  },
+  boundingBox: {
+    ne: {
+      long: null,
+      lat: null,
+    },
+    sw: {
+      long: null,
+      lat: null,
+    },
   }
 }
 
@@ -213,6 +223,16 @@ export const emptyFilters2 = {
     tradeCategories: null,
     tradeTypes: null,
     productTypes: null,
+  },
+  boundingBox: {
+    ne: {
+      long: null,
+      lat: null,
+    },
+    sw: {
+      long: null,
+      lat: null,
+    },
   }
 }
 

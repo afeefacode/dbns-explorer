@@ -15,7 +15,7 @@
   </div>
   <div v-if="entityType === 'stores' && showFilters.stores" class="q-mb-lg">
     <StoreFilters class="q-mb-md q-px-md" :inListView="true"/>
-    <ApplyFiltersButton :filterCategory="'stores'"/>
+    <ApplyFiltersButton :filterGroup="'stores'"/>
   </div>
   <div class="list-view">
     <div v-if="entityLists[entityType]?.length">

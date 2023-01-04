@@ -1,5 +1,4 @@
 import {defineStore} from 'pinia';
-// import {config} from "assets/configs/lvns/all_lvns_events";
 import {config} from "assets/configs/lvns/full_widget";
 import {emptyFilters, emptyFilters2} from 'src/utils'
 
@@ -14,6 +13,7 @@ export const useBaseStore = defineStore('base', {
       config: config,
       activeEntities: [],
       additionalFiltersExpanded: false,
+      // pinia needs separate objects here for initial diffing
       activeFilters: emptyFilters,
       lastFilters: emptyFilters2
     }

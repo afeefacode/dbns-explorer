@@ -7,7 +7,7 @@
     >
       <div class="q-gutter-sm">
         <div class="q-mb-sm">
-          <q-btn label="Suchen" @click="fetchEntityLists(buttonForFilters)"></q-btn>
+          <q-btn label="Suchen" @click="fetchEntityLists(filterGroup)"></q-btn>
         </div>
       </div>
     </q-expansion-item>
@@ -20,7 +20,7 @@ import {useBaseStore} from "src/stores/base-store";
 import {useEntityStore} from "src/stores/entity-store";
 
 const props = defineProps({
-  buttonForFilters: {
+  filterGroup: {
     type: String,
     default: 'main'
   }
@@ -31,18 +31,17 @@ const {
   hasActiveFilters,
 } = storeToRefs(baseStore)
 
-
 const entityStore = useEntityStore()
 
-const fetchEntityLists = (propsEntityType: string) => {
+const fetchEntityLists = (filterGroup: string) => {
   baseStore.lastFilters = JSON.parse(JSON.stringify(baseStore.activeFilters))
 
-  if (propsEntityType === 'main') {
+  if (filterGroup === 'main') {
     baseStore.activeEntities.forEach((entityType: string) => {
       entityStore.fetchEntityList(entityType)
     })
   } else {
-    entityStore.fetchEntityList(propsEntityType)
+    entityStore.fetchEntityList(filterGroup)
   }
 }
 </script>
