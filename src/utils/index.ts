@@ -270,3 +270,13 @@ export const hex2rgb = (hex: string) => {
     b: parseInt(result[3], 16)
   } : null;
 }
+
+export const getCitiesFromLocations = (locations: any[]) => {
+  const cities: String[] = []
+  locations.forEach((location, i) => {
+    if (i > 0 && locations[i].city === locations[i - 1].city) return
+    if (location.city === null) return
+    cities.push(` ${location.city}`)
+  })
+  return cities
+}

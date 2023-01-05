@@ -23,13 +23,15 @@
     <q-card-section class="bg-white details-drawer__content">
       <div>
         <div class="text-overline">{{ getGermanEntityName(getTypeFromEntity(entity), 'singular') }}</div>
-        <!--  TODO: needs correct date info -->
-        <div v-if="entity.type === 'Event'">{{ displayed.start_at }}</div>
+        <div v-if="entityType === 'event' && displayed.time" class="event-times">{{ displayed.time.start }} - {{
+            displayed.time.end
+          }}
+        </div>
         <div class="text-h5 q-mb-md">{{ displayed.title }}</div>
         <div v-if="entity.info_url">
           <q-icon name="language" class="q-mr-sm" :style="`color: #${config.brandColor}`"/>
           <a :href="entity.info_url" target="_blank" :title="displayed.name"
-             class="break-word list-card__info-url">{{ displayed.info_url }}</a>
+             class="break-word list-card__info-url q-mb-sm">{{ displayed.info_url }}</a>
         </div>
         <div class="text-caption text-grey list-card__short-description q-pr-md q-mb-md">
           {{ displayed.description }}
@@ -49,7 +51,7 @@
 <script setup>
 import {defineProps, computed, ref, onUpdated} from 'vue'
 import {useBaseStore} from "stores/base-store";
-import {shortenStringTo, getGermanEntityName, getTypeFromEntity} from 'src/utils'
+import {shortenStringTo, getGermanEntityName, getTypeFromEntity, getEventDatesForDisplay} from 'src/utils'
 import DetailsButton from 'src/components/DetailsButton.vue'
 
 const props = defineProps({
@@ -61,11 +63,14 @@ const props = defineProps({
 
 const config = useBaseStore().config
 
+const entityType = getTypeFromEntity(props.entity)
+
 const displayed = computed(() => {
   return {
     title: shortenStringTo(100, props.entity.title),
     description: shortenStringTo(300, props.entity.description),
-    info_url: shortenStringTo(60, props.entity.info_url)
+    info_url: shortenStringTo(60, props.entity.info_url),
+    time: getEventDatesForDisplay(props.entity.times[0])
   }
 })
 
@@ -75,7 +80,7 @@ const headerBackground = ref(props.entity.image_url
 
 onUpdated(() => {
   headerBackground.value = props.entity.image_url
-    ? +props.entity.image_url + '?width=600&height=600'
+    ? props.entity.image_url + '?width=600&height=600'
     : './src/img/no-image-background.png'
 })
 </script>

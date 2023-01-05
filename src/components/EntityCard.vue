@@ -59,7 +59,14 @@
 import {defineProps} from 'vue'
 import {useBaseStore} from 'src/stores/base-store'
 import {useEntityStore} from 'src/stores/entity-store'
-import {getGermanEntityName, getTypeFromEntity, prettifyUrl, getEventDatesForDisplay, shortenStringTo} from "src/utils";
+import {
+  getGermanEntityName,
+  getTypeFromEntity,
+  prettifyUrl,
+  getEventDatesForDisplay,
+  shortenStringTo,
+  getCitiesFromLocations
+} from "src/utils";
 import DetailsButton from './DetailsButton.vue'
 
 const config = useBaseStore().config
@@ -71,8 +78,7 @@ const props = defineProps({
   }
 })
 
-let cities = []
-props.entity.locations.forEach(location => cities.push(` ${location.city}`))
+let cities = getCitiesFromLocations(props.entity.locations)
 
 const entityType = getTypeFromEntity(props.entity)
 
