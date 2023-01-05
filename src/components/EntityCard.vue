@@ -18,7 +18,7 @@
             <div class="text-h5 break-word list-card__title">
               {{ displayed.title }}
             </div>
-            <div v-if="entity.info_url">
+            <div v-if="entity.info_url" class="list-card__url">
               <q-icon name="language" class="q-mr-sm" :style="`color: #${config.brandColor}`"/>
               <a :href="entity.info_url" target="_blank" :title="displayed.name"
                  class="break-word list-card__info-url">
@@ -115,6 +115,11 @@ const infoUrlWidth = entityType === 'event' ? '400px'
 
   &__title {
     letter-spacing: 1px;
+  }
+
+  &__url {
+    display: flex;
+    align-items: center;
   }
 
   &__info-url, &__title {

@@ -64,7 +64,7 @@ onMounted(async () => {
 
   const brandRgb = hex2rgb('#' + baseStore.config.brandColor)
   document.documentElement.style
-    .setProperty('--brandColor-lighter', `rgba(${brandRgb.r + 20}, ${brandRgb.g + 20}, ${brandRgb.b + 20}, 1)`);
+    .setProperty('--brandColor-lighter', `rgba(${brandRgb.r + 10}, ${brandRgb.g + 10}, ${brandRgb.b + 10}, 1)`);
 
   document.documentElement.style
     .setProperty('--contrastTextColor', '#' + baseStore.config.contrastTextColor);
