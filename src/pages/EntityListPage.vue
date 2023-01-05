@@ -77,9 +77,7 @@ const onEntityClick = (entityType: string) => {
   entityStore.fetchEntityList(entityType)
 }
 
-const activeView = baseStore.entityConfig?.showMapView
-  ? ref('map')
-  : ref('list')
+const activeView = ref('list')
 
 const viewToggled = (newView: string) => {
   activeView.value = newView

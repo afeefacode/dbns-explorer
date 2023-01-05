@@ -6,7 +6,8 @@
           filled
           v-model="activeFilters.actors.orgTypes"
           dense
-          :options="orgTypeNames"
+          :options="orgTypes"
+          option-label="title"
           label="Organisationstyp"
           clearable
           :class="activeFilters.actors.orgTypes ? 'filter--active' : ''"

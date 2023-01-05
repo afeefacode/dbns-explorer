@@ -71,7 +71,7 @@ const fetchDetails = () => {
 //@ts-ignore
   entityStore.fetchEntityDetails(route.params.entityType, route.params.id)
 //@ts-ignore
-  entityStore.fetchSimilarEntities(route.params.entityType)
+//   entityStore.fetchSimilarEntities(route.params.entityType)
 }
 
 fetchDetails()

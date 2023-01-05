@@ -4,56 +4,61 @@ import {getOfferList} from "src/utils";
 
 export const fetchEntityList = async (entityType: string, activeFilters: any, withBounds: boolean = false) => {
 
+  const {main, actors, events, stores} = activeFilters
+  const {region, category, search} = main
+  const {orgTypes} = actors
+  const {startDate, endDate} = events
+  const {tradeCategories, tradeTypes, productTypes} = stores
+
+  let resource = entityType === 'actors'
+    ? 'NLS.ActorResource'
+    : 'NLS.OfferResource'
+  let categories = []
+
+  if (region) categories.push(region.id)
+  if (category) categories.push(category.id)
+
+  switch (entityType) {
+    case 'actors':
+      if (orgTypes) categories.push(orgTypes.id)
+      break;
+
+    case 'events':
+      break;
+
+    case 'stores':
+      if (tradeCategories) categories.push(tradeCategories.id)
+      if (tradeTypes) categories.push(tradeTypes.id)
+      if (productTypes) categories.push(productTypes.id)
+      break;
+
+    default:
+      break;
+  }
+
   const boundingBox = withBounds ? {
       boundingBox: activeFilters.boundingBox
     }
     : {}
 
-  const filters = {
-    q: activeFilters.main?.search?.trim(),
-    ...boundingBox
-  }
-
-  let requestBody = {}
-  requestBody = {
-    //@ts-ignore
-    ...entityRequests[entityType].list,
+  const newRequestBody = {
+    resource,
+    action: 'list',
+    fields: {
+      //@ts-ignore
+      ...entityRequests[entityType].list.fields
+    },
     filters: {
+      q: search?.trim(),
+      ...boundingBox,
       //@ts-ignore
       ...entityRequests[entityType].list.filters,
-      ...filters
+      categories
     }
   }
 
-  switch (entityType) {
-    case 'actors':
-      requestBody = {
-        ...entityRequests.actors.list,
-        filters: {
-          //@ts-ignore
-          ...entityRequests.actors.list.filters,
-          ...filters
-        }
-      }
-      break;
-    case 'projects':
-      break;
-    case 'events':
-      break;
-    case 'educations':
-      break;
-    case 'counselings':
-      break;
-    case 'stores':
-      break;
-    default:
-      break;
-  }
-  
-  console.log('requestBody', requestBody)
-
   const serverUrl = 'https://daten.nachhaltiges-sachsen.de/api/v2'
-  const response = await axios.post(serverUrl, requestBody)
+  const response = await axios.post(serverUrl, newRequestBody)
   return response.data.data
 }
 

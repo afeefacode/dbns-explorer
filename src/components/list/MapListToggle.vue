@@ -1,16 +1,16 @@
 <template>
   <div class="map-list-toggle">
     <div
-      @click="$emit('view-toggled', 'map')"
-      :class="{active: props.activeView === 'map'}"
-    >
-      Karte
-    </div>
-    <div
       @click="$emit('view-toggled', 'list')"
       :class="{active: props.activeView === 'list'}"
     >
       Liste
+    </div>
+    <div
+      @click="$emit('view-toggled', 'map')"
+      :class="{active: props.activeView === 'map'}"
+    >
+      Karte
     </div>
   </div>
 </template>
@@ -36,15 +36,23 @@ const props = defineProps({
 
   div {
     color: #333;
-    background-color: #F8F8F8;
+    background-color: #f2f2f2;
     width: 200px;
     text-align: center;
     padding: .3em;
+
+    &:hover {
+      background-color: #E6E6E6 ;
+    }
   }
 
   .active {
     color: white;
-    background-color: var(--brandColor)
+    background-color: var(--brandColor);
+
+    &:hover {
+      background-color: var(--brandColor-lighter) !important;
+    }
   }
 }
 </style>

@@ -1,9 +1,6 @@
 <template>
-  <h2
-    v-if="config.entities.length > 1"
-    class="text-h4 text-center"
-  >
-    {{ getGermanEntityName(entityType, 'category') }}
+  <h2 class="text-h4 text-center">
+    {{ getGermanEntityName(entityType, 'plural') }}
   </h2>
   <div v-if="entityType === 'events' && showFilters.events">
     <EventFilters class="q-mb-md" :inListView="true"/>

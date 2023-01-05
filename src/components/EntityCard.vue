@@ -8,11 +8,17 @@
               displayed.time.end
             }}
           </div>
+          <div
+            v-if="cities"
+            class="list-card__city"
+            v-html="cities"
+          >
+          </div>
           <div class="q-mt-sm q-mb-md">
             <div class="text-h5 break-word list-card__title">
               {{ displayed.title }}
             </div>
-            <div v-if="entity.info_url">
+            <div v-if="entity.info_url" class="list-card__url">
               <q-icon name="language" class="q-mr-sm" :style="`color: #${config.brandColor}`"/>
               <a :href="entity.info_url" target="_blank" :title="displayed.name"
                  class="break-word list-card__info-url">
@@ -53,7 +59,14 @@
 import {defineProps} from 'vue'
 import {useBaseStore} from 'src/stores/base-store'
 import {useEntityStore} from 'src/stores/entity-store'
-import {getGermanEntityName, getTypeFromEntity, prettifyUrl, getEventDatesForDisplay, shortenStringTo} from "src/utils";
+import {
+  getGermanEntityName,
+  getTypeFromEntity,
+  prettifyUrl,
+  getEventDatesForDisplay,
+  shortenStringTo,
+  getCitiesFromLocations
+} from "src/utils";
 import DetailsButton from './DetailsButton.vue'
 
 const config = useBaseStore().config
@@ -65,8 +78,9 @@ const props = defineProps({
   }
 })
 
-const entityType = getTypeFromEntity(props.entity)
+let cities = getCitiesFromLocations(props.entity.locations)
 
+const entityType = getTypeFromEntity(props.entity)
 
 let displayed = {}
 displayed.title = props.entity.title ? shortenStringTo(60, props.entity.title) : ''
@@ -91,11 +105,21 @@ const infoUrlWidth = entityType === 'event' ? '400px'
   &__times {
     color: var(--brandColor);
     font-size: 16px;
+    letter-spacing: .5px;
+  }
+
+  &__city {
+    color: #888;
     letter-spacing: 1px;
   }
 
   &__title {
     letter-spacing: 1px;
+  }
+
+  &__url {
+    display: flex;
+    align-items: center;
   }
 
   &__info-url, &__title {

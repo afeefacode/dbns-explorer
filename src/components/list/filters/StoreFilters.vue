@@ -6,7 +6,8 @@
           filled
           v-model="activeFilters.stores.tradeCategories"
           dense
-          :options="tradeCategoriesNames"
+          :options="tradeCategories"
+          option-label="title"
           label="Handelskategorien"
           clearable
           :class="activeFilters.stores.tradeCategories ? 'filter--active' : ''"
@@ -21,7 +22,8 @@
           filled
           v-model="activeFilters.stores.tradeTypes"
           dense
-          :options="tradeTypesNames"
+          :options="tradeTypes"
+          option-label="title"
           label="Handelstypen"
           clearable
           :class="activeFilters.stores.tradeTypes ? 'filter--active' : ''"
@@ -36,7 +38,8 @@
           filled
           v-model="activeFilters.stores.productTypes"
           dense
-          :options="productTypesNames"
+          :options="productTypes"
+          option-label="title"
           label="Produkttypen"
           clearable
           :class="activeFilters.stores.productTypes ? 'filter--active' : ''"
@@ -55,10 +58,6 @@ import {useBaseStore} from 'stores/base-store'
 import {useCategoryStore} from 'stores/category-store'
 
 const {tradeCategories, tradeTypes, productTypes} = useCategoryStore()
-
-const tradeCategoriesNames = tradeCategories.map(category => category.title)
-const tradeTypesNames = tradeTypes.map(category => category.title)
-const productTypesNames = productTypes.map(category => category.title)
 
 const baseStore = useBaseStore()
 const {activeFilters} = storeToRefs(baseStore)
