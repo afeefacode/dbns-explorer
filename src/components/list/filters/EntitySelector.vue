@@ -97,7 +97,7 @@ onUpdated(setBackgroundColor)
   }
 }
 
-@media (max-width: 839px) {
+@mixin small-entity-selector {
   .entity-selector {
     width: auto;
     height: 3em;
@@ -109,6 +109,14 @@ onUpdated(setBackgroundColor)
       margin: 0 -.7em 0 0;
     }
   }
+}
+
+@media (max-width: 839px) {
+  @include small-entity-selector
+}
+
+@media (min-resolution: 500dpi) and (max-width: 1500px) {
+  @include small-entity-selector
 }
 
 </style>
