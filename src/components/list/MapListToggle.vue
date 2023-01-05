@@ -1,29 +1,26 @@
 <template>
   <div class="map-list-toggle">
     <div
-      @click="$emit('view-toggled', 'list')"
-      :class="{active: props.activeView === 'list'}"
+      @click="activeView = 'list'"
+      :class="{active: activeView === 'list'}"
     >
       Liste
     </div>
     <div
-      @click="$emit('view-toggled', 'map')"
-      :class="{active: props.activeView === 'map'}"
+      @click="activeView = 'map'"
+      :class="{active: activeView === 'map'}"
     >
       Karte
     </div>
   </div>
 </template>
 <script setup>
-import {defineProps} from 'vue'
+import {storeToRefs} from 'pinia'
 import {useBaseStore} from "src/stores/base-store";
 
-const config = useBaseStore().config
-const props = defineProps({
-  activeView: {
-    type: String,
-  }
-})
+const baseStore = useBaseStore()
+const config = baseStore.config
+const {activeView} = storeToRefs(baseStore)
 
 </script>
 <style lang="scss" scoped>
@@ -42,7 +39,7 @@ const props = defineProps({
     padding: .3em;
 
     &:hover {
-      background-color: #E6E6E6 ;
+      background-color: #E6E6E6;
     }
   }
 

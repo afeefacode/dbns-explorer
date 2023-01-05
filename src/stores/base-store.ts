@@ -12,6 +12,7 @@ export const useBaseStore = defineStore('base', {
       },
       config: config,
       activeEntities: [],
+      activeView: 'list',
       additionalFiltersExpanded: false,
       // pinia needs separate objects here for initial diffing
       activeFilters: emptyFilters,

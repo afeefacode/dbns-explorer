@@ -23,8 +23,6 @@
     <q-separator class="q-mt-md q-mb-lg"/>
     <div v-if="baseStore.entityConfig?.showMapView">
       <MapListToggle
-        @view-toggled="viewToggled"
-        :active-view="activeView"
         v-if="baseStore.entityConfig?.showListView && baseStore.entityConfig?.showMapView"
       />
       <MapView
@@ -65,22 +63,15 @@ const baseStore = useBaseStore()
 const entityStore = useEntityStore()
 const categoryStore = useCategoryStore()
 
-const {activeEntities} = storeToRefs(baseStore)
+const {activeEntities, activeView} = storeToRefs(baseStore)
 const config = baseStore.config
 
-const mapViewToggled = ref(false)
 
 const showEntitySelector = Object.keys(config.entities).length > 1
 
 const onEntityClick = (entityType: string) => {
   baseStore.activeEntities = addToArrayOrRemove(baseStore.activeEntities, entityType)
   entityStore.fetchEntityList(entityType)
-}
-
-const activeView = ref('list')
-
-const viewToggled = (newView: string) => {
-  activeView.value = newView
 }
 
 onUpdated(() => {
