@@ -74,16 +74,16 @@ onUpdated(setBackgroundColor)
     cursor: pointer;
     transition: background-color 100ms ease-in-out;
 
+    &:hover {
+      background-color: #bbb;
+    }
+
     &--active {
       background-color: var(--brandColor);
 
       &:hover {
         background-color: var(--brandColor-lighter) !important;
       }
-    }
-
-    &:hover {
-      background-color: #bbb;
     }
   }
 

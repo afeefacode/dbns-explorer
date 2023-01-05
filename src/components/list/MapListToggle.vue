@@ -36,15 +36,23 @@ const props = defineProps({
 
   div {
     color: #333;
-    background-color: #F8F8F8;
+    background-color: #f2f2f2;
     width: 200px;
     text-align: center;
     padding: .3em;
+
+    &:hover {
+      background-color: #E6E6E6 ;
+    }
   }
 
   .active {
     color: white;
-    background-color: var(--brandColor)
+    background-color: var(--brandColor);
+
+    &:hover {
+      background-color: var(--brandColor-lighter) !important;
+    }
   }
 }
 </style>
