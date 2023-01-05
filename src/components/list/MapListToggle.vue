@@ -1,16 +1,16 @@
 <template>
   <div class="map-list-toggle">
     <div
-      @click="$emit('view-toggled', 'map')"
-      :class="{active: props.activeView === 'map'}"
-    >
-      Karte
-    </div>
-    <div
       @click="$emit('view-toggled', 'list')"
       :class="{active: props.activeView === 'list'}"
     >
       Liste
+    </div>
+    <div
+      @click="$emit('view-toggled', 'map')"
+      :class="{active: props.activeView === 'map'}"
+    >
+      Karte
     </div>
   </div>
 </template>
