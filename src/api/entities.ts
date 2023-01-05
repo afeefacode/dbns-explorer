@@ -27,8 +27,8 @@ export const fetchEntityList = async (entityType: string, activeFilters: any, wi
       break;
 
     case 'stores':
-      if (tradeCategories) categories.push(tradeCategories.id)
-      if (tradeTypes) categories.push(tradeTypes.id)
+      // if (tradeCategories) categories.push(tradeCategories.id)
+      // if (tradeTypes) categories.push(tradeTypes.id)
       if (productTypes) categories.push(productTypes.id)
       break;
 
