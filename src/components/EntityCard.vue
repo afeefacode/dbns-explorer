@@ -8,6 +8,12 @@
               displayed.time.end
             }}
           </div>
+          <div
+            v-if="cities"
+            class="list-card__city"
+            v-html="cities"
+          >
+          </div>
           <div class="q-mt-sm q-mb-md">
             <div class="text-h5 break-word list-card__title">
               {{ displayed.title }}
@@ -65,8 +71,10 @@ const props = defineProps({
   }
 })
 
-const entityType = getTypeFromEntity(props.entity)
+let cities = []
+props.entity.locations.forEach(location => cities.push(` ${location.city}`))
 
+const entityType = getTypeFromEntity(props.entity)
 
 let displayed = {}
 displayed.title = props.entity.title ? shortenStringTo(60, props.entity.title) : ''
@@ -91,6 +99,11 @@ const infoUrlWidth = entityType === 'event' ? '400px'
   &__times {
     color: var(--brandColor);
     font-size: 16px;
+    letter-spacing: .5px;
+  }
+
+  &__city {
+    color: #888;
     letter-spacing: 1px;
   }
 
