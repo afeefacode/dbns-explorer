@@ -42,17 +42,15 @@ const config = baseStore.config
 const {activeEntities} = storeToRefs(baseStore)
 
 let map: any
-const markers = []
+const markers: any[] = []
 const activeMarker = ref(null)
 
-
-const resetMarkerStyle = (pngMarker: string) => {
+const resetMarkerStyle = () => {
   activeMarker.value.style.backgroundImage = `url(${pngMarkerActors})`
   activeMarker.value.style.zIndex = '0'
 }
 
 const createMarkerAndAdd = (entity: any) => {
-  //console.log('adding marker')
   const entityType = getTypeFromEntity(entity)
   const markerPng = getMarkerPng(entityType)
 
@@ -67,9 +65,10 @@ const createMarkerAndAdd = (entity: any) => {
   marker.style.cursor = 'pointer'
   marker.style.transition = 'width, height 100ms ease-in-out'
 
-  marker.addEventListener('click', () => {
+
+  marker.addEventListener('click', (test) => {
     if (activeMarker.value) {
-      resetMarkerStyle()
+      resetMarkerStyle(entity.id)
     }
 
     activeMarker.value = marker
@@ -107,7 +106,19 @@ const updateMap = () => {
   })
 }
 
-const addMarkerToArray = (entity: any) => {
+const loopActiveEntities = (callback: Function) => {
+  Object.keys(entityLists.value).forEach((entityType) => {
+    if (isActiveEntity(activeEntities.value, entityType)) {
+      if (entityLists.value[entityType]) {
+        entityLists.value[entityType].forEach(callback)
+      }
+    }
+  })
+}
+
+const addEntityToMarkerArray = (entity: any) => {
+
+
   const entityType = getTypeFromEntity(entity)
   const markerPng = getMarkerPng(entityType)
 
@@ -143,17 +154,18 @@ const addMarkerToArray = (entity: any) => {
     emit('openDetails', entity)
   })
 
+  const libreMarker = new maplibregl.Marker(domElement)
+    .setLngLat([entity.locations[0].long, entity.locations[0].lat])
+
   const mapMarker = {
     entity,
     domElement,
+    libreMarker,
     visible: true
   }
 
   markers.push(mapMarker)
 }
-
-
-
 
 const updateBoundsAndFetch = () => {
   const bounds = map.getBounds()
@@ -183,7 +195,17 @@ onMounted(async () => {
     zoom: 7
   });
 
-  map.on('click', (event) => {
+  loopActiveEntities((entity: any) => {
+    if (hasLatLong(entity)) addEntityToMarkerArray(entity)
+  })
+
+  console.log('markers', markers)
+
+  markers.forEach(({libreMarker}) => {
+    libreMarker.addTo(map)
+  })
+
+  map.on('click', (event: any) => {
     const isClickOnMarker = event.originalEvent.target.classList[0].includes('marker')
     if (!isClickOnMarker) {
       resetMarkerStyle()
@@ -195,11 +217,11 @@ onMounted(async () => {
     updateBoundsAndFetch()
   })
 
-  updateMap()
+  // updateMap()
 })
 
 onUpdated(() => {
-  updateMap()
+  // updateMap()
 })
 </script>
 
