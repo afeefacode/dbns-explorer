@@ -245,6 +245,7 @@ export const showFilters = (entityType: string, config: any) => {
 }
 
 export const getEventDatesForDisplay = (time: { start: Date, end: Date }) => {
+  if (!time?.start || !time?.end) return null
   const startDate = new Date(time.start)
   const endDate = new Date(time.end)
 
