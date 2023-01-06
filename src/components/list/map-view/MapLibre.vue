@@ -50,62 +50,6 @@ const resetMarkerStyle = () => {
   activeMarker.value.style.zIndex = '0'
 }
 
-const createMarkerAndAdd = (entity: any) => {
-  const entityType = getTypeFromEntity(entity)
-  const markerPng = getMarkerPng(entityType)
-
-  const marker = document.createElement('div')
-  // marker.className = `map__marker map__marker--${entityType}`
-  marker.style.backgroundImage = `url(${markerPng.inactive})`
-  marker.style.backgroundSize = 'contain'
-  marker.style.backgroundRepeat = 'no-repeat'
-  marker.style.width = '36px'
-  marker.style.height = '50px'
-  marker.style.top = '-25px'
-  marker.style.cursor = 'pointer'
-  marker.style.transition = 'width, height 100ms ease-in-out'
-
-
-  marker.addEventListener('click', (test) => {
-    if (activeMarker.value) {
-      resetMarkerStyle(entity.id)
-    }
-
-    activeMarker.value = marker
-
-    marker.style.backgroundImage = `url(${markerPng.active})`
-    marker.style.zIndex = '2'
-
-    const offsetX = parseInt(map.getCanvas().style.width) / -4
-
-    map.easeTo({
-      center: [
-        entity.locations[0].long,
-        entity.locations[0].lat
-      ],
-      offset: [offsetX, 0]
-    })
-
-    emit('openDetails', entity)
-  })
-
-  new maplibregl.Marker(marker)
-    .setLngLat([entity.locations[0].long, entity.locations[0].lat])
-    .addTo(map)
-}
-
-const updateMap = () => {
-  Object.keys(entityLists.value).forEach((entityType) => {
-    if (isActiveEntity(activeEntities.value, entityType)) {
-      if (entityLists.value[entityType]) {
-        entityLists.value[entityType].forEach(entity => {
-          if (hasLatLong(entity)) createMarkerAndAdd(entity)
-        })
-      }
-    }
-  })
-}
-
 const loopActiveEntities = (callback: Function) => {
   Object.keys(entityLists.value).forEach((entityType) => {
     if (isActiveEntity(activeEntities.value, entityType)) {
@@ -117,7 +61,7 @@ const loopActiveEntities = (callback: Function) => {
 }
 
 const addEntityToMarkerArray = (entity: any) => {
-
+  if (!(markers.findIndex(marker => marker.entity.id === entity.id) === -1)) return
 
   const entityType = getTypeFromEntity(entity)
   const markerPng = getMarkerPng(entityType)
@@ -195,16 +139,6 @@ onMounted(async () => {
     zoom: 7
   });
 
-  loopActiveEntities((entity: any) => {
-    if (hasLatLong(entity)) addEntityToMarkerArray(entity)
-  })
-
-  console.log('markers', markers)
-
-  markers.forEach(({libreMarker}) => {
-    libreMarker.addTo(map)
-  })
-
   map.on('click', (event: any) => {
     const isClickOnMarker = event.originalEvent.target.classList[0].includes('marker')
     if (!isClickOnMarker) {
@@ -217,11 +151,26 @@ onMounted(async () => {
     updateBoundsAndFetch()
   })
 
-  // updateMap()
+  loopActiveEntities((entity: any) => {
+    if (hasLatLong(entity)) addEntityToMarkerArray(entity)
+  })
+  markers.forEach(({libreMarker}) => {
+    libreMarker.addTo(map)
+  })
+
 })
 
 onUpdated(() => {
-  // updateMap()
+  markers.forEach(marker => marker.libreMarker.remove())
+  markers.splice(0, markers.length)
+
+  loopActiveEntities((entity: any) => {
+    if (hasLatLong(entity)) addEntityToMarkerArray(entity)
+  })
+
+  markers.forEach(({libreMarker}) => {
+    libreMarker.addTo(map)
+  })
 })
 </script>
 
