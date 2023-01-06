@@ -87,7 +87,7 @@ const addEntityToMarkerArray = (entity: any) => {
 
     const offsetX = parseInt(map.getCanvas().style.width) / -4
 
-    map.flyTo({
+    map.easeTo({
       center: [
         entity.locations[0].long,
         entity.locations[0].lat
