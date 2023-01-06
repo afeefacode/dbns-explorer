@@ -53,9 +53,15 @@ export const useBaseStore = defineStore('base', {
       //@ts-ignore
       return this.activeEntities.includes('stores')
     },
-    hasActiveFilters(): any {
-      return !(JSON.stringify(this.activeFilters) === JSON.stringify(this.lastFilters))
-    }
+    // hasActiveFilters(): any {
+    //   return !(JSON.stringify(this.activeFilters) === JSON.stringify(this.lastFilters))
+    // }
+    // mainFiltersChanged() : any {
+    //   return !(JSON.stringify(this.activeFilters.main) === JSON.stringify(this.lastFilters.main))
+    // },
+    // eventFiltersChanged() : any {
+    //   return !(JSON.stringify(this.activeFilters.events) === JSON.stringify(this.lastFilters.events))
+    // }
   },
   actions: {
     clearFilters(filters: string): any {
@@ -65,6 +71,6 @@ export const useBaseStore = defineStore('base', {
           this.activeFilters[filterCategory][subcategory] = null
         }
       }
-    }
+    },
   },
 });
