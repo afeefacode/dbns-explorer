@@ -8,9 +8,13 @@
     <div
       v-if="mapViewActive && hasAdditionalFilters"
       class="text-center clear-filter-button q-mb-md"
-      @click="additionalFiltersExpanded = !additionalFiltersExpanded"
     >
-      <span class="text-button">weitere Filter {{ additionalFiltersExpanded ? 'ausblenden' : 'anzeigen' }}</span>
+      <q-btn
+        :label="`weitere Filter ${ additionalFiltersExpanded ? 'ausblenden' : 'anzeigen' }`"
+        @click="additionalFiltersExpanded = !additionalFiltersExpanded"
+        color="primary"
+        flat
+      />
     </div>
     <q-expansion-item
       v-if="mapViewActive"

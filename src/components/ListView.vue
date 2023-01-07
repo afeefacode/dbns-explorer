@@ -1,15 +1,31 @@
 <template>
-  <h2 class="text-h4 text-center">
+  <h2 class="text-h4 text-center q-mb-sm">
     {{ getGermanEntityName(entityType, 'category') }}
   </h2>
-  <div v-if="entityType === 'events' && showFilters.events">
-    <EventFilters class="q-mb-md" :inListView="true"/>
+  <div v-if="entityType === 'events' && showFilters.events" class="text-center">
+    <q-btn
+      label="Zeitraum auswählen"
+      @click="eventFiltersExpanded = !eventFiltersExpanded"
+      color="primary"
+      :icon-right="eventFiltersExpanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down' "
+      flat
+      class="q-mb-sm"
+    />
+
+    <q-expansion-item
+      class="hide-expansion-header"
+      v-model="baseStore.eventFiltersExpanded"
+      :duration="150"
+    >
+      <EventFilters class="q-mb-md" :inListView="true"/>
+    </q-expansion-item>
   </div>
-  <div v-if="entityType === 'actors' && showFilters.actors">
-    <ActorFilters class="q-mb-md q-px-md" :inListView="true"/>
+  <div v-if="entityType === 'actors' && showFilters.actors" class="text-center">
+      <ActorFilters class="q-mb-md q-px-md" :inListView="true"/>
   </div>
-  <div v-if="entityType === 'stores' && showFilters.stores" class="q-mb-lg">
-    <StoreFilters class="q-mb-md q-px-md" :inListView="true"/>
+  <div v-if="entityType === 'stores' && showFilters.stores" class="text-center">
+
+      <StoreFilters class="q-mb-md q-px-md" :inListView="true"/>
   </div>
   <div class="list-view">
     <div v-if="entityLists[entityType]?.length">
@@ -54,8 +70,9 @@ const baseStore = useBaseStore()
 const filterStore = useFilterStore()
 const entityStore = useEntityStore()
 
-const {config} = baseStore
-const {activeFilters, activeEntities} = storeToRefs(filterStore)
+const config = baseStore.config
+const {eventFiltersExpanded, actorFiltersExpanded, storeFiltersExpanded} = storeToRefs(baseStore)
+const {activeFilters} = storeToRefs(filterStore)
 const {entityLists} = storeToRefs(entityStore)
 
 if (!entityLists[props.entityType]) {

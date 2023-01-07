@@ -29,7 +29,6 @@ const {activeView} = storeToRefs(baseStore)
   flex-direction: row;
   justify-content: center;
   margin-bottom: 2em;
-  cursor: pointer;
 
   div {
     color: #333;
@@ -37,6 +36,7 @@ const {activeView} = storeToRefs(baseStore)
     width: 200px;
     text-align: center;
     padding: .3em;
+    cursor: pointer;
 
     &:hover {
       background-color: #E6E6E6;

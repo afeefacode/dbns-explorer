@@ -9,7 +9,16 @@
         @entity-click="onEntityClick(configEntity.type)"
       />
     </div>
-    <div v-if="config.showMainFilters">
+    <div v-if="config.showMainFilters"
+         class="text-center"
+    >
+      <q-btn
+        :label="`Filter ${ filtersExpanded ? 'ausblenden' : 'anzeigen' }`"
+        @click="filtersExpanded = !filtersExpanded"
+        color="primary"
+        :icon-right="filtersExpanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
+        flat
+      />
       <q-expansion-item
         class="hide-expansion-header"
         v-model="baseStore.filtersExpanded"
@@ -60,7 +69,7 @@ const baseStore = useBaseStore()
 const filterStore = useFilterStore()
 const entityStore = useEntityStore()
 
-const {activeView} = storeToRefs(baseStore)
+const {activeView, filtersExpanded} = storeToRefs(baseStore)
 const {activeEntities, activeFilters} = storeToRefs(filterStore)
 const config = baseStore.config
 

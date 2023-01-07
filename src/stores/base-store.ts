@@ -13,8 +13,11 @@ export const useBaseStore = defineStore('base', {
       },
       config: config,
       activeView: 'list',
-      filtersExpanded: true,
+      filtersExpanded: false,
       additionalFiltersExpanded: false,
+      eventFiltersExpanded: false,
+      actorFiltersExpanded: false,
+      storeFiltersExpanded: false,
     }
   },
   getters: {
