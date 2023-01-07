@@ -18,7 +18,6 @@
         <template v-slot:append>
           <q-icon name="event" class="cursor-pointer">
             <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-
               <q-date v-model="activeFilters.events[boundary]" :locale="qDateLocale"
                       first-day-of-week="1" minimal no-unset mask="DD.MM.YYYY"
               >
@@ -33,23 +32,24 @@
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
+import {onMounted} from 'vue'
 import {storeToRefs} from 'pinia'
 import moment from 'moment'
-import {useBaseStore} from "stores/base-store";
+import {useFilterStore} from 'stores/filter-store'
 
-const baseStore = useBaseStore()
-const {activeFilters} = storeToRefs(baseStore)
+const filterStore = useFilterStore()
+const {activeFilters} = storeToRefs(filterStore)
 
 const defaultTimeSpans = [
   {name: 'today', lable: 'Heute', start: moment(), end: moment()},
-  {name: 'this_week', lable: 'Nächste 7 Tage', start: moment(), end: moment().add(7, 'days')},
-  {name: 'this_month', lable: 'Nächste 30 Tage', start: moment(), end: moment().add(30, 'days')},
+  {name: 'this_week', lable: 'Diese Woche', start: moment(), end: moment().add(7, 'days')},
+  {name: 'this_month', lable: 'Diesen Monat', start: moment(), end: moment().add(30, 'days')},
 ]
 
 const setTimeSpan = (timeSpan) => {
-  baseStore.activeFilters.events.startDate = moment(timeSpan.start).format("DD.MM.YYYY")
-  baseStore.activeFilters.events.endDate = moment(timeSpan.end).format("DD.MM.YYYY")
+  filterStore.activeFilters.events.startDate = moment(timeSpan.start).format("DD.MM.YYYY")
+  filterStore.activeFilters.events.endDate = moment(timeSpan.end).format("DD.MM.YYYY")
 }
 
 const qDateLocale = {
@@ -60,10 +60,14 @@ const qDateLocale = {
 }
 
 const isActiveTimeSpan = (timeSpan) => {
-  const sameStart = baseStore.activeFilters.events.startDate === moment(timeSpan.start).format("DD.MM.YYYY")
-  const sameEnd = baseStore.activeFilters.events.endDate === moment(timeSpan.end).format("DD.MM.YYYY")
+  const sameStart = filterStore.activeFilters.events.startDate === moment(timeSpan.start).format("DD.MM.YYYY")
+  const sameEnd = filterStore.activeFilters.events.endDate === moment(timeSpan.end).format("DD.MM.YYYY")
   return sameStart && sameEnd
 }
+
+onMounted(() => {
+    setTimeSpan(defaultTimeSpans[1])
+})
 
 </script>
 <style lang="scss">

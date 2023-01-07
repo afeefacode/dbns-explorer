@@ -1,6 +1,5 @@
 <template>
   <div class="q-pt-md q-px-md">
-<!--  <div class="q-pt-md q-px-md" @keydown.enter="fetchEntityLists">-->
     <div class="row q-gutter-md q-mb-md justify-center">
       <RegionFilter class="col-12 col-sm-6 col-md-4" v-if="categoryStore.regions"/>
       <CategoryFilter class="col-12 col-sm-6 col-md-4" v-if="categoryStore.mainCategories"/>
@@ -9,9 +8,13 @@
     <div
       v-if="mapViewActive && hasAdditionalFilters"
       class="text-center clear-filter-button q-mb-md"
-      @click="additionalFiltersExpanded = !additionalFiltersExpanded"
     >
-      <span class="text-button">weitere Filter {{ additionalFiltersExpanded ? 'ausblenden' : 'anzeigen' }}</span>
+      <q-btn
+        :label="`weitere Filter ${ additionalFiltersExpanded ? 'ausblenden' : 'anzeigen' }`"
+        @click="additionalFiltersExpanded = !additionalFiltersExpanded"
+        color="primary"
+        flat
+      />
     </div>
     <q-expansion-item
       v-if="mapViewActive"
@@ -53,7 +56,6 @@
         </q-expansion-item>
       </div>
     </q-expansion-item>
-    <ApplyFiltersButton :filterGroup="'main'"/>
   </div>
 </template>
 
@@ -69,7 +71,6 @@ import RegionFilter from 'components/list/filters/RegionFilter.vue';
 import EntitySearch from 'components/list/filters/EntitySearch.vue';
 import EventFilters from 'components/list/filters/EventFilters.vue';
 import StoreFilters from 'components/list/filters/StoreFilters.vue';
-import ApplyFiltersButton from 'components/list/ApplyFiltersButton.vue'
 
 const props = defineProps({
   mapViewActive: {
@@ -79,6 +80,9 @@ const props = defineProps({
 })
 
 const baseStore = useBaseStore()
+const categoryStore = useCategoryStore()
+const entityStore = useEntityStore()
+
 const {
   hasAdditionalFilters,
   showActorFilters,
@@ -86,16 +90,6 @@ const {
   showStoreFilters,
   additionalFiltersExpanded,
 } = storeToRefs(baseStore)
-
-const categoryStore = useCategoryStore()
-
-const entityStore = useEntityStore()
-
-const fetchEntityLists = () => {
-  baseStore.activeEntities.forEach((entityType: string) => {
-    entityStore.fetchEntityList(entityType)
-  })
-}
 
 </script>
 <style lang="scss">

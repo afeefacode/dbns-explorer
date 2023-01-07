@@ -245,12 +245,21 @@ export const showFilters = (entityType: string, config: any) => {
 }
 
 export const getEventDatesForDisplay = (time: { start: Date, end: Date }) => {
+  if (!time?.start || !time?.end) return null
   const startDate = new Date(time.start)
   const endDate = new Date(time.end)
 
-  const optionsStart = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric'};
+  const optionsStart = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric'
+  };
+
   const optionsEnd = startDate.getDate() === endDate.getDate()
-    ? {hour: 'numeric'}
+    ? {hour: 'numeric', minute: 'numeric'}
     : optionsStart
 
   return {

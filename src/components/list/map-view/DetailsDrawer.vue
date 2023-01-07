@@ -70,7 +70,7 @@ const displayed = computed(() => {
     title: shortenStringTo(100, props.entity.title),
     description: shortenStringTo(300, props.entity.description),
     info_url: shortenStringTo(60, props.entity.info_url),
-    time: getEventDatesForDisplay(props.entity.times[0])
+    time: props.entity.times ? getEventDatesForDisplay(props.entity.times[0]) : null
   }
 })
 

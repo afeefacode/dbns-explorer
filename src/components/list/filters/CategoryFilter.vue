@@ -14,13 +14,14 @@
     </template>
   </q-select>
 </template>
-<script setup>
+<script setup lang="ts">
 import {storeToRefs} from 'pinia'
-import {useBaseStore} from 'stores/base-store'
+import {useFilterStore} from 'stores/filter-store'
 import {useCategoryStore} from 'stores/category-store'
 
-const {mainCategories} = useCategoryStore()
+const filterStore = useFilterStore()
+const categoryStore = useCategoryStore()
 
-const baseStore = useBaseStore()
-const {activeFilters} = storeToRefs(baseStore)
+const {mainCategories} = categoryStore
+const {activeFilters} = storeToRefs(filterStore)
 </script>
