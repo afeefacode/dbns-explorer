@@ -7,7 +7,6 @@
       label="Zeitraum auswählen"
       @click="eventFiltersExpanded = !eventFiltersExpanded"
       color="primary"
-      :icon-right="eventFiltersExpanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down' "
       flat
       class="q-mb-sm"
     />
@@ -32,8 +31,13 @@
       <div class="row">
         <EntityCard v-for="entity in entityLists[entityType].slice(0,limit)" :entity="entity" :key="entity.id"/>
       </div>
-      <div class="row q-mt-xl justify-center text-button" @click="increaseLimit">
-        Mehr {{ getGermanEntityName(entityType, 'plural') }} anzeigen
+      <div class="row q-mt-xl justify-center" @click="increaseLimit">
+      <q-btn
+        :label="`mehr ${ getGermanEntityName(entityType, 'plural') } anzeigen`"
+        @click="increaseLimit"
+        color="primary"
+        flat
+      />
       </div>
     </div>
     <div v-else class="text-center no-data-label">

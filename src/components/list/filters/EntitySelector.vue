@@ -54,7 +54,7 @@ onUpdated(setActiveState)
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 2em;
+  margin-bottom: 1.3em;
 
   &__icon {
     width: 5em;

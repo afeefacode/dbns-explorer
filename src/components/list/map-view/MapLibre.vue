@@ -133,7 +133,7 @@ onMounted(async () => {
     container: 'map',
     style: 'https://api.maptiler.com/maps/bright/style.json?key=r6JROvArZPt0irVDImJa',
     center: [13, 51.15],
-    zoom: 7
+    zoom: 8
   });
 
   map.on('click', (event: any) => {

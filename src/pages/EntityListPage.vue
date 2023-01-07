@@ -9,14 +9,11 @@
         @entity-click="onEntityClick(configEntity.type)"
       />
     </div>
-    <div v-if="config.showMainFilters"
-         class="text-center"
-    >
+    <div v-if="config.showMainFilters" class="text-center">
       <q-btn
         :label="`Filter ${ filtersExpanded ? 'ausblenden' : 'anzeigen' }`"
         @click="filtersExpanded = !filtersExpanded"
         color="primary"
-        :icon-right="filtersExpanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
         flat
       />
       <q-expansion-item
