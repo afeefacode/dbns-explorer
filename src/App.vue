@@ -7,11 +7,13 @@ import {onMounted} from 'vue'
 import {useRouter} from 'vue-router'
 import {setCssVar} from 'quasar'
 import {useBaseStore} from "src/stores/base-store"
+import {useFilterStore} from 'stores/filter-store'
 import {useCategoryStore} from "src/stores/category-store"
 import {useEntityStore} from "src/stores/entity-store"
 import {isInIframe, triggerIframeResize, getSearchParameters, hex2rgb} from 'src/utils'
 
 const baseStore = useBaseStore()
+const filterStore = useFilterStore()
 const categoryStore = useCategoryStore()
 const entityStore = useEntityStore()
 const router = useRouter()
@@ -22,11 +24,10 @@ if (configString) {
   baseStore.config = JSON.parse(decodeURI(configString))
 }
 
-
 categoryStore.fetchCategoryList()
 
 //@ts-ignore
-baseStore.activeEntities.push(baseStore.config.entities[0].type)
+baseStore.config.entities.forEach(entity => filterStore.activeEntities.push(entity.type))
 entityStore.fetchEntityList(baseStore.config.entities[0].type)
 
 onMounted(async () => {

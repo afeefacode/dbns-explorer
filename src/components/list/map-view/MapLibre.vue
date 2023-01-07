@@ -16,6 +16,7 @@ import maplibregl from 'maplibre-gl'
 import pngMarkerActors from 'assets/markers/marker-actors.png'
 
 import {useBaseStore} from "src/stores/base-store";
+import {useFilterStore} from "src/stores/filter-store";
 import {useEntityStore} from "src/stores/entity-store";
 import {getTypeFromEntity, hasLatLong, isActiveEntity} from 'src/utils'
 import {getMarkerPng} from 'src/utils/maplibre'
@@ -39,7 +40,9 @@ const {entityLists, entityListLoading} = storeToRefs(entityStore)
 
 const baseStore = useBaseStore()
 const config = baseStore.config
-const {activeEntities} = storeToRefs(baseStore)
+
+const filterStore = useFilterStore()
+const {activeEntities} = storeToRefs(filterStore)
 
 let map: any
 const markers: any[] = []
@@ -111,9 +114,9 @@ const addEntityToMarkerArray = (entity: any) => {
   markers.push(mapMarker)
 }
 
-const updateBoundsAndFetch = () => {
+const updateBounds = () => {
   const bounds = map.getBounds()
-  baseStore.activeFilters.boundingBox = {
+  filterStore.activeFilters.boundingBox = {
     ne: {
       long: bounds._ne.lng,
       lat: bounds._ne.lat
@@ -123,12 +126,6 @@ const updateBoundsAndFetch = () => {
       lat: bounds._sw.lat
     }
   }
-
-  const withBounds = true
-
-  baseStore.activeEntities.forEach((entityType: string) => {
-    entityStore.fetchEntityList(entityType, withBounds)
-  })
 }
 
 onMounted(async () => {
@@ -147,8 +144,10 @@ onMounted(async () => {
     }
   });
 
+  updateBounds()
+
   map.on('moveend', () => {
-    updateBoundsAndFetch()
+    updateBounds()
   })
 
   loopActiveEntities((entity: any) => {
@@ -180,16 +179,6 @@ onUpdated(() => {
   width: 100%;
 }
 
-.search-button {
-  position: absolute;
-  top: 2em;
-  left: 40%;
-  background: #ffffff;
-  z-index: 3;
-  margin: auto;
-  //display: none;
-}
-
 .loading-overlay {
   height: 100%;
   width: 100%;
@@ -204,9 +193,5 @@ onUpdated(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  .q-spinner {
-
-  }
 }
 </style>

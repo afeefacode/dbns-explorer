@@ -14,7 +14,7 @@
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import {defineProps, onUpdated, ref, onMounted} from 'vue'
 import {useBaseStore} from 'src/stores/base-store'
 import {getGermanEntityName} from 'src/utils'
@@ -35,22 +35,16 @@ const props = defineProps({
 
 const entitySelectorIcon = ref(null)
 
-const setBackgroundColor = () => {
+const setActiveState = () => {
   if (props.active) {
-    // entitySelectorIcon.value.style.backgroundColor = '#' + config.brandColor
     entitySelectorIcon.value.classList.add('entity-selector__icon--active')
-    // console.log('    entitySelectorIcon.value.classList',     entitySelectorIcon.value.classList)
-
   } else {
     entitySelectorIcon.value.classList.remove('entity-selector__icon--active')
-
-    // entitySelectorIcon.value.style.backgroundColor = '#D9D9D9'
   }
 }
 
-onMounted(setBackgroundColor)
-onUpdated(setBackgroundColor)
-
+onMounted(setActiveState)
+onUpdated(setActiveState)
 </script>
 
 <style lang="scss" scoped>

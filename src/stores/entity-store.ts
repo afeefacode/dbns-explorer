@@ -1,5 +1,6 @@
 import {defineStore} from 'pinia';
 import {useBaseStore} from 'src/stores/base-store'
+import {useFilterStore} from 'src/stores/filter-store'
 import {useCategoryStore} from 'src/stores/category-store'
 import {fetchActorOffers, fetchEntityDetails, fetchEntityList} from "src/api/entities";
 
@@ -24,12 +25,16 @@ export const useEntityStore = defineStore('entities', {
     }
   },
   actions: {
-    async fetchEntityList(entityType: string, withBounds: boolean = false) {
+    async fetchEntityList(entityType: string) {
       const baseStore = useBaseStore()
+      const filterStore = useFilterStore()
+
+      const withBounds = baseStore.activeView === 'map'
+
       this.entityListLoading = true
       try {
         //@ts-ignore
-        this.entityLists[entityType] = await fetchEntityList(entityType, baseStore.activeFilters, withBounds)
+        this.entityLists[entityType] = await fetchEntityList(entityType, filterStore.activeFilters, withBounds)
       } catch (e) {
         console.error(e)
         return e

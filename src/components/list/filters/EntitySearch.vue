@@ -14,10 +14,10 @@
     </q-input>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import {storeToRefs} from 'pinia'
-import {useBaseStore} from 'stores/base-store'
+import {useFilterStore} from 'stores/filter-store'
 
-const baseStore = useBaseStore()
-const {activeFilters} = storeToRefs(baseStore)
+const filterStore = useFilterStore()
+const {activeFilters} = storeToRefs(filterStore)
 </script>

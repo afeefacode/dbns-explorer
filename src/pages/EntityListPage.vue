@@ -5,32 +5,32 @@
         v-if="showEntitySelector"
         v-for="configEntity in config.entities"
         :entity-type="configEntity.type"
-        :active="isActiveEntity(baseStore.activeEntities, configEntity.type)"
+        :active="isActiveEntity(filterStore.activeEntities, configEntity.type)"
         @entity-click="onEntityClick(configEntity.type)"
       />
     </div>
     <div v-if="config.showMainFilters">
       <q-expansion-item
         class="hide-expansion-header"
-        v-model="baseStore.showFilters"
+        v-model="baseStore.filtersExpanded"
         :duration="150"
       >
         <AllFilters
-          :mapViewActive="baseStore.entityConfig?.showMapView  && activeView === 'map'"
+          :mapViewActive="baseStore.config?.showMapView  && activeView === 'map'"
         />
       </q-expansion-item>
     </div>
     <q-separator class="q-mt-md q-mb-lg"/>
-    <div v-if="baseStore.entityConfig?.showMapView">
+    <div v-if="baseStore.config?.showMapView">
       <MapListToggle
-        v-if="baseStore.entityConfig?.showListView && baseStore.entityConfig?.showMapView"
+        v-if="baseStore.config?.showListView && baseStore.config?.showMapView"
       />
       <MapView
-        v-if="baseStore.entityConfig?.showMapView && activeView === 'map'"
+        v-if="baseStore.config?.showMapView && activeView === 'map'"
       />
     </div>
     <ListView
-      v-if="baseStore.entityConfig?.showListView && activeView === 'list'"
+      v-if="baseStore.config?.showListView && activeView === 'list'"
       v-for="entityType in activeEntities"
       :entityType="entityType"
       :key="entityType"
@@ -40,14 +40,12 @@
 </template>
 <script setup lang="ts">
 // node_modules
-import {ref, onUpdated} from 'vue'
 import {storeToRefs} from 'pinia'
 
-// utilities
-import {entityRequests} from 'src/api/entityRequests'
+// stores & utils
 import {useBaseStore} from 'stores/base-store'
+import {useFilterStore} from 'stores/filter-store'
 import {useEntityStore} from "stores/entity-store"
-import {useCategoryStore} from "stores/category-store"
 import {addToArrayOrRemove, isActiveEntity} from 'src/utils'
 
 // components
@@ -58,43 +56,25 @@ import ListView from 'components/ListView.vue'
 import NoDataBackground from 'components/list/NoDataBackground.vue'
 import MapListToggle from 'components/list/MapListToggle.vue'
 
-
 const baseStore = useBaseStore()
+const filterStore = useFilterStore()
 const entityStore = useEntityStore()
-const categoryStore = useCategoryStore()
 
-const {activeEntities, activeView, hasActiveFilters, activeFilters, lastFilters} = storeToRefs(baseStore)
+const {activeView} = storeToRefs(baseStore)
+const {activeEntities, activeFilters} = storeToRefs(filterStore)
 const config = baseStore.config
-
 
 const showEntitySelector = Object.keys(config.entities).length > 1
 
 const onEntityClick = (entityType: string) => {
-  baseStore.activeEntities = addToArrayOrRemove(baseStore.activeEntities, entityType)
-  entityStore.fetchEntityList(entityType)
+  filterStore.activeEntities = addToArrayOrRemove(filterStore.activeEntities, entityType)
 }
 
-baseStore.$subscribe((mutation, state) => {
-  console.log('hasActiveFilters', !(JSON.stringify(activeFilters) === JSON.stringify(lastFilters)))
-  baseStore.activeEntities.forEach((entityType: string) => {
+filterStore.$subscribe((mutation, state) => {
+  filterStore.activeEntities.forEach((entityType: string) => {
     entityStore.fetchEntityList(entityType)
   })
 })
-
-
-// onUpdated(() => {
-//   //@ts-ignore
-//   entityStore.fetchEntityList(entityRequests[baseStore.activeEntity].list)
-//
-//   // the 2 statements below handle the edge case when navigating from an
-//   // entity on listView to an entity with ONLY mapView (and vice versa)
-//   // if (!baseStore.entityConfig.showMapView && activeView.value === 'map') {
-//   //   activeView.value = 'list'
-//   // }
-//   // if (!baseStore.entityConfig.showListView && activeView.value === 'list') {
-//   //   activeView.value = 'map'
-//   // }
-// })
 
 </script>
 <style>

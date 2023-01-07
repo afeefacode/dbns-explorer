@@ -1,18 +1,15 @@
 <template>
   <h2 class="text-h4 text-center">
-    {{ getGermanEntityName(entityType, 'plural') }}
+    {{ getGermanEntityName(entityType, 'category') }}
   </h2>
   <div v-if="entityType === 'events' && showFilters.events">
     <EventFilters class="q-mb-md" :inListView="true"/>
-<!--    <ApplyFiltersButton :filterCategory="'events'"/>-->
   </div>
   <div v-if="entityType === 'actors' && showFilters.actors">
     <ActorFilters class="q-mb-md q-px-md" :inListView="true"/>
-<!--    <ApplyFiltersButton :filterCategory="'actors'" class="q-mb-lg"/>-->
   </div>
   <div v-if="entityType === 'stores' && showFilters.stores" class="q-mb-lg">
     <StoreFilters class="q-mb-md q-px-md" :inListView="true"/>
-<!--    <ApplyFiltersButton :filterGroup="'stores'"/>-->
   </div>
   <div class="list-view">
     <div v-if="entityLists[entityType]?.length">
@@ -29,17 +26,22 @@
   </div>
   <q-separator class="q-my-xl"></q-separator>
 </template>
-<script async setup>
+<script async setup lang="ts">
+// node_modules
 import {defineProps, ref} from 'vue'
 import {storeToRefs} from 'pinia'
+
+// stores & utils
 import {useBaseStore} from 'stores/base-store'
+import {useFilterStore} from 'stores/filter-store'
 import {useEntityStore} from 'stores/entity-store'
 import {getGermanEntityName, showFilters as showFiltersFn} from 'src/utils'
+
+// components
 import EntityCard from 'components/EntityCard.vue'
 import ActorFilters from 'components/list/filters/ActorFilters.vue'
 import EventFilters from 'components/list/filters/EventFilters.vue'
 import StoreFilters from 'components/list/filters/StoreFilters.vue'
-import ApplyFiltersButton from 'components/list/ApplyFiltersButton.vue'
 
 const props = defineProps({
   entityType: {
@@ -49,16 +51,18 @@ const props = defineProps({
 })
 
 const baseStore = useBaseStore()
-const {config, activeEntities} = baseStore
-
+const filterStore = useFilterStore()
 const entityStore = useEntityStore()
+
+const {config} = baseStore
+const {activeFilters, activeEntities} = storeToRefs(filterStore)
 const {entityLists} = storeToRefs(entityStore)
 
 if (!entityLists[props.entityType]) {
   entityStore.fetchEntityList(props.entityType)
 }
 
-const limit = ref(activeEntities.length > 1 ? 4 : 8)
+const limit = ref(4)
 const maxLimitReached = ref(false)
 
 const increaseLimit = () => {

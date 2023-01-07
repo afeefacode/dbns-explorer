@@ -22,12 +22,12 @@
 </template>
 <script setup>
 import {storeToRefs} from 'pinia'
-import {useBaseStore} from 'stores/base-store'
+import {useFilterStore} from 'stores/filter-store'
 import {useCategoryStore} from 'stores/category-store'
 
-const {orgTypes} = useCategoryStore()
-const orgTypeNames = orgTypes?.map(category => category.title)
+const filterStore = useFilterStore()
+const categoryStore = useCategoryStore()
 
-const baseStore = useBaseStore()
-const {activeFilters} = storeToRefs(baseStore)
+const {orgTypes} = categoryStore
+const {activeFilters} = storeToRefs(filterStore)
 </script>

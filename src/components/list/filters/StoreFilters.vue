@@ -52,13 +52,14 @@
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import {storeToRefs} from 'pinia'
-import {useBaseStore} from 'stores/base-store'
+import {useFilterStore} from "stores/filter-store";
 import {useCategoryStore} from 'stores/category-store'
 
-const {tradeCategories, tradeTypes, productTypes} = useCategoryStore()
+const filterStore = useFilterStore()
+const categoryStore = useCategoryStore()
 
-const baseStore = useBaseStore()
-const {activeFilters} = storeToRefs(baseStore)
+const {tradeCategories, tradeTypes, productTypes} =categoryStore
+const {activeFilters} = storeToRefs(filterStore)
 </script>
