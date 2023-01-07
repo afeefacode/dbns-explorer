@@ -22,6 +22,7 @@ if (configString) {
   baseStore.config = JSON.parse(decodeURI(configString))
 }
 
+
 categoryStore.fetchCategoryList()
 
 //@ts-ignore

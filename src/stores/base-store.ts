@@ -11,10 +11,10 @@ export const useBaseStore = defineStore('base', {
         search: null,
       },
       config: config,
-      activeEntities: [],
       activeView: 'list',
       additionalFiltersExpanded: false,
       // pinia needs separate objects here for initial diffing
+      activeEntities: [],
       activeFilters: emptyFilters,
       lastFilters: emptyFilters2
     }
@@ -53,9 +53,9 @@ export const useBaseStore = defineStore('base', {
       //@ts-ignore
       return this.activeEntities.includes('stores')
     },
-    // hasActiveFilters(): any {
-    //   return !(JSON.stringify(this.activeFilters) === JSON.stringify(this.lastFilters))
-    // }
+    hasActiveFilters(): any {
+      return !(JSON.stringify(this.activeFilters) === JSON.stringify(this.lastFilters))
+    }
     // mainFiltersChanged() : any {
     //   return !(JSON.stringify(this.activeFilters.main) === JSON.stringify(this.lastFilters.main))
     // },

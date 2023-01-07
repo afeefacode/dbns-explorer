@@ -53,7 +53,7 @@
         </q-expansion-item>
       </div>
     </q-expansion-item>
-    <ApplyFiltersButton :filterGroup="'main'"/>
+<!--    <ApplyFiltersButton :filterGroup="'main'"/>-->
   </div>
 </template>
 

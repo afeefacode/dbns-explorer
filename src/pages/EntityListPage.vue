@@ -63,7 +63,7 @@ const baseStore = useBaseStore()
 const entityStore = useEntityStore()
 const categoryStore = useCategoryStore()
 
-const {activeEntities, activeView} = storeToRefs(baseStore)
+const {activeEntities, activeView, hasActiveFilters, activeFilters, lastFilters} = storeToRefs(baseStore)
 const config = baseStore.config
 
 
@@ -74,19 +74,27 @@ const onEntityClick = (entityType: string) => {
   entityStore.fetchEntityList(entityType)
 }
 
-onUpdated(() => {
-  //@ts-ignore
-  entityStore.fetchEntityList(entityRequests[baseStore.activeEntity].list)
-
-  // the 2 statements below handle the edge case when navigating from an
-  // entity on listView to an entity with ONLY mapView (and vice versa)
-  // if (!baseStore.entityConfig.showMapView && activeView.value === 'map') {
-  //   activeView.value = 'list'
-  // }
-  // if (!baseStore.entityConfig.showListView && activeView.value === 'list') {
-  //   activeView.value = 'map'
-  // }
+baseStore.$subscribe((mutation, state) => {
+  console.log('hasActiveFilters', !(JSON.stringify(activeFilters) === JSON.stringify(lastFilters)))
+  baseStore.activeEntities.forEach((entityType: string) => {
+    entityStore.fetchEntityList(entityType)
+  })
 })
+
+
+// onUpdated(() => {
+//   //@ts-ignore
+//   entityStore.fetchEntityList(entityRequests[baseStore.activeEntity].list)
+//
+//   // the 2 statements below handle the edge case when navigating from an
+//   // entity on listView to an entity with ONLY mapView (and vice versa)
+//   // if (!baseStore.entityConfig.showMapView && activeView.value === 'map') {
+//   //   activeView.value = 'list'
+//   // }
+//   // if (!baseStore.entityConfig.showListView && activeView.value === 'list') {
+//   //   activeView.value = 'map'
+//   // }
+// })
 
 </script>
 <style>

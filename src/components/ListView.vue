@@ -4,15 +4,15 @@
   </h2>
   <div v-if="entityType === 'events' && showFilters.events">
     <EventFilters class="q-mb-md" :inListView="true"/>
-    <ApplyFiltersButton :filterCategory="'events'"/>
+<!--    <ApplyFiltersButton :filterCategory="'events'"/>-->
   </div>
   <div v-if="entityType === 'actors' && showFilters.actors">
     <ActorFilters class="q-mb-md q-px-md" :inListView="true"/>
-    <ApplyFiltersButton :filterCategory="'actors'" class="q-mb-lg"/>
+<!--    <ApplyFiltersButton :filterCategory="'actors'" class="q-mb-lg"/>-->
   </div>
   <div v-if="entityType === 'stores' && showFilters.stores" class="q-mb-lg">
     <StoreFilters class="q-mb-md q-px-md" :inListView="true"/>
-    <ApplyFiltersButton :filterGroup="'stores'"/>
+<!--    <ApplyFiltersButton :filterGroup="'stores'"/>-->
   </div>
   <div class="list-view">
     <div v-if="entityLists[entityType]?.length">
