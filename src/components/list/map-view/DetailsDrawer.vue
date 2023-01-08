@@ -78,7 +78,7 @@ const displayed = computed(() => {
 })
 
 const close = () => {
-  activeMarker.value.markerDiv?.classList.remove('active-marker')
+  activeMarker.value.markerDiv?.classList.remove('marker--active')
   activeMarker.value.entity = null
   activeMarker.value.markerDiv = null
 }

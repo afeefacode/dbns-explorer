@@ -1,12 +1,6 @@
 <template>
-  <div id='map' class="map"/>
+  <div id='map'/>
   <div style="display:none"> entityListLoading: {{ entityListLoading }}</div>
-  <div
-    class="loading-overlay"
-    v-if="entityListLoading"
-  >
-    <q-spinner color="white" size="3em"/>
-  </div>
 </template>
 <script setup lang="ts">
 import {onMounted, ref, onUpdated} from 'vue'
@@ -55,16 +49,18 @@ const addEntityToMarkerArray = (entity: any) => {
   markerDiv.style.cursor = 'pointer'
 
   if (entity.id == activeMarker.value.entity?.id) {
-    markerDiv.classList.add('active-marker')
+    markerDiv.classList.add('marker--active')
+    activeMarker.value.entity = entity
+    activeMarker.value.markerDiv = markerDiv
   }
 
 
   markerDiv.addEventListener('click', () => {
-    if (activeMarker.value.markerDiv?.classList.contains('active-marker'))
-      activeMarker.value.markerDiv?.classList.remove('active-marker')
+    activeMarker.value.markerDiv?.classList.remove('marker--active')
 
     mapMoveByMarkerClick.value = true
-    markerDiv.classList.add('active-marker')
+
+    markerDiv.classList.add('marker--active')
     activeMarker.value.entity = entity
     activeMarker.value.markerDiv = markerDiv
 
@@ -121,7 +117,7 @@ onMounted(async () => {
     const isClickOnMarker = event.originalEvent.target.tagName !== 'CANVAS'
     if (!isClickOnMarker) {
 
-      activeMarker.value.markerDiv?.classList.remove('active-marker')
+      activeMarker.value.markerDiv?.classList.remove('marker--active')
       activeMarker.value.entity = null
       activeMarker.value.markerDiv = null
     }
@@ -130,7 +126,7 @@ onMounted(async () => {
   updateBounds()
 
   map.on('moveend',
-    debounce(updateBounds, 400)
+    debounce(updateBounds, 0)
   )
 
   loopActiveEntities((entity: any) => {
@@ -157,32 +153,15 @@ onUpdated(() => {
 </script>
 
 <style lang="scss">
-.map {
+#map {
   height: 100%;
   width: 100%;
 }
 
-.loading-overlay {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  float: right;
-  background: rgba(0, 0, 0, .3);
-  overflow-y: auto;
-  overflow-x: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 7;
-}
-
-.active-marker {
+.marker--active {
   z-index: 5;
 
   path.background {
-    transition: fill ease-in-out 100ms;
     fill: var(--brandColor-darker);
   }
 }
