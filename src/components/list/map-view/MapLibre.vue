@@ -10,7 +10,7 @@ import maplibregl from 'maplibre-gl'
 import {useBaseStore} from "src/stores/base-store";
 import {useFilterStore} from "src/stores/filter-store";
 import {useEntityStore} from "src/stores/entity-store";
-import {debounce, getTypeFromEntity, hasLatLong, isActiveEntity} from 'src/utils'
+import {debounce, getTypeFromEntity, hasLatLong, isActiveEntity, shortenStringTo} from 'src/utils'
 import {markerSvgs} from 'src/utils/maplibre'
 
 const baseStore = useBaseStore()
@@ -43,8 +43,7 @@ const addEntityToMarkerArray = (entity: any) => {
 
   const markerDiv = document.createElement('div')
   markerDiv.innerHTML = markerSvgs[entityType]
-  markerDiv.style.width = '36px'
-  markerDiv.style.height = '50px'
+  markerDiv.innerHTML += `<div class="marker-title">${shortenStringTo(30, entity.title)}</div>`
   markerDiv.style.top = '-25px'
   markerDiv.style.cursor = 'pointer'
 
@@ -56,6 +55,8 @@ const addEntityToMarkerArray = (entity: any) => {
 
   markerDiv.addEventListener('click', () => {
     activeMarker.value.markerDiv?.classList.remove('marker--active')
+
+    markerDiv.style.zIndex = markerDiv.style.zIndex + 1
 
     mapMoveByMarkerClick.value = true
 
@@ -74,8 +75,27 @@ const addEntityToMarkerArray = (entity: any) => {
     })
   })
 
+  let locationForMap = {lat: null, long: null}
+
+  // TODO: this only finds and corrects a dual collision, not a multiple collision
+  markers.find(marker => {
+    if (marker.entity.locations[0].lat === entity.locations[0].lat
+      && marker.entity.locations[0].long === entity.locations[0].long) {
+      const factor = .0000005
+      locationForMap = {
+        lat: entity.locations[0].lat * (1 + factor),
+        long: entity.locations[0].long,
+      }
+    } else {
+      locationForMap = {
+        lat: entity.locations[0].lat,
+        long: entity.locations[0].long,
+      }
+    }
+  })
+
   const libreMarker = new maplibregl.Marker(markerDiv)
-    .setLngLat([entity.locations[0].long, entity.locations[0].lat])
+    .setLngLat([locationForMap.long, locationForMap.lat])
 
   const mapMarker = {
     entity,
@@ -91,6 +111,9 @@ const updateBounds = () => {
     mapMoveByMarkerClick.value = false
     return
   }
+
+  if (baseStore.activeView === 'list') return
+
   const bounds = map.getBounds()
   filterStore.activeFilters.boundingBox = {
     ne: {
@@ -105,7 +128,6 @@ const updateBounds = () => {
 }
 
 onMounted(async () => {
-
   map = new maplibregl.Map({
     container: 'map',
     style: 'https://api.maptiler.com/maps/bright/style.json?key=r6JROvArZPt0irVDImJa',
@@ -116,7 +138,6 @@ onMounted(async () => {
   map.on('click', (event: any) => {
     const isClickOnMarker = event.originalEvent.target.tagName !== 'CANVAS'
     if (!isClickOnMarker) {
-
       activeMarker.value.markerDiv?.classList.remove('marker--active')
       activeMarker.value.entity = null
       activeMarker.value.markerDiv = null
@@ -126,7 +147,7 @@ onMounted(async () => {
   updateBounds()
 
   map.on('moveend',
-    debounce(updateBounds, 0)
+    debounce(updateBounds, 100)
   )
 
   map.on('moveend', () => {
@@ -147,7 +168,8 @@ onUpdated(() => {
   markers.forEach(marker => marker.libreMarker.remove())
   markers.splice(0, markers.length)
 
-  loopActiveEntities((entity: any) => {
+  loopActiveEntities((entity: any, index: number) => {
+    if (index > 50 / activeEntities.value.length) return;
     if (hasLatLong(entity)) addEntityToMarkerArray(entity)
   })
 
@@ -161,6 +183,14 @@ onUpdated(() => {
 #map {
   height: 100%;
   width: 100%;
+
+  canvas {
+    cursor: default;
+
+    &:active {
+      cursor: grab;
+    }
+  }
 }
 
 .marker--active {
@@ -169,5 +199,20 @@ onUpdated(() => {
   path.background {
     fill: var(--brandColor-darker);
   }
+}
+
+.marker-title {
+  position: absolute;
+  top: 10px;
+  left: 35px;
+  width: inherit;
+  padding: 2px 8px;
+
+  color: var(--brandColor-darker);
+  white-space: nowrap;
+  font-size: 1.6em;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, .8),
+  0 0 4px rgba(255, 255, 255, .8),
+  0 0 8px rgba(255, 255, 255, .8);
 }
 </style>
