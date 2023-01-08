@@ -54,7 +54,6 @@ const addEntityToMarkerArray = (entity: any) => {
     activeMarker.value.markerDiv = markerDiv
   }
 
-
   markerDiv.addEventListener('click', () => {
     activeMarker.value.markerDiv?.classList.remove('marker--active')
 

@@ -32,13 +32,10 @@ const {activeMarker} = storeToRefs(baseStore)
   position: relative;
 
   &__map-container {
-    transition:
-      height 100ms ease-in-out,
-      filter 100ms ease-in-out ;
     height: 600px;
 
     &--loading {
-      animation: loadingAnimation 1s alternate infinite ease-out;
+    animation: loadingAnimation 1s alternate infinite ease-out;
     }
   }
 }

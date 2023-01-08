@@ -3,14 +3,19 @@
 </template>
 <script setup>
 import {onMounted} from 'vue'
+import {storeToRefs} from 'pinia'
 import maplibregl from 'maplibre-gl'
-import pngMarkerActor from 'assets/markers/marker-actors.png'
+
 import {useEntityStore} from 'src/stores/entity-store'
+import {getTypeFromEntity} from "src/utils";
+import {markerSvgs} from 'src/utils/maplibre'
+
 
 const entityStore = useEntityStore()
+const {entityDetail} = storeToRefs(entityStore)
 
-const lat = entityStore.entityDetail.locations[0]?.lat
-const long = entityStore.entityDetail.locations[0]?.long
+const lat = entityDetail.value.locations[0]?.lat
+const long = entityDetail.value.locations[0]?.long
 
 onMounted(async () => {
 
@@ -21,16 +26,15 @@ onMounted(async () => {
     zoom: 12
   });
 
-  const marker = document.createElement('div')
-  marker.className = 'map__marker'
-  marker.style.backgroundImage = `url(${pngMarkerActor})`
-  marker.style.backgroundSize = 'contain'
-  marker.style.backgroundRepeat = 'no-repeat'
-  marker.style.width = '36px'
-  marker.style.height = '50px'
-  marker.style.cursor = 'pointer'
+  const entityType = getTypeFromEntity(entityDetail.value)
 
-  new maplibregl.Marker(marker)
+  const markerDiv = document.createElement('div')
+  markerDiv.innerHTML = markerSvgs[entityType]
+  markerDiv.style.width = '36px'
+  markerDiv.style.height = '50px'
+  markerDiv.style.top = '-25px'
+
+  new maplibregl.Marker(markerDiv)
     .setLngLat([long, lat])
     .addTo(map)
 })
