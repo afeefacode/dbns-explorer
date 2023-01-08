@@ -13,15 +13,17 @@ export const useBaseStore = defineStore('base', {
       },
       config: config,
       activeView: 'map',
-      activeMarker: {
-        entity: null,
-        markerDiv: null,
-      },
       filtersExpanded: false,
       additionalFiltersExpanded: false,
       eventFiltersExpanded: false,
       actorFiltersExpanded: false,
       storeFiltersExpanded: false,
+      activeMarker: {
+        entity: null,
+        markerDiv: null,
+      },
+      mapZoom: null,
+      mapCenter: null,
     }
   },
   getters: {

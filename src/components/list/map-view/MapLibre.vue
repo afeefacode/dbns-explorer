@@ -105,11 +105,12 @@ const updateBounds = () => {
 }
 
 onMounted(async () => {
+
   map = new maplibregl.Map({
     container: 'map',
     style: 'https://api.maptiler.com/maps/bright/style.json?key=r6JROvArZPt0irVDImJa',
-    center: [13, 51.15],
-    zoom: 8
+    center: baseStore.mapCenter || [13, 51.15],
+    zoom: baseStore.mapZoom || 8
   });
 
   map.on('click', (event: any) => {
@@ -127,6 +128,11 @@ onMounted(async () => {
   map.on('moveend',
     debounce(updateBounds, 0)
   )
+
+  map.on('moveend', () => {
+    baseStore.mapZoom = map.getZoom()
+    baseStore.mapCenter = map.getCenter()
+  })
 
   loopActiveEntities((entity: any) => {
     if (hasLatLong(entity)) addEntityToMarkerArray(entity)
