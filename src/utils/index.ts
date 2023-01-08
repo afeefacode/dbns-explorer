@@ -290,7 +290,7 @@ export const getCitiesFromLocations = (locations: any[]) => {
   return cities
 }
 
-export const debounce = (callback: () => {}, timeout = 300) => {
+export const debounce = (callback: () => void, timeout = 300) => {
   let timer: any;
   return (...args: []) => {
     clearTimeout(timer);

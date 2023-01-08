@@ -13,13 +13,11 @@ import {onMounted, defineEmits, ref, onUpdated, defineProps, watch} from 'vue'
 import {storeToRefs} from 'pinia'
 import maplibregl from 'maplibre-gl'
 
-import pngMarkerActors from 'assets/markers/marker-actors.png'
-
 import {useBaseStore} from "src/stores/base-store";
 import {useFilterStore} from "src/stores/filter-store";
 import {useEntityStore} from "src/stores/entity-store";
 import {debounce, getTypeFromEntity, hasLatLong, isActiveEntity} from 'src/utils'
-import {getMarkerPng} from 'src/utils/maplibre'
+import {markerSvgs} from 'src/utils/maplibre'
 
 const props = defineProps({
   mapExpanded: {
@@ -49,8 +47,8 @@ const markers: any[] = []
 const activeMarker = ref(null)
 
 const resetMarkerStyle = () => {
-  activeMarker.value.style.backgroundImage = `url(${pngMarkerActors})`
-  activeMarker.value.style.zIndex = '0'
+  // activeMarker.value.style.backgroundImage = `url(${pngMarkerActors})`
+  // activeMarker.value.style.zIndex = '0'
 }
 
 const loopActiveEntities = (callback: Function) => {
@@ -67,12 +65,9 @@ const addEntityToMarkerArray = (entity: any) => {
   if (!(markers.findIndex(marker => marker.entity.id === entity.id) === -1)) return
 
   const entityType = getTypeFromEntity(entity)
-  const markerPng = getMarkerPng(entityType)
 
   const domElement = document.createElement('div')
-  domElement.style.backgroundImage = `url(${markerPng.inactive})`
-  domElement.style.backgroundSize = 'contain'
-  domElement.style.backgroundRepeat = 'no-repeat'
+  domElement.innerHTML = markerSvgs[entityType]
   domElement.style.width = '36px'
   domElement.style.height = '50px'
   domElement.style.top = '-25px'
@@ -80,7 +75,7 @@ const addEntityToMarkerArray = (entity: any) => {
 
   domElement.addEventListener('click', () => {
     if (activeMarker.value) {
-      resetMarkerStyle(markerPng.inactive)
+      // resetMarkerStyle(markerPng.inactive)
     }
 
     activeMarker.value = domElement
