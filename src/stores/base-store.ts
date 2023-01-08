@@ -13,6 +13,10 @@ export const useBaseStore = defineStore('base', {
       },
       config: config,
       activeView: 'map',
+      activeMarker: {
+        entity: null,
+        markerDiv: null,
+      },
       filtersExpanded: false,
       additionalFiltersExpanded: false,
       eventFiltersExpanded: false,

@@ -4,31 +4,23 @@
       class="map-view__map-container"
     >
       <MapLibre
-        @openDetails="openDetails"
-        @closeDetails="closeDetails"
       />
       <DetailsDrawer
-        v-if="activeEntity"
-        :entity="activeEntity"
-        @closeDetails="closeDetails"
+        v-if="activeMarker.entity"
+        :entity="activeMarker.entity"
       />
     </div>
   </div>
 </template>
 <script setup>
-import {ref} from 'vue'
+import {storeToRefs} from 'pinia'
+import {useBaseStore} from 'src/stores/base-store'
 import MapLibre from 'components/list/map-view/MapLibre.vue'
 import DetailsDrawer from 'components/list/map-view/DetailsDrawer.vue'
 
-const activeEntity = ref(null)
+const baseStore = useBaseStore()
 
-const openDetails = (entity) => {
-  activeEntity.value = entity
-}
-
-const closeDetails = () => {
-  activeEntity.value = null
-}
+const {activeMarker} = storeToRefs(baseStore)
 </script>
 <style lang="scss" scoped>
 .map-view {

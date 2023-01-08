@@ -9,7 +9,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import {onMounted, defineEmits, ref, onUpdated, defineProps, watch} from 'vue'
+import {onMounted, ref, onUpdated} from 'vue'
 import {storeToRefs} from 'pinia'
 import maplibregl from 'maplibre-gl'
 
@@ -19,37 +19,18 @@ import {useEntityStore} from "src/stores/entity-store";
 import {debounce, getTypeFromEntity, hasLatLong, isActiveEntity} from 'src/utils'
 import {markerSvgs} from 'src/utils/maplibre'
 
-const props = defineProps({
-  mapExpanded: {
-    type: Boolean,
-  }
-})
-
-const emit = defineEmits(['openDetails', 'closeDetails'])
-
-watch(() => props.mapExpanded, () => {
-  setTimeout(() => {
-    map.resize()
-  }, 150)
-})
-
-const entityStore = useEntityStore()
-const {entityLists, entityListLoading} = storeToRefs(entityStore)
-
 const baseStore = useBaseStore()
-const config = baseStore.config
-
 const filterStore = useFilterStore()
+const entityStore = useEntityStore()
+
+const config = baseStore.config
+const {activeMarker} = storeToRefs(baseStore)
+const {entityLists, entityListLoading} = storeToRefs(entityStore)
 const {activeEntities} = storeToRefs(filterStore)
 
 let map: any
 const markers: any[] = []
-const activeMarker = ref(null)
-
-const resetMarkerStyle = () => {
-  // activeMarker.value.style.backgroundImage = `url(${pngMarkerActors})`
-  // activeMarker.value.style.zIndex = '0'
-}
+const mapMoveByMarkerClick = ref(false)
 
 const loopActiveEntities = (callback: Function) => {
   Object.keys(entityLists.value).forEach((entityType) => {
@@ -66,22 +47,26 @@ const addEntityToMarkerArray = (entity: any) => {
 
   const entityType = getTypeFromEntity(entity)
 
-  const domElement = document.createElement('div')
-  domElement.innerHTML = markerSvgs[entityType]
-  domElement.style.width = '36px'
-  domElement.style.height = '50px'
-  domElement.style.top = '-25px'
-  domElement.style.cursor = 'pointer'
+  const markerDiv = document.createElement('div')
+  markerDiv.innerHTML = markerSvgs[entityType]
+  markerDiv.style.width = '36px'
+  markerDiv.style.height = '50px'
+  markerDiv.style.top = '-25px'
+  markerDiv.style.cursor = 'pointer'
 
-  domElement.addEventListener('click', () => {
-    if (activeMarker.value) {
-      // resetMarkerStyle(markerPng.inactive)
-    }
+  if (entity.id == activeMarker.value.entity?.id) {
+    markerDiv.classList.add('active-marker')
+  }
 
-    activeMarker.value = domElement
 
-    domElement.style.backgroundImage = `url(${markerPng.active})`
-    domElement.style.zIndex = '2'
+  markerDiv.addEventListener('click', () => {
+    if (activeMarker.value.markerDiv?.classList.contains('active-marker'))
+      activeMarker.value.markerDiv?.classList.remove('active-marker')
+
+    mapMoveByMarkerClick.value = true
+    markerDiv.classList.add('active-marker')
+    activeMarker.value.entity = entity
+    activeMarker.value.markerDiv = markerDiv
 
     const offsetX = parseInt(map.getCanvas().style.width) / -4
 
@@ -92,24 +77,25 @@ const addEntityToMarkerArray = (entity: any) => {
       ],
       offset: [offsetX, 0]
     })
-
-    emit('openDetails', entity)
   })
 
-  const libreMarker = new maplibregl.Marker(domElement)
+  const libreMarker = new maplibregl.Marker(markerDiv)
     .setLngLat([entity.locations[0].long, entity.locations[0].lat])
 
   const mapMarker = {
     entity,
-    domElement,
+    markerDiv,
     libreMarker,
-    visible: true
   }
 
   markers.push(mapMarker)
 }
 
 const updateBounds = () => {
+  if (mapMoveByMarkerClick.value) {
+    mapMoveByMarkerClick.value = false
+    return
+  }
   const bounds = map.getBounds()
   filterStore.activeFilters.boundingBox = {
     ne: {
@@ -132,17 +118,20 @@ onMounted(async () => {
   });
 
   map.on('click', (event: any) => {
-    const isClickOnMarker = event.originalEvent.target.classList[0].includes('marker')
+    const isClickOnMarker = event.originalEvent.target.tagName !== 'CANVAS'
     if (!isClickOnMarker) {
-      // resetMarkerStyle()
-      emit('closeDetails', activeMarker)
+
+      activeMarker.value.markerDiv?.classList.remove('active-marker')
+      activeMarker.value.entity = null
+      activeMarker.value.markerDiv = null
     }
   });
 
   updateBounds()
 
   map.on('moveend',
-    debounce(updateBounds, 400))
+    debounce(updateBounds, 400)
+  )
 
   loopActiveEntities((entity: any) => {
     if (hasLatLong(entity)) addEntityToMarkerArray(entity)
@@ -181,11 +170,20 @@ onUpdated(() => {
   right: 0;
   float: right;
   background: rgba(0, 0, 0, .3);
-  z-index: 3;
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 7;
+}
+
+.active-marker {
+  z-index: 5;
+
+  path.background {
+    transition: fill ease-in-out 100ms;
+    fill: var(--brandColor-darker);
+  }
 }
 </style>

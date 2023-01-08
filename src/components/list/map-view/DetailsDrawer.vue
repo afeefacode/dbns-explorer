@@ -13,7 +13,7 @@
           color="grey-7"
           round
           icon="clear"
-          @click="$emit('closeDetails')"
+          @click="close"
           class="details-drawer__btn-close"
         >
         </q-btn>
@@ -50,6 +50,7 @@
 
 <script setup>
 import {defineProps, computed, ref, onUpdated} from 'vue'
+import {storeToRefs} from 'pinia'
 import {useBaseStore} from "stores/base-store";
 import {shortenStringTo, getGermanEntityName, getTypeFromEntity, getEventDatesForDisplay} from 'src/utils'
 import DetailsButton from 'src/components/DetailsButton.vue'
@@ -61,7 +62,9 @@ const props = defineProps({
   },
 })
 
-const config = useBaseStore().config
+const baseStore = useBaseStore()
+const {activeMarker} = storeToRefs(baseStore)
+const config = baseStore.config
 
 const entityType = getTypeFromEntity(props.entity)
 
@@ -73,6 +76,12 @@ const displayed = computed(() => {
     time: props.entity.times ? getEventDatesForDisplay(props.entity.times[0]) : null
   }
 })
+
+const close = () => {
+  activeMarker.value.markerDiv?.classList.remove('active-marker')
+  activeMarker.value.entity = null
+  activeMarker.value.markerDiv = null
+}
 
 const headerBackground = ref(props.entity.image_url
   ? props.entity.image_url + '?width=600&height=600'
@@ -93,7 +102,7 @@ onUpdated(() => {
   right: 0;
   float: right;
   background: #ffffff;
-  z-index: 3;
+  z-index: 10;
   width: 50%;
   overflow-y: auto;
   overflow-x: hidden;
