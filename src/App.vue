@@ -27,7 +27,7 @@ if (configString) {
 categoryStore.fetchCategoryList()
 
 //@ts-ignore
-baseStore.config.entities.forEach(entity => filterStore.activeEntities.push(entity.type))
+filterStore.activeEntities.push(baseStore.config.entities[0].type)
 entityStore.fetchEntityList(baseStore.config.entities[0].type)
 
 onMounted(async () => {

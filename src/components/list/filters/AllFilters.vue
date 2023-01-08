@@ -7,12 +7,13 @@
     </div>
     <div
       v-if="mapViewActive && hasAdditionalFilters"
-      class="text-center clear-filter-button q-mb-md"
+      class="text-center q-mb-md"
     >
       <q-btn
         :label="`weitere Filter ${ additionalFiltersExpanded ? 'ausblenden' : 'anzeigen' }`"
         @click="additionalFiltersExpanded = !additionalFiltersExpanded"
         color="primary"
+        icon="keyboard_arrow_down"
         flat
       />
     </div>

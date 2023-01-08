@@ -11,8 +11,9 @@
     </div>
     <div v-if="config.showMainFilters" class="text-center">
       <q-btn
-        :label="`Filter ${ filtersExpanded ? 'ausblenden' : 'anzeigen' }`"
+        label="Suchen & Filtern"
         @click="filtersExpanded = !filtersExpanded"
+        icon="search"
         color="primary"
         flat
       />

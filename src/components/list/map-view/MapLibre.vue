@@ -18,7 +18,7 @@ import pngMarkerActors from 'assets/markers/marker-actors.png'
 import {useBaseStore} from "src/stores/base-store";
 import {useFilterStore} from "src/stores/filter-store";
 import {useEntityStore} from "src/stores/entity-store";
-import {getTypeFromEntity, hasLatLong, isActiveEntity} from 'src/utils'
+import {debounce, getTypeFromEntity, hasLatLong, isActiveEntity} from 'src/utils'
 import {getMarkerPng} from 'src/utils/maplibre'
 
 const props = defineProps({
@@ -139,16 +139,15 @@ onMounted(async () => {
   map.on('click', (event: any) => {
     const isClickOnMarker = event.originalEvent.target.classList[0].includes('marker')
     if (!isClickOnMarker) {
-      resetMarkerStyle()
+      // resetMarkerStyle()
       emit('closeDetails', activeMarker)
     }
   });
 
   updateBounds()
 
-  map.on('moveend', () => {
-    updateBounds()
-  })
+  map.on('moveend',
+    debounce(updateBounds, 400))
 
   loopActiveEntities((entity: any) => {
     if (hasLatLong(entity)) addEntityToMarkerArray(entity)
