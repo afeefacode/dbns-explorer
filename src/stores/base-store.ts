@@ -12,7 +12,7 @@ export const useBaseStore = defineStore('base', {
         search: null,
       },
       config: config,
-      activeView: 'map',
+      activeView: 'list',
       filtersExpanded: false,
       additionalFiltersExpanded: false,
       eventFiltersExpanded: false,

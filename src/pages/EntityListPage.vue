@@ -9,40 +9,42 @@
         @entity-click="onEntityClick(configEntity.type)"
       />
     </div>
-    <div v-if="config.showMainFilters" class="text-center">
-      <q-btn
-        label="Suchen & Filtern"
-        @click="filtersExpanded = !filtersExpanded"
-        icon="search"
-        color="primary"
-        flat
-      />
-      <q-expansion-item
-        class="hide-expansion-header"
-        v-model="baseStore.filtersExpanded"
-        :duration="150"
-      >
-        <AllFilters
-          :mapViewActive="baseStore.config?.showMapView  && activeView === 'map'"
+    <div v-if="activeEntities.length">
+      <div v-if="config.showMainFilters" class="text-center">
+        <q-btn
+          label="Suchen & Filtern"
+          @click="filtersExpanded = !filtersExpanded"
+          icon="search"
+          color="primary"
+          flat
         />
-      </q-expansion-item>
-    </div>
-    <q-separator class="q-mt-md q-mb-lg"/>
-    <div v-if="baseStore.config?.showMapView">
-      <MapListToggle
-        v-if="baseStore.config?.showListView && baseStore.config?.showMapView"
+        <q-expansion-item
+          class="hide-expansion-header"
+          v-model="baseStore.filtersExpanded"
+          :duration="150"
+        >
+          <AllFilters
+            :mapViewActive="baseStore.config?.showMapView  && activeView === 'map'"
+          />
+        </q-expansion-item>
+      </div>
+      <q-separator class="q-mt-md q-mb-lg"/>
+      <div v-if="baseStore.config?.showMapView">
+        <MapListToggle
+          v-if="baseStore.config?.showListView && baseStore.config?.showMapView"
+        />
+        <MapView
+          v-if="baseStore.config?.showMapView && activeView === 'map'"
+        />
+      </div>
+      <ListView
+        v-if="baseStore.config?.showListView && activeView === 'list'"
+        v-for="entityType in activeEntities"
+        :entityType="entityType"
+        :key="entityType"
       />
-      <MapView
-        v-if="baseStore.config?.showMapView && activeView === 'map'"
-      />
     </div>
-    <ListView
-      v-if="baseStore.config?.showListView && activeView === 'list'"
-      v-for="entityType in activeEntities"
-      :entityType="entityType"
-      :key="entityType"
-    />
-    <NoDataBackground v-if="!activeEntities.length"/>
+    <NoDataBackground v-else/>
   </q-page>
 </template>
 <script setup lang="ts">

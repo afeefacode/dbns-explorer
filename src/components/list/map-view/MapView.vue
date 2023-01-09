@@ -12,20 +12,43 @@
         :entity="activeMarker.entity"
       />
     </div>
+<!--    <div class="text-center q-mt-lg">-->
+    <!--      <q-btn-->
+    <!--        label="Filter zurücksetzen"-->
+    <!--        @click="clearFilters"-->
+    <!--        icon-right="cancel"-->
+    <!--        color=""-->
+    <!--        flat-->
+    <!--      />-->
+    <!--    </div>-->
   </div>
 </template>
 <script setup>
 import {storeToRefs} from 'pinia'
 import {useBaseStore} from 'src/stores/base-store'
+import {useFilterStore} from 'src/stores/filter-store'
 import {useEntityStore} from "stores/entity-store";
 import MapLibre from 'components/list/map-view/MapLibre.vue'
 import DetailsDrawer from 'components/list/map-view/DetailsDrawer.vue'
+import {emptyFilters} from 'src/utils'
 
 const baseStore = useBaseStore()
+const filterStore = useFilterStore()
 const entityStore = useEntityStore()
 
 const {entityListLoading} = storeToRefs(entityStore)
 const {activeMarker} = storeToRefs(baseStore)
+
+// navigator.geolocation.getCurrentPosition(position => {
+//   console.log('position', position)
+// })
+
+// const clearFilters = () => {
+//   filterStore.activeFilters.value = emptyFilters
+//   baseStore.config.entities.forEach((entity) => {
+//     filterStore.activeEntities.push(entity.type)
+//   })
+// }
 </script>
 <style lang="scss" scoped>
 .map-view {
@@ -35,7 +58,7 @@ const {activeMarker} = storeToRefs(baseStore)
     height: 600px;
 
     &--loading {
-    animation: loadingAnimation 1s alternate infinite ease-out;
+      animation: loadingAnimation 1s alternate infinite ease-out;
     }
   }
 }
