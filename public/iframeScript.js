@@ -1,4 +1,5 @@
 var iFrame = document.getElementById('iframe-dbns-explorer');
+console.log('script')
 
 function resizeIframe(newHeight) {
   iFrame.height = newHeight;
@@ -33,8 +34,15 @@ window.addEventListener('message', function (event) {
 
     case 'scroll_to_top_of_iframe':
       // TODO: this is not a precise scrolling!
-      //  should be iframe.getClientBoundingRect() but this produces negative values
-      window.scrollTo(0, 500);
+      //  should be iframe.getClientBoundingRect() but this returns negative values
+
+      let yScroll = 300
+      try {
+        yScroll = yScrollFromParent
+      } catch {
+        console.error('yScrollFromParent not present in parent context')
+      }
+      window.scrollTo(0, yScroll);
       break;
 
     // case "update_url":
