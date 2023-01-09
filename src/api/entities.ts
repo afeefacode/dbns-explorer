@@ -1,4 +1,5 @@
 import axios from "axios";
+import moment from 'moment'
 import {entityRequests} from "src/api/entityRequests";
 import {getOfferList} from "src/utils";
 
@@ -78,7 +79,11 @@ export const fetchEntityList = async (entityType: string, activeFilters: any, wi
       ...boundingBox,
       //@ts-ignore
       ...entityRequests[entityType].list.filters,
-      categories
+      categories,
+      timespan: startDate || endDate ? [
+        startDate ? moment(startDate, 'DD.MM.YYYY').format('YYYY-MM-DD') : null,
+        endDate ? moment(endDate, 'DD.MM.YYYY').format('YYYY-MM-DD') : null
+      ] : undefined
     }
   }
 
