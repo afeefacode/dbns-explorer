@@ -27,7 +27,7 @@ if (configString) {
 categoryStore.fetchCategoryList()
 
 //@ts-ignore
-baseStore.config.entities.forEach(entity => filterStore.activeEntities.push(entity.type))
+filterStore.activeEntities.push(baseStore.config.entities[0].type)
 entityStore.fetchEntityList(baseStore.config.entities[0].type)
 
 onMounted(async () => {
@@ -65,8 +65,11 @@ onMounted(async () => {
     .setProperty('--brandColor', '#' + baseStore.config.brandColor);
 
   const brandRgb = hex2rgb('#' + baseStore.config.brandColor)
+
   document.documentElement.style
     .setProperty('--brandColor-lighter', `rgba(${brandRgb.r + 10}, ${brandRgb.g + 10}, ${brandRgb.b + 10}, 1)`);
+  document.documentElement.style
+    .setProperty('--brandColor-darker', `rgba(${brandRgb.r - 40}, ${brandRgb.g - 40}, ${brandRgb.b - 40}, 1)`);
 
   document.documentElement.style
     .setProperty('--contrastTextColor', '#' + baseStore.config.contrastTextColor);

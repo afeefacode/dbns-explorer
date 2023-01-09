@@ -18,6 +18,12 @@ export const useBaseStore = defineStore('base', {
       eventFiltersExpanded: false,
       actorFiltersExpanded: false,
       storeFiltersExpanded: false,
+      activeMarker: {
+        entity: null,
+        markerDiv: null,
+      },
+      mapZoom: null,
+      mapCenter: null,
     }
   },
   getters: {

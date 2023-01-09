@@ -37,6 +37,7 @@
         @click="increaseLimit"
         color="primary"
         flat
+        icon="keyboard_arrow_down"
       />
       </div>
     </div>

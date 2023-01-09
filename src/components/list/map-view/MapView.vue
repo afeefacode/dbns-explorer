@@ -1,42 +1,74 @@
 <template>
   <div class="map-view">
     <div
-      class="map-view__map-container"
+      :class="`
+      map-view__map-container
+      ${entityListLoading ?  'map-view__map-container--loading' : ''}
+      `"
     >
-      <MapLibre
-        @openDetails="openDetails"
-        @closeDetails="closeDetails"
-      />
+      <MapLibre/>
       <DetailsDrawer
-        v-if="activeEntity"
-        :entity="activeEntity"
-        @closeDetails="closeDetails"
+        v-if="activeMarker.entity"
+        :entity="activeMarker.entity"
       />
     </div>
+<!--    <div class="text-center q-mt-lg">-->
+    <!--      <q-btn-->
+    <!--        label="Filter zurücksetzen"-->
+    <!--        @click="clearFilters"-->
+    <!--        icon-right="cancel"-->
+    <!--        color=""-->
+    <!--        flat-->
+    <!--      />-->
+    <!--    </div>-->
   </div>
 </template>
 <script setup>
-import {ref} from 'vue'
+import {storeToRefs} from 'pinia'
+import {useBaseStore} from 'src/stores/base-store'
+import {useFilterStore} from 'src/stores/filter-store'
+import {useEntityStore} from "stores/entity-store";
 import MapLibre from 'components/list/map-view/MapLibre.vue'
 import DetailsDrawer from 'components/list/map-view/DetailsDrawer.vue'
+import {emptyFilters} from 'src/utils'
 
-const activeEntity = ref(null)
+const baseStore = useBaseStore()
+const filterStore = useFilterStore()
+const entityStore = useEntityStore()
 
-const openDetails = (entity) => {
-  activeEntity.value = entity
-}
+const {entityListLoading} = storeToRefs(entityStore)
+const {activeMarker} = storeToRefs(baseStore)
 
-const closeDetails = () => {
-  activeEntity.value = null
-}
+// navigator.geolocation.getCurrentPosition(position => {
+//   console.log('position', position)
+// })
+
+// const clearFilters = () => {
+//   filterStore.activeFilters.value = emptyFilters
+//   baseStore.config.entities.forEach((entity) => {
+//     filterStore.activeEntities.push(entity.type)
+//   })
+// }
 </script>
 <style lang="scss" scoped>
 .map-view {
   position: relative;
 
   &__map-container {
-    transition: height 100ms ease-in-out;
     height: 600px;
+
+    &--loading {
+      animation: loadingAnimation 1s alternate infinite ease-out;
+    }
+  }
+}
+
+@keyframes loadingAnimation {
+  from {
+    filter: brightness(.8);
+  }
+  to {
+    filter: brightness(.6);
   }
 }
 

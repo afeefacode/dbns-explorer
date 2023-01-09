@@ -1,6 +1,6 @@
 <template>
   <q-btn
-    label="Details"
+    label="Mehr erfahren"
     @click="openDetailPage"
   />
 </template>

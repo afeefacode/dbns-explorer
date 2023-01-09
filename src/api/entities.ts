@@ -27,6 +27,7 @@ export const fetchEntityList = async (entityType: string, activeFilters: any, wi
       break;
 
     case 'stores':
+      // TODO: consider adding these filters for actors again
       // if (tradeCategories) categories.push(tradeCategories.id)
       // if (tradeTypes) categories.push(tradeTypes.id)
       if (productTypes) categories.push(productTypes.id)
@@ -36,12 +37,36 @@ export const fetchEntityList = async (entityType: string, activeFilters: any, wi
       break;
   }
 
+  // let boundingBox = {}
+  // if (withBounds) {
+  //   // TODO: expand boundingBox by 50%
+  //   // const boxWidth = activeFilters.boundingBox.ne.long - activeFilters.boundingBox.sw.long
+  //   // const boxHeight = activeFilters.boundingBox.ne.lat - activeFilters.boundingBox.sw.lat
+  //   // console.log(boxHeight, boxWidth)
+  //   // boundingBox = {
+  //   //   boundingBox: {
+  //   //     ne: {
+  //   //       lat: activeFilters.boundingBox.ne.lat - boxHeight / 2,
+  //   //       long: activeFilters.boundingBox.ne.long + boxWidth / 2,
+  //   //     },
+  //   //     sw: {
+  //   //       lat: activeFilters.boundingBox.sw.lat - boxHeight / 2,
+  //   //       long: activeFilters.boundingBox.sw.long + boxWidth / 2,
+  //   //     }
+  //   //   }
+  //   // }
+  //   // console.log('boundingBox', boundingBox.boundingBox)
+  //   boundingBox = {
+  //     boundingBox: activeFilters.boundingBox
+  //   }
+  // }
+
   const boundingBox = withBounds ? {
       boundingBox: activeFilters.boundingBox
     }
     : {}
 
-  const newRequestBody = {
+  const requestBody = {
     resource,
     action: 'list',
     fields: {
@@ -58,7 +83,9 @@ export const fetchEntityList = async (entityType: string, activeFilters: any, wi
   }
 
   const serverUrl = 'https://daten.nachhaltiges-sachsen.de/api/v2'
-  const response = await axios.post(serverUrl, newRequestBody)
+  const response = await axios.post(serverUrl, requestBody)
+  // console.log('request', JSON.stringify(requestBody))
+  // console.log('response', response.data.data)
   return response.data.data
 }
 
